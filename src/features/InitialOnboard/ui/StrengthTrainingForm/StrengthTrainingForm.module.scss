@@ -1,0 +1,148 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+.wrapper {
+  max-width: 400px;
+  width: 100%;
+  flex: 1;
+  overflow-y: overlay;
+
+  &::-webkit-scrollbar {
+    display: none;
+    scroll-behavior: smooth;
+  }
+
+  @media screen and (max-width: 650px) {
+    max-width: none;
+    padding: 0;
+  }
+}
+
+.footer {
+  max-width: 400px;
+  width: 100%;
+
+  @media screen and (max-width: 420px) {
+    max-width: none;
+    padding: 0;
+  }
+}
+
+.label {
+  margin-bottom: 30px;
+
+  justify-content: center;
+}
+
+.secondLabel {
+  margin-bottom: 20px;
+  margin-top: 30px;
+
+  justify-content: center;
+}
+
+hr.divider {
+  display: block;
+  width: 100%;
+  margin: 70px 0;
+}
+
+.category {
+}
+
+button.buttonGroup {
+  background: transparent;
+  border-radius: 25px;
+  padding: 10px;
+  text-transform: initial;
+  font-size: 13px;
+  line-height: 15.6px;
+  border-color: #fff;
+  color: #fff;
+
+  width: fit-content;
+}
+
+button.button {
+  margin-top: 40px;
+}
+
+div.buttonsGroup {
+  justify-content: center;
+  padding-inline: 0;
+
+  gap: 10px 8px;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+div.categoryName {
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.4px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #565656;
+
+  margin-bottom: 15px;
+}
+
+button.toggleButton {
+  font-family: var(--NeueMachina), sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20.5px;
+  letter-spacing: -5.3%;
+  text-align: center;
+
+  width: 175px;
+  height: 84px;
+
+  pointer-events: none;
+}
+
+button.otherButton {
+  width: 150px;
+}
+
+p.otherButtonText {
+  font-family: var(--gilroy), sans-serif;
+  text-transform: initial;
+  font-size: 13px;
+  line-height: 15.6px;
+
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.title {
+  font-family: var(--NeueMachina), sans-serif;
+  font-size: 30px;
+  line-height: 32px;
+  letter-spacing: -0.053em;
+  text-align: left;
+
+  margin: 50px 0;
+  padding: 0 40px;
+}
+
+.withScroll {
+  padding-left: 15px;
+
+  @media screen and (max-width: 650px) {
+    padding-left: 0;
+  }
+}

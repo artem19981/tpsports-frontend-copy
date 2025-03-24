@@ -1,0 +1,38 @@
+button.button {
+  background: linear-gradient(rgb(6, 244, 96) 0%, rgb(1, 255, 202) 100%) 0% 0%
+    no-repeat padding-box padding-box transparent;
+  border-radius: 25px;
+  padding: 8px 0;
+  font-family: var(--gilroy), sans-serif;
+  text-transform: initial;
+  font-size: 16px;
+  line-height: 22.8px;
+  text-transform: uppercase;
+
+  &:disabled {
+    background: #ffffff33;
+    color: #ffffff4d;
+  }
+}
+
+button.white {
+  background: #ffffff;
+  color: #000000;
+}
+
+button.gray {
+  background: #2b2b2b;
+  color: #ffffff;
+  border: 1px solid #808080;
+}
+button.lightgray {
+  background: #6e6e6e;
+  color: #ffffff;
+  border: 1px solid #6e6e6e;
+}
+
+button.transparent {
+  background: transparent;
+  border: 1px solid #808080;
+  color: #ffffff;
+}

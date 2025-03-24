@@ -1,0 +1,1 @@
+export const AI_MESSAGE_LOADER_HEIGHT = 40;

@@ -1,0 +1,53 @@
+.toggleButtonsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+div.toggleButtons {
+  margin-bottom: 10px;
+  width: 200px;
+  border: 1px solid #184a3a;
+  border-radius: 16px;
+
+  > div {
+    background-color: transparent;
+  }
+
+  .toggleButton {
+    padding: 3px;
+    text-transform: lowercase !important;
+    background-color: transparent;
+
+    font-family: var(--gilroy), sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 20.4px;
+    letter-spacing: 0%;
+    text-align: center;
+  }
+}
+
+.stepsInput {
+  color: #02fe46;
+  font-size: 40px;
+  font-weight: 700;
+
+  padding-block: 0px;
+  text-align: center;
+  height: 45px;
+}
+
+div.picker {
+  min-width: 250px;
+}
+
+.wheels {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+
+  &::-webkit-scrollbar {
+    display: none;
+    scroll-behavior: smooth;
+  }
+}

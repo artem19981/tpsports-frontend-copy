@@ -1,0 +1,44 @@
+@keyframes animation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.container {
+  width: 100%;
+
+  border-radius: 28px 28px 0 0;
+  padding: 20px;
+  padding-top: 0;
+  background-color: transparent;
+  animation: animation 0.5s;
+  transition: opacity 0.5s linear;
+
+  @media screen and (max-width: 650px) {
+    box-shadow: 0px -10px 47px 0px #00000057;
+    background: #303030;
+    padding: 20px;
+  }
+
+  button {
+    box-shadow: 0px -11px 26px 16px #252525;
+
+    @media screen and (max-width: 650px) {
+      box-shadow: unset;
+    }
+  }
+}
+
+.invisible {
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+.hidden {
+  display: none;
+}

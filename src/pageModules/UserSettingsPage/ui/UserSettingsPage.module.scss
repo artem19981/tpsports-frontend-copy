@@ -1,0 +1,53 @@
+div.layout {
+  height: auto;
+  padding: 100px 0;
+
+  @media screen and (max-width: 600px) {
+    padding: 40px 0;
+  }
+}
+
+div.header {
+  border-bottom: 0;
+}
+
+div.content {
+  max-height: none;
+  height: auto;
+}
+
+.children {
+  overflow: unset;
+
+  @media screen and (max-width: 600px) {
+    margin-top: 20px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+
+  width: 100%;
+  max-width: 380px;
+
+  padding: 40px 10px 50px 10px;
+
+  @media screen and (max-width: 600px) {
+    padding: 0 10px 30px 10px;
+  }
+}
+
+p.title {
+  font-family: var(--NeueMachina), sans-serif;
+  font-size: 30px;
+  line-height: 32px;
+
+  margin-bottom: 28px;
+  margin-left: 20px;
+}
+
+button.logout {
+  background-color: #202020;
+}

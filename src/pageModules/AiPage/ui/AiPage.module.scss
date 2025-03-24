@@ -1,0 +1,25 @@
+div.layout {
+  padding: 100px 0;
+
+  @media screen and (max-width: 600px) {
+    padding: 40px 0;
+    overflow-y: auto;
+    min-height: 100%;
+    height: auto;
+  }
+}
+
+div.content {
+  flex: 1;
+
+  @media screen and (max-width: 600px) {
+    max-height: none;
+    height: auto;
+  }
+}
+
+div.children {
+  justify-content: space-between;
+
+  overflow: overlay;
+}

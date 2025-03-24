@@ -1,0 +1,39 @@
+.logo__footer {
+  inset: revert-layer !important;
+  bottom: -133px !important;
+  z-index: -1;
+  left: 0 !important;
+}
+
+.footer__link {
+  color: #fff !important;
+}
+
+.footer__flex {
+  display: flex;
+  flex-direction: column;
+  // gap: 10px;
+}
+
+.supFooter {
+  display: flex;
+  gap: 21px;
+}
+
+@media (max-width: 768px) {
+  .mobile__flex {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .logo__footer {
+    bottom: -95px !important;
+    height: 60px !important;
+  }
+}
+
+@media (max-width: 490px) {
+  .mobile__grid {
+    display: flex;
+    flex-direction: column;
+  }
+}

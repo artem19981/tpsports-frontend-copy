@@ -1,0 +1,111 @@
+.title {
+  font-family: (--gilroy), sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 20.83px;
+  text-align: center;
+
+  margin-bottom: 30px;
+}
+
+div.dialog {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 100%;
+  max-width: 1200px;
+  align-items: center;
+  background-color: #103328;
+  border-radius: 25px;
+  opacity: 1;
+  --Paper-overlay: none !important;
+
+  @media screen and (max-width: 600px) {
+    max-width: 360px;
+    margin-inline: 15px;
+  }
+}
+
+div.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+
+  @media screen and (max-width: 600px) {
+    max-width: none;
+    padding: 20px;
+    padding-bottom: 40px;
+  }
+}
+
+.wheels {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+
+  &::-webkit-scrollbar {
+    display: none;
+    scroll-behavior: smooth;
+  }
+}
+
+div.actions {
+  width: 100%;
+  max-width: 400px;
+
+  padding-inline: 20px;
+  padding-bottom: 40px;
+}
+
+button.cancel {
+  border: 1px solid #737373;
+  color: #737373;
+  background: transparent !important;
+}
+
+.pickerContainer {
+  min-width: 140px;
+
+  overflow-y: auto;
+  text-align: center;
+  scrollbar-width: none;
+}
+
+.picker {
+  display: flex;
+  flex-direction: column;
+}
+
+.pickerItem {
+  position: relative;
+
+  font-family: var(--gilroy), sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 20.4px;
+  text-align: center;
+  color: #fff;
+
+  padding: 10px 0;
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s linear;
+  will-change: transform, opacity;
+  overflow: visible;
+}
+
+.postfix {
+  position: absolute;
+
+  transform: translateX(-50%);
+  right: 10px;
+}
+
+.pickerHeader {
+  text-align: center;
+  margin-bottom: 10px;
+}

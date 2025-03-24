@@ -1,0 +1,1 @@
+export const UNBREAKABLE_SEPARATOR = '\u00A0';

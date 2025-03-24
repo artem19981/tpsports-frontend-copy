@@ -1,0 +1,43 @@
+.label {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 17px;
+  line-height: 20.4px;
+  color: #dbdbdb;
+  text-align: left;
+
+  display: inline;
+  white-space: normal;
+  word-break: break-word;
+
+  // display: flex;
+  // align-items: center;
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.withTooltip {
+  position: relative;
+  display: flex;
+  word-wrap: break-word;
+}
+
+span.tooltip {
+  cursor: pointer;
+  position: relative;
+  width: 20px;
+  height: 11px;
+  display: inline-flex !important;
+
+  margin-left: 10px;
+
+  img {
+    position: absolute;
+    top: 50%;
+
+    transform: translateY((-50%));
+  }
+}

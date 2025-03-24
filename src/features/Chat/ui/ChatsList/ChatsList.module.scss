@@ -1,0 +1,44 @@
+.container {
+  position: absolute;
+  left: 55%;
+  top: 50%;
+  transform: translate(-55%, -50%);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  @media screen and (max-width: 600px) {
+    position: static;
+    left: 0;
+    top: 0;
+    transform: translate(0, 0);
+
+    gap: 3px;
+  }
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 25px;
+  padding: 6px 12px;
+  cursor: pointer;
+
+  font-family: var(--NeueMachina), sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: #848484;
+
+  @media screen and (max-width: 600px) {
+    padding: 4px 10px;
+    color: #717272;
+  }
+}

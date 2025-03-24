@@ -1,0 +1,85 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.wrapper {
+  flex: 1;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+button.button {
+  background: transparent;
+  border-radius: 25px;
+  padding: 10px;
+  font-family: var(--gilroy), sans-serif;
+  text-transform: initial;
+  font-size: 13px;
+  line-height: 15.6px;
+  border-color: #fff;
+  color: #fff;
+  width: auto;
+  margin-top: 5px;
+
+  &:disabled {
+    background: #ffffff33;
+    color: #ffffff4d;
+  }
+}
+
+.image {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+  width: 870px;
+  height: auto;
+  z-index: -1;
+}
+
+div.buttons {
+  flex-direction: column;
+  align-items: center;
+
+  > button {
+    width: fit-content;
+  }
+}
+
+.myHealthContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  overflow: auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  overflow: auto;
+  padding-bottom: 30px;
+}
+
+.myHealthWrapper {
+  padding: 0 40px;
+}
+
+.title {
+  font-family: var(--NeueMachina), sans-serif;
+  font-size: 30px;
+  line-height: 32px;
+  letter-spacing: -0.053em;
+  text-align: left;
+
+  margin: 50px 0 90px 0;
+  padding: 0 40px;
+}

@@ -1,0 +1,29 @@
+.icon {
+  width: 44px;
+  height: 44px;
+
+  margin-top: 21px;
+  margin-bottom: 30px;
+}
+
+button.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+p.title {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 14px;
+  line-height: 19.6px;
+  text-align: center;
+}
+
+p.subtitle {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 14px;
+  line-height: 19.6px;
+  text-align: center;
+
+  margin-bottom: 40px;
+}

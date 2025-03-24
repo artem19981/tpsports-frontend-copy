@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  overflow: auto;
+  flex: 1;
+
+  * {
+    --os-handle-bg: #03f392;
+    --os-track-bg: transparent;
+  }
+}
+
+.fullScreenDialog {
+  * {
+    --os-handle-bg: #03f392;
+    --os-track-bg: transparent;
+  }
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+
+  overflow: auto;
+  border-right: 1px solid rgb(255, 255, 255, 0.1);
+
+  @media screen and (max-width: 650px) {
+    border-right: 0;
+    width: 100%;
+  }
+}
+
+.emptyBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+
+  svg {
+    width: 90px !important;
+    height: 90px !important;
+  }
+}

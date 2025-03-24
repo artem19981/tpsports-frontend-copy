@@ -1,0 +1,67 @@
+.table {
+  overflow-x: scroll;
+  @media (max-width: 1024px) {
+    padding-left: 24px;
+  }
+}
+.table::-webkit-scrollbar {
+  display: none;
+}
+.table__container::-webkit-scrollbar {
+  display: none;
+}
+
+.table__cell {
+  color: #ffffff66;
+  font-weight: bold;
+  border-right: 1px solid #444;
+  text-align: center !important;
+  width: 240px;
+  font-size: 22px !important;
+}
+
+.table__row {
+  color: #c1c1c1 !important;
+  border-right: 1px solid #444;
+  font-size: 14px !important;
+  text-align: center !important;
+  width: 240px;
+}
+
+div.tooltip {
+  max-width: max-content;
+}
+
+.table__title {
+  color: #ffffff66;
+}
+.table__container {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 28px !important;
+}
+
+.visible {
+  opacity: 1;
+  height: auto;
+  visibility: visible;
+}
+
+.hidden {
+  opacity: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.button__container {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.tooltip {
+  // display: flex !important;
+  // justify-content: flex-start;
+  // align-items: center;
+  // gap: 5px;
+  margin-left: 5px;
+}

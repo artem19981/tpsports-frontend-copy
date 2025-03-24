@@ -1,0 +1,29 @@
+.input {
+  margin-bottom: 30px;
+}
+
+.dateInput {
+  background-color: rgb(11, 11, 11, 0.23);
+  margin-bottom: 30px;
+}
+
+button.button {
+  margin-top: 60px;
+}
+
+div.inputWrapper {
+  background-color: rgb(11, 11, 11, 0.23);
+
+  input {
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px rgba(17, 41, 35) inset !important;
+    }
+
+    &:-webkit-autofill {
+      -webkit-text-fill-color: white !important;
+    }
+  }
+}

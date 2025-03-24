@@ -1,0 +1,117 @@
+.logo {
+  display: block;
+  margin-top: 80px;
+  margin-bottom: 97px;
+
+  z-index: 22;
+}
+
+.peoples {
+  position: relative;
+  display: block;
+  z-index: 12;
+}
+
+.peoplesContainer {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.peoplesBackground {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 440px;
+  height: 437px;
+  user-select: none;
+  z-index: -1;
+}
+
+p.title {
+  font-family: var(--NeueMachina), sans-serif;
+  font-size: 31px;
+  line-height: 32px;
+  text-align: center;
+  letter-spacing: -0.053em;
+
+  width: 225px;
+  margin-bottom: 31px;
+}
+
+p.subtitle {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 17px;
+  line-height: 20.4px;
+  text-align: center;
+  color: rgb(255, 255, 255, 0.7);
+
+  margin-bottom: 5px;
+}
+
+p.secondSubtitle {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 17px;
+  line-height: 20.4px;
+  text-align: center;
+  color: rgb(255, 255, 255, 0.7);
+
+  margin-bottom: 48px;
+}
+
+div.chip {
+  border-color: transparent;
+  background-color: rgb(255, 255, 255, 0.0477);
+
+  font-family: var(--gilroy), sans-serif;
+  font-size: 13px;
+  line-height: 15.6px;
+  text-align: center;
+
+  margin-bottom: 42px;
+}
+
+button.furtherButton {
+  margin-bottom: 25px;
+  text-transform: uppercase;
+}
+
+button.button {
+  margin-bottom: 35px;
+  text-transform: uppercase;
+
+  color: rgb(255, 255, 255, 0.5);
+}
+
+.checkbox {
+  margin-bottom: 14px;
+
+  span:last-of-type {
+    font-family: var(--gilroy), sans-serif;
+    font-size: 12px;
+    line-height: 14.4px;
+    margin-top: 2px;
+  }
+}
+
+span.radio {
+  padding: 7px;
+  & svg {
+    font-size: 14px;
+  }
+}
+
+p.agreement {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 12px;
+  line-height: 14.4px;
+  text-align: center;
+  color: rgb(255, 255, 255, 0.5);
+
+  width: 270px;
+}
+
+button.cancelButton {
+  color: rgb(255, 255, 255, 0.5);
+}

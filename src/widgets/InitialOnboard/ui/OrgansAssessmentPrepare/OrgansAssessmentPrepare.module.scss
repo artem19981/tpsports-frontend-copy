@@ -1,0 +1,25 @@
+.container {
+  padding: 0 40px;
+  max-width: 440px;
+
+  @media screen and (max-width: 600px) {
+    padding: 0 30px;
+  }
+
+  @media screen and (max-width: 420px) {
+    padding: 0 15px;
+  }
+}
+
+.elipse {
+  position: absolute;
+  z-index: -1;
+  top: -20%;
+
+  @media screen and (max-width: 600px) {
+    width: 120%;
+    height: auto;
+
+    top: 2%;
+  }
+}

@@ -1,0 +1,20 @@
+button.button {
+  background: transparent;
+  border-radius: 25px;
+  padding: 10px;
+  font-family: var(--gilroy), sans-serif;
+  text-transform: initial;
+  font-size: 13px;
+  line-height: 15.6px;
+  border-color: #fff;
+  color: #fff;
+
+  &:disabled {
+    background: #ffffff33;
+    color: #ffffff4d;
+  }
+}
+
+button.active {
+  border-color: #00ff3b;
+}

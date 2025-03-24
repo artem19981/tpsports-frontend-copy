@@ -1,0 +1,199 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+:root {
+  --background: #000;
+  --foreground: #fff;
+  --swiper-scrollbar-drag-bg-color: #fff;
+}
+
+.swiper-wrapper {
+  position: relative;
+}
+
+.swiper-scrollbar {
+  position: absolute;
+  bottom: 0;
+  left: 10px !important;
+  width: calc(100% - 20px) !important;
+  height: 6px;
+  background-color: #454545 !important;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+body,
+html {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--NeueMachina), sans-serif;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  transition: 0.2s ease;
+  position: relative;
+  overflow-x: hidden;
+
+  background: #292929;
+}
+
+h2 {
+  font-size: 22px;
+  color: white;
+}
+
+.custom-input {
+  color: white; /* Цвет текста */
+  font-family: 'GilroyMedium', sans-serif;
+}
+
+.custom-input::placeholder {
+  color: #818181; /* Цвет placeholder до активации */
+  opacity: 1;
+}
+
+/* Меняем цвет текста на белый, когда находится в фокусе */
+.custom-input:focus::placeholder {
+  color: #ffffff; /* Цвет placeholder при активации (по желанию, можно поменять) */
+}
+
+.headerTabsDesktop {
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 4px 28px !important;
+  align-self: center;
+  overflow-x: hidden;
+  z-index: 100000000000000000000000000000000000000000000 !important;
+}
+
+.messagesText {
+  font-family: 'GilroyMedium', sans-serif;
+  font-size: 16px;
+}
+
+.hide-scroll {
+  scrollbar-width: none !important;
+  scrollbar-color: transparent transparent !important;
+
+  &::-webkit-scrollbar {
+    display: none;
+    scroll-behavior: smooth;
+    width: 0;
+  }
+}
+
+.hide-scroll-opacity {
+  scrollbar-color: transparent transparent !important;
+
+  &::-webkit-scrollbar {
+    display: none;
+    scroll-behavior: smooth;
+    width: 0;
+  }
+}
+
+.upperTab,
+.upperP {
+  color: #848484;
+}
+
+.upperTab {
+  font-size: 12px;
+  text-transform: uppercase;
+  line-height: 10px;
+}
+
+.headerTabsDesktop::-webkit-scrollbar {
+  display: none;
+}
+
+.footerText {
+  text-align: center;
+  font-size: 15px;
+  font-family: 'GilroyMedium', sans-serif;
+}
+
+.greyH3 {
+  color: #848484;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.greyP14 {
+  color: #dbdbdb;
+  font-size: 14px;
+}
+
+.p14 {
+  color: #fff;
+  font-size: 14px;
+  font-family: 'GilroyMedium', sans-serif;
+}
+
+.greyP12 {
+  color: #848484;
+  font-size: 14px;
+}
+
+.p12 {
+  color: #000;
+  font-size: 12px;
+}
+
+@media (pointer: none), (pointer: coarse) {
+  .upperTab {
+    padding-top: 3px !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .headerTabsMobile {
+    display: none !important;
+  }
+
+  .custom-input {
+  }
+
+  .headerTabsDesktop {
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@media (max-width: 472px) {
+  .upperTab {
+  }
+
+  .headerTabsDesktop {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #121212 inset !important;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: white !important;
+}

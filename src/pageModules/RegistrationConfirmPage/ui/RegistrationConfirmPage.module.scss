@@ -1,0 +1,11 @@
+.content {
+  margin-block: 104px;
+
+  @media screen and (max-width: 600px) {
+    margin-top: 40px;
+  }
+}
+
+div.header {
+  justify-content: center;
+}

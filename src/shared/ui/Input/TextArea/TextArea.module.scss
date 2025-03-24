@@ -1,0 +1,33 @@
+.textarea {
+  background-color: rgb(11, 11, 11, 0.23);
+  border-radius: 25px;
+  resize: none;
+  width: 100%;
+  border-color: transparent;
+  padding: 10px 20px;
+
+  font-family: var(--gilroy), sans-serif;
+  color: #fff;
+  font-size: 17px;
+
+  outline: none !important;
+
+  &::-webkit-scrollbar {
+    display: none;
+    scroll-behavior: smooth;
+  }
+
+  &::placeholder {
+    font-family: var(--gilroy), sans-serif;
+    font-size: 17px;
+    line-height: 20.4px;
+    letter-spacing: 0%;
+
+    color: #60706b;
+  }
+}
+
+.label {
+  margin: 0 20px 7px;
+  margin-bottom: 7px;
+}

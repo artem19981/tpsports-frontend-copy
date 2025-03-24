@@ -1,0 +1,30 @@
+.content {
+  position: relative;
+  width: fit-content;
+}
+
+.loader {
+  height: 40px;
+  width: 40px;
+  min-width: 40px;
+}
+
+@keyframes scaleAnimation {
+  100% {
+    transform: scale(1) translate(-50%, -50%);
+  }
+  50% {
+    transform: scale(0.8) translate(-60%, -60%);
+  }
+}
+
+.background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 60px;
+  height: 60px;
+  animation: scaleAnimation 3s infinite;
+}

@@ -1,0 +1,53 @@
+div.menu {
+  border-radius: 13px;
+}
+
+ul.menuList {
+  background: #2a2a29;
+}
+
+li.menuItem {
+  border-radius: 8px;
+  padding: 9px;
+  background: #2a2a29;
+}
+
+.menuItemWrapper {
+  padding: 0 9px;
+}
+
+.menuItemText > span {
+  font-size: 12px;
+  font-family: var(--gilroy), sans-serif;
+}
+
+div.menuItemIcon {
+  min-width: 27px !important;
+}
+
+hr.divider {
+  margin: 4px 0;
+}
+
+.userInitials p {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.4px;
+  text-align: center;
+  color: #dbdbdb;
+
+  margin-top: 2px;
+}
+
+button.userInitials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #383838;
+  border: 1px solid #ffffff33;
+
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}

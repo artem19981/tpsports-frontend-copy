@@ -1,0 +1,28 @@
+.wheels {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+
+  &::-webkit-scrollbar {
+    display: none;
+    scroll-behavior: smooth;
+  }
+}
+
+.picker {
+  min-width: 100px;
+}
+
+div.actions {
+  width: 100%;
+  max-width: 400px;
+
+  margin-top: 40px;
+  padding-inline: 20px;
+}
+
+button.cancel {
+  border: 1px solid #737373;
+  color: #737373;
+  background: transparent !important;
+}

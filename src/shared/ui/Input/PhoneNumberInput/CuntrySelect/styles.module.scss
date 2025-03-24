@@ -1,0 +1,25 @@
+div.selectWrapper {
+  position: relative !important;
+  align-self: stretch !important;
+  display: flex !important;
+  align-items: center !important;
+  margin-right: 0.35em !important;
+  margin-right: var(--PhoneInputCountrySelect-marginRight) !important;
+}
+
+.select {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  border: 0;
+  opacity: 0;
+  max-width: 20px;
+  cursor: pointer !important;
+}
+
+.menu {
+  max-height: 400px;
+}

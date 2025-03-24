@@ -1,0 +1,47 @@
+.waistInput {
+  padding: 0 15px;
+  margin-bottom: 20px;
+
+  > div {
+    background-color: rgb(11, 11, 11, 0.23);
+  }
+
+  input {
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  @media screen and (max-width: 600px) {
+    padding-right: 0;
+    padding-left: 15px;
+  }
+}
+
+.waistInputLabel {
+  display: flex;
+  margin-left: 0;
+
+  label {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.bodyIndexText {
+  position: absolute;
+  max-width: calc(100% - 165px);
+  top: 115px;
+
+  font-family: var(--gilroy), sans-serif;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  color: rgb(255, 255, 255, 0.4);
+
+  @media screen and (max-width: 450px) {
+    margin-left: 5px;
+  }
+}

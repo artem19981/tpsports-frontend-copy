@@ -1,0 +1,15 @@
+export enum InitialOnboardStep {
+  Initial = 'initial',
+  PersonalInfo = 'personal-info',
+  BodyMeasurement = 'body-measurement',
+  Sport = 'sport',
+  StrengthTraining = 'strength-training',
+  SportGoal = 'sport-goal',
+  TrainingInfo = 'training-info',
+  Lifestyle = 'lifestyle',
+  Food = 'food',
+  WomenHealth = 'women-health',
+  OrgansAssessmentPrepare = 'organs-assessment-prepare',
+  OrgansAssessment = 'organs-assessment',
+  Final = 'final',
+}

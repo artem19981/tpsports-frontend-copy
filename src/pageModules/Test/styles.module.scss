@@ -1,0 +1,28 @@
+.element {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow:
+    0 0 30px 15px rgba(217, 217, 217, 0.6),
+    /* Первая тень */ 0 0 60px 30px rgba(217, 217, 217, 0.4),
+    /* Вторая тень */ 0 0 90px 45px rgba(217, 217, 217, 0.2);
+  box-shadow:
+    rgb(217, 217, 217) 0px 0px 50px 25px,
+    0 0 60px 30px rgb(217 217 217 / 64%) inset;
+
+  opacity: 0.4;
+}
+
+// .element::after {
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   border-radius: 50%;
+//   background: rgb(217, 217, 217);
+//   mix-blend-mode: overlay; /* Экспериментируйте с разными режимами */
+//   filter: blur(25px);
+//   z-index: -1;
+// }

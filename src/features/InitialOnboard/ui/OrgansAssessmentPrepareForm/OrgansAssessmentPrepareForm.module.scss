@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.image {
+  margin-top: 54px;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.lastStep {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15.6px;
+  text-align: center;
+
+  margin-bottom: 65px;
+  margin-top: 15px;
+}
+
+.title {
+  font-family: var(--NeueMachina), sans-serif;
+  font-size: 31px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: -0.053em;
+  text-align: center;
+
+  margin-bottom: 31px;
+}
+
+.description {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 20.4px;
+  text-align: center;
+
+  opacity: 0.7;
+  margin-bottom: 49px;
+  z-index: 2;
+}
+
+button.button {
+  margin-bottom: 25px;
+}

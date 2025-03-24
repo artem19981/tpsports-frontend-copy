@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": "./",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "shared/*": ["src/shared/*"],
+      "features/*": ["src/features/*"],
+      "entities/*": ["src/entities/*"],
+      "widgets/*": ["src/widgets/*"],
+      "pageModules/*": ["src/pageModules/*"],
+      "app/*": ["src/app/*"],
+      "@/*": ["./*"],
+    },
+    "typeRoots": ["./node_modules/@types", "./"], // добавление корня для собственных типов  
+    "types": ["node"], 
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/shared/model/global/**/*.d.ts", "src/entities/chat/ui/ChatTypeContext"],
+  "exclude": ["node_modules"]
+}

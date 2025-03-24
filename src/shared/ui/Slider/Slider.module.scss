@@ -1,0 +1,58 @@
+.container {
+  padding: 0 20px;
+}
+
+.label {
+  margin-bottom: 33px;
+}
+
+span.slider {
+  width: 100%;
+  color: rgb(255, 255, 255, 0.2);
+  height: 3px;
+}
+
+span.thumb {
+  color: #fff;
+  width: 23px;
+  height: 23px;
+}
+
+span.valueLabel {
+  background: transparent;
+
+  font-family: var(--gilroy), sans-serif;
+  font-size: 13px;
+  line-height: 15.6px;
+  color: #02fe46;
+
+  &::before {
+    content: unset;
+  }
+}
+
+span.track {
+  background-color: currentColor;
+  border-color: currentColor;
+  opacity: 0.38;
+}
+
+span.first {
+  @media screen and (max-width: 600px) {
+    left: 0 !important;
+  }
+}
+
+span.last {
+  @media screen and (max-width: 600px) {
+    right: 0 !important;
+  }
+}
+
+span.forceFirst {
+  left: 0 !important;
+}
+
+span.forceLast {
+  right: 0 !important;
+}

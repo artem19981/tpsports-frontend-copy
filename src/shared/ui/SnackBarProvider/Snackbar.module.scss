@@ -1,0 +1,42 @@
+div.snackbar {
+  border: 1px solid;
+  border-radius: 25px;
+
+  top: 46px;
+  // width: fit-content;
+}
+
+div.alert {
+  padding: 14px 22px;
+
+  font-family: var(--gilroy), sans-serif;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+div.error {
+  border-color: #be1818;
+  background-color: #3f2727;
+
+  * {
+    color: #be1818 !important;
+  }
+}
+
+div.success {
+  border-color: #00c036;
+  background-color: #233929;
+
+  * {
+    color: #009029 !important;
+  }
+}
+
+div.info {
+  border-color: #0043a9;
+  background-color: #343c56;
+
+  * {
+    color: #546de0 !important;
+  }
+}

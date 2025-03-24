@@ -1,0 +1,146 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+.wrapper {
+  max-width: 400px;
+  width: 100%;
+
+  padding: 0 50px;
+  max-width: 460px;
+
+  @media screen and (max-width: 600px) {
+    padding: 0 40px;
+  }
+
+  @media screen and (max-width: 420px) {
+    max-width: none;
+    padding: 0 15px;
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 0 50px;
+  margin-top: 30px;
+
+  > div {
+    flex: 1;
+  }
+
+  @media screen and (max-width: 600px) {
+    padding: 0 40px;
+  }
+
+  @media screen and (max-width: 420px) {
+    padding: 0 15px;
+  }
+}
+
+hr.divider {
+  display: block;
+  width: 100%;
+  margin: 50px 0;
+}
+
+.inputContainer {
+  margin-bottom: 30px;
+}
+
+.input {
+  background-color: rgb(11, 11, 11, 0.23);
+}
+
+.title {
+  font-family: var(--NeueMachina), sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: -0.053em;
+
+  margin-bottom: 28px;
+  margin-left: 20px;
+}
+
+.sliderContainer {
+  margin-bottom: 30px;
+}
+
+.sliderLabel {
+  width: 85%;
+}
+
+.bottleContainer {
+  position: relative;
+  height: 65px;
+  margin-bottom: 20px;
+}
+
+.bottleWhitePart {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  background-color: #fff;
+  width: 33px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+
+  transition: all 0.3s;
+}
+
+.whiteBottle {
+  transition: all 0.3s;
+}
+
+.bottleText {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-family: var(--gilroy), sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 13.48px;
+  color: #103328;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.notDefinedLabel {
+  color: #fff !important;
+}
+
+.myHealthWrapper {
+  width: 100%;
+  padding: 0 20px;
+  flex: 1;
+}
+
+.myHealthTitle {
+  font-family: var(--NeueMachina), sans-serif;
+  font-size: 30px;
+  line-height: 32px;
+  letter-spacing: -0.053em;
+  text-align: left;
+
+  margin: 50px 0 30px 0;
+  padding: 0 40px;
+  width: 100%;
+
+  @media screen and (max-width: 650px) {
+    margin: 30px 0 20px 0;
+  }
+}

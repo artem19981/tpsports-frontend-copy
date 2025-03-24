@@ -1,0 +1,51 @@
+div.root {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+div.backdrop {
+  background-color: transparent;
+}
+
+div.content {
+  position: absolute;
+  top: 120px;
+
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  width: 90vw;
+  height: calc(90vh - 120px);
+  background: linear-gradient(
+    108.85deg,
+    rgba(48, 48, 48, 0.4) 0.8%,
+    rgba(48, 48, 48, 0.4) 76%,
+    rgba(65, 65, 65, 0.4) 99.1%
+  );
+  border-radius: 28px;
+  backdrop-filter: blur(100px);
+  box-shadow: 0px -14px 23px 0px #181818;
+
+  margin-bottom: 100px;
+
+  @media screen and (max-width: 650px) {
+    width: 100vw;
+    // height: 100dvh;
+    height: calc(100dvh - 50px);
+    top: unset;
+    margin-bottom: 0;
+    bottom: 0;
+    border-radius: 28px 28px 0 0;
+  }
+}
+
+button.closeBtn {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  z-index: 22;
+
+  padding: 10px;
+}

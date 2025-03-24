@@ -1,0 +1,67 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  margin-top: 30px;
+}
+
+.wrapper {
+  max-width: 440px;
+  width: 100%;
+  padding: 0 40px;
+
+  @media screen and (max-width: 420px) {
+    max-width: none;
+    padding: 0 15px;
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 380px;
+  width: 100%;
+
+  > div {
+    flex: 1;
+  }
+
+  @media screen and (max-width: 600px) {
+    max-width: none;
+    padding: 0 40px;
+  }
+
+  @media screen and (max-width: 420px) {
+    padding: 0 15px;
+  }
+}
+
+hr.divider {
+  display: block;
+  width: 100%;
+  margin: 50px 0;
+}
+
+.label {
+  font-family: var(--NeueMachina), sans-serif;
+  font-size: 30px;
+  line-height: 32px;
+  letter-spacing: -0.053em;
+  text-align: left;
+
+  margin-bottom: 18px;
+  margin-left: 20px;
+}
+
+.textarea {
+  margin-bottom: 35px;
+}
+
+div.buttons {
+  margin-left: 20px;
+}

@@ -1,0 +1,15 @@
+.container {
+  padding-left: 12px;
+  padding-right: 20px;
+}
+
+span.progress {
+  width: 100%;
+  border-radius: 25px;
+  height: 3px;
+
+  background-color: rgb(255, 255, 255, 0.2);
+  span {
+    background-color: #ffffff;
+  }
+}

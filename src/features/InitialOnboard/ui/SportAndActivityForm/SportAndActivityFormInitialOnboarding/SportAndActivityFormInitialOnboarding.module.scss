@@ -1,0 +1,104 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+}
+
+.wrapper {
+  max-width: 440px;
+  width: 100%;
+  padding: 0 40px;
+
+  @media screen and (max-width: 420px) {
+    max-width: none;
+    padding: 0 20px;
+  }
+}
+
+hr.divider {
+  display: block;
+  width: 100%;
+  margin: 70px 0;
+}
+
+.label {
+  margin-bottom: 30px;
+  max-width: 400px;
+  width: 100%;
+  padding: 0 40px;
+
+  @media screen and (max-width: 420px) {
+    max-width: none;
+    padding: 0 35px;
+  }
+}
+
+.radio {
+  opacity: 0.5;
+}
+
+.active {
+  opacity: 1;
+}
+
+.radioButtons {
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.radioLabel {
+  margin-top: 20px;
+}
+
+.leftLabel {
+  text-align: right;
+}
+
+.rightLabel {
+  text-align: left;
+}
+
+.steps {
+  width: 100%;
+  max-width: 170px;
+
+  margin-bottom: 100px;
+}
+
+.stepsText {
+  color: #02fe46;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.notDefinedLabel {
+  color: #fff !important;
+}
+
+.title {
+  font-family: var(--NeueMachina), sans-serif;
+  font-size: 30px;
+  line-height: 32px;
+  letter-spacing: -0.053em;
+  text-align: left;
+
+  margin: 50px 0 30px 0px;
+  padding-left: 40px;
+  width: 100%;
+
+  @media screen and (max-width: 420px) {
+    // margin: 29px 20px;
+  }
+}

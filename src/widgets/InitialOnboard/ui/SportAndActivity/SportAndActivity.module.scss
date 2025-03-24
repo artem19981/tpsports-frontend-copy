@@ -1,0 +1,13 @@
+.container {
+  max-width: none;
+  padding: 0;
+}
+
+.header {
+  max-width: 440px;
+  padding: 0 40px;
+
+  @media screen and (max-width: 420px) {
+    padding: 0 20px;
+  }
+}

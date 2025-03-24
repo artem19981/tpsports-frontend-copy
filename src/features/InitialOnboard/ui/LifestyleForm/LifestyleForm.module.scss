@@ -1,0 +1,238 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 380px;
+  width: 100%;
+  margin-top: 20px;
+
+  > div {
+    flex: 1;
+  }
+
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
+}
+
+.sleep {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  background-color: rgb(11, 11, 11, 0.23);
+
+  padding: 11px 16px;
+  border-radius: 25px;
+  height: 45px;
+  margin-bottom: 22px;
+
+  p {
+    font-family: var(--gilroy), sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+    margin-top: 2px;
+    flex: 1;
+  }
+}
+
+.sleepItem {
+  align-items: center;
+  flex: 1;
+
+  gap: 8px;
+
+  &:first-child {
+    padding-right: 8px;
+
+    p {
+      text-align: right;
+    }
+  }
+
+  &:last-child {
+    padding-left: 8px;
+    justify-content: flex-end;
+  }
+}
+
+div.divider {
+  border-color: #fff;
+}
+
+.wheelDivider {
+  width: 1px;
+  background-color: rgb(255, 255, 255, 0.5);
+}
+
+.input {
+  margin-bottom: 26.5px;
+}
+
+.sleepQualityInput {
+  margin-bottom: 100px;
+}
+
+.wheels {
+  display: flex;
+  justify-content: center;
+}
+
+.wheelItem {
+  &:first-of-type {
+    padding-right: 20px;
+  }
+
+  &:last-of-type {
+    padding-left: 20px;
+  }
+}
+
+.duration {
+  position: absolute;
+  top: 63px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-family: var(--gilroy), sans-serif;
+  font-size: 13px;
+  line-height: 15.6px;
+
+  span {
+    color: #02fe46;
+  }
+}
+
+.smoking {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 40px;
+  color: #dbdbdb;
+
+  > * {
+    flex: 1;
+    width: 50%;
+  }
+}
+
+.label {
+  margin-bottom: 7px;
+  margin-left: 20px;
+}
+
+.whiteLine {
+  position: absolute;
+  top: 41px;
+  width: 20px;
+  height: 3px;
+  background-color: #fff;
+}
+
+.pickerLabel {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15.6px;
+  text-align: center;
+
+  margin-bottom: 10px;
+}
+
+.sleepDuration {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 50px;
+  text-align: center;
+  color: #02fe46;
+  margin-bottom: 2px;
+}
+
+.sleepDurationLabel {
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20.4px;
+  letter-spacing: 0%;
+  text-align: center;
+
+  margin-bottom: 9px;
+}
+
+.ellipse {
+  display: block;
+  margin-inline: auto;
+  margin-bottom: 130px;
+  margin-top: 10px;
+
+  @media screen and (max-width: 600px) {
+    margin-bottom: 40px;
+  }
+}
+
+.notDefinedLabel {
+  color: #fff !important;
+}
+
+.sleepDurationContainer {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 12px;
+  min-height: 82px;
+}
+
+.ellipseContainer {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 50%);
+
+  width: 193px;
+  height: 193px;
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.myHealthContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+  width: 100%;
+}
+
+.myHealthContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+  width: 100%;
+  padding: 0 7px 0 20px;
+
+  overflow-y: scroll;
+  padding-bottom: 30px;
+}
+
+.title {
+  font-family: var(--NeueMachina), sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 32px;
+  letter-spacing: -5.3%;
+
+  margin: 50px 0 30px 0;
+  padding: 0 20px;
+}

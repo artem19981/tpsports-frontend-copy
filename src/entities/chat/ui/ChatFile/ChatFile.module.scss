@@ -1,0 +1,60 @@
+.file {
+  position: relative;
+  display: flex;
+
+  background-color: #2e3735;
+  border-radius: 8px;
+
+  max-width: 130px;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4px 8px 4px 5px;
+  overflow: hidden;
+}
+
+.imageWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 9px 11px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.title {
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 10.8px;
+  letter-spacing: 0%;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.subtitle {
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 10.8px;
+  letter-spacing: 0%;
+  color: #666b69;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+button.cross {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
+}

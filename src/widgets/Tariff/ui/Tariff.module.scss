@@ -1,0 +1,154 @@
+.main {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+
+  @media (max-width: 1024px) {
+    padding-left: 24px;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 1;
+
+  @media (max-width: 1200px) {
+    padding: 0 20px;
+  }
+}
+
+h3.title {
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36.39px;
+  letter-spacing: -4%;
+  text-align: start;
+  flex: 1;
+}
+
+p.toggleButtonText {
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.4px;
+  letter-spacing: 0%;
+
+  white-space: nowrap;
+}
+
+.buttons {
+  width: 350px;
+  max-height: 30px;
+}
+
+div.subscriptionCard {
+  position: relative;
+  height: 861px;
+  border-radius: 28px;
+  border: 1px solid #ffffff33;
+  background: linear-gradient(
+    108.85deg,
+    rgba(48, 48, 48, 0.4) 0.8%,
+    rgba(48, 48, 48, 0.4) 76%,
+    rgba(65, 65, 65, 0.4) 99.1%
+  );
+  backdrop-filter: blur(100px);
+  // backdrop-filter: blur(28.56450080871582px);
+
+  padding: 16px 24px;
+  max-width: 282px;
+  min-width: 282px;
+  overflow: unset;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.trialBadge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  background: #616161;
+  width: 80%;
+  padding: 7px 0;
+  border-radius: 10px 10px 0 0;
+
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19.6px;
+  letter-spacing: 0%;
+  text-align: center;
+  white-space: nowrap;
+}
+
+// .cardContent {
+//   padding: 24px;
+// }
+
+.title {
+  text-align: start;
+  color: #fff;
+
+  @media (max-width: 529px) {
+    text-align: center !important;
+  }
+}
+
+.price {
+  font-weight: bold;
+  margin-top: 8px;
+  text-align: center;
+  line-height: 122% !important;
+}
+
+.billing {
+  color: #858585;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.description {
+  color: #fff;
+  margin-bottom: 16px;
+  text-align: center;
+  height: 100px;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  color: #858585;
+  text-align: center;
+}
+
+.featureItem {
+  color: #c1c1c1;
+  border-bottom: 1px solid;
+  padding: 6px 0 6px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-image-source: linear-gradient(
+    90deg,
+    rgba(58, 58, 58, 0) 0%,
+    #3a3a3a 50%,
+    rgba(58, 58, 58, 0) 100%
+  );
+}
+
+.featureItem:last-child {
+  svg:last-child {
+    display: none;
+  }
+}
+
+.subscribeButton {
+  margin-top: 16px;
+  text-transform: none !important;
+}
