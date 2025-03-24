@@ -32,7 +32,10 @@ const FAQ: React.FC = () => {
         pb: 4,
       }}
     >
-      <Typography variant="h4" sx={{ mb: 2, fontWeight: "bold" }}>
+      <Typography
+        variant="h4"
+        sx={{ fontSize: { sx: 25, md: 40 }, mb: 2, fontWeight: "bold" }}
+      >
         ЕСТЬ ВОПРОСЫ?
       </Typography>
       <Typography variant="body2" sx={{ mb: 4, maxWidth: 300, opacity: 0.8 }}>
