@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import { useLogoutUser } from 'features/Auth/lib';
 import { logoutUser as onLogout } from 'features/Auth/api';
 import { MyHealth } from 'widgets/MyHealth';
+import { UserSettings } from 'widgets/UserSettings';
 
 interface Props {
   setAnchorEl: React.Dispatch<React.SetStateAction<null | HTMLElement>>;
@@ -28,6 +29,7 @@ export const AuthorizedUserSettingsMenu = ({
   handleClose,
 }: Props) => {
   const [showHealth, setShowHealth] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const router = useRouter();
 
   const logoutUser = useLogoutUser(onLogout, () => {
@@ -36,7 +38,7 @@ export const AuthorizedUserSettingsMenu = ({
 
   const getProfile = useGetUserProfile();
   const menuItems = useMemo(
-    () => getMenuItems(logout, router, openMyHealth),
+    () => getMenuItems(logout, router, openMyHealth, openUserSettings),
     []
   );
 
@@ -47,6 +49,11 @@ export const AuthorizedUserSettingsMenu = ({
 
   function openMyHealth() {
     setShowHealth(true);
+    handleClose();
+  }
+
+  function openUserSettings() {
+    setShowSettings(true);
     handleClose();
   }
 
@@ -110,7 +117,12 @@ export const AuthorizedUserSettingsMenu = ({
         ))}
       </Menu>
 
-      {showHealth && <MyHealth onClose={() => setShowHealth(false)} />}
+      {/* Нарушение импортов, пока хз как это решить */}
+      <MyHealth open={showHealth} onClose={() => setShowHealth(false)} />
+      <UserSettings
+        open={showSettings}
+        onClose={() => setShowSettings(false)}
+      />
     </div>
   );
 };

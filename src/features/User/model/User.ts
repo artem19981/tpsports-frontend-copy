@@ -1,3 +1,5 @@
+import { Gender } from 'entities/user/model';
+
 export interface User {
   email: string;
   password: string;
@@ -17,6 +19,11 @@ export interface UserDto {
   isOnboardingCompleted: boolean;
 }
 
+export interface UserTariff {
+  name: string;
+  messages_limit: number;
+}
+
 export interface UserProfile {
   id: number;
   email: string;
@@ -25,7 +32,7 @@ export interface UserProfile {
   first_name?: string | null;
   last_name?: string | null;
   birth_date?: string | null;
-  gender?: "мужчина" | "женщина";
+  gender?: Gender;
   phone_number?: string | null;
   height?: number | null;
   weight?: number | null;
@@ -69,4 +76,6 @@ export interface UserProfile {
 
   // todo: прошел ли пользователь начальный онбординг
   is_completed: boolean;
+
+  tariff: UserTariff;
 }

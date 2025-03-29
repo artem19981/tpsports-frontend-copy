@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 334px;
+
+  flex: 1;
+}
+
+div.modal {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 600px) {
+    height: 141px;
+  }
+}
+
+.text {
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+  opacity: 0.4;
+
+  margin-top: 15px;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+}

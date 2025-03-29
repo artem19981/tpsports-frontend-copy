@@ -39,7 +39,7 @@ export const SportAndActivityHealthForm = ({
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <WithAbsoluteScrollBar>
-        <p className={styles.title}>Спорт и Активность</p>
+        <p className={styles.title}>Активность</p>
 
         <div className={styles.contentWrapper}>
           <div className={styles.wrapper}>
@@ -89,7 +89,7 @@ export const SportAndActivityHealthForm = ({
             className={styles.label}
             tooltip="Посмотреть данные можно в приложении «Здоровье» (iPhone), Google Fit или на фитнес-трекере."
           >
-            Средняя дистанция, которую вы проходите / пробегаете за день
+            Средняя дистанция, которую вы преодолеваете за день
           </Label>
 
           <div className={styles.steps}>
@@ -99,6 +99,7 @@ export const SportAndActivityHealthForm = ({
                 setValue('steps', +data[0].value, { shouldDirty: true });
               }}
               inputValue={steps}
+              className={styles.stepsPicker}
             />
 
             <p className={styles.stepsText}>

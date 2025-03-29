@@ -6,8 +6,8 @@ import { useForm } from 'react-hook-form';
 import { ChangePasswordForm } from 'features/Auth';
 import {
   ChangePasswordPayload,
-  ChangePasswordSchema,
-  changePasswordSchema,
+  ResetPasswordSchema,
+  resetPasswordSchema,
 } from 'features/Auth/model';
 import { ActionResult, ActionStatus } from 'shared/ui/ActionResult';
 import { Button } from 'shared/ui/Button/Button';
@@ -52,7 +52,7 @@ export const ChangePassword = ({ token }: Props) => {
       password: '',
       confirmPassword: '',
     },
-    resolver: yupResolver(changePasswordSchema),
+    resolver: yupResolver(resetPasswordSchema),
   });
 
   if (!token) {
@@ -78,7 +78,7 @@ export const ChangePassword = ({ token }: Props) => {
     );
   }
 
-  const onSubmit = (form: ChangePasswordSchema) => {
+  const onSubmit = (form: ResetPasswordSchema) => {
     mutate({ password: form.password, token });
   };
 

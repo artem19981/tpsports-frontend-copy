@@ -1,20 +1,25 @@
-"use client";
+'use client';
 
-import { Stack } from "@mui/material";
+import React from 'react';
 
+import { Stack } from '@mui/material';
+
+import { useLogoutUser } from 'features/Auth/lib/useLogoutUser';
+import { useRouter } from 'next/navigation';
+import { Button, Loader } from 'shared/ui';
 import {
-  logoutUserFromAllDevices,
   logoutUser as onLogout,
-} from "features/Auth/api";
-import { useLogoutUser } from "features/Auth/lib/useLogoutUser";
-import { useRouter } from "next/navigation";
-import { Button } from "shared/ui";
+  logoutUserFromAllDevices,
+} from 'features/Auth/api';
 
-import { useQueryClient } from "@tanstack/react-query";
-import { revalidatePath } from "next/cache";
-import styles from "./UserSettingsActions.module.scss";
+import { revalidatePath } from 'next/cache';
+import { useQueryClient } from '@tanstack/react-query';
 
-export const UserSettingsActions = () => {
+interface Props {
+  withLoader?: boolean;
+}
+
+export const UserSettingsActions = ({ withLoader = true }: Props) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const logoutUser = useLogoutUser(onLogout, afterLogout);
@@ -25,33 +30,31 @@ export const UserSettingsActions = () => {
 
   function afterLogout() {
     queryClient.clear();
-    router.push("/ai");
-    revalidatePath("/");
+    router.push('/ai');
+    revalidatePath('/');
   }
 
-  const disableLogouts = logoutUser.isPending || logoutFromAllDevices.isPending;
+  const disableLogouts =
+    logoutUser.isPending ||
+    logoutFromAllDevices.isPending ||
+    logoutUser.isSuccess ||
+    logoutFromAllDevices.isSuccess;
 
   return (
-    <Stack direction="column" gap={3}>
-      <Button variant="gray" href="/tariff">
-        Мой тариф
+    <Stack direction="column" gap={1.5} width="100%">
+      <Button onClick={() => logoutUser.mutate()} disabled={disableLogouts}>
+        Выход
       </Button>
+
       <Button
         variant="transparent"
-        className={styles.logout}
         onClick={() => logoutFromAllDevices.mutate()}
         disabled={disableLogouts}
       >
         Выйти со всех устройств
       </Button>
 
-      <Button
-        variant="white"
-        onClick={() => logoutUser.mutate()}
-        disabled={disableLogouts}
-      >
-        Выход
-      </Button>
+      {disableLogouts && withLoader && <Loader />}
     </Stack>
   );
 };

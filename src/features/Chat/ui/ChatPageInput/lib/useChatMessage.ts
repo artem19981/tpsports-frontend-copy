@@ -48,6 +48,9 @@ export const useChatMessage = (
 
   const sendMessage = async (payload: Omit<SendMessageDto, 'bot_name'>) => {
     let intervalId: NodeJS.Timeout | null = null;
+
+    const startTime = performance.now();
+
     try {
       let fullData = '';
 
@@ -67,10 +70,21 @@ export const useChatMessage = (
         ...payload,
       });
 
+      const endTime = performance.now();
+      console.log(
+        `Время ответа от сервера: ${(endTime - startTime).toFixed(2)} мс`
+      );
+
       setIsGPTMessageLoading(false);
       setLoading(false);
 
       intervalId = setInterval(() => {
+        const endTime = performance.now();
+
+        console.log(
+          `получил больше текста ${(endTime - startTime).toFixed(2)} мс`
+        );
+
         if (fullData) {
           updateGPTMessage(fullData);
         }

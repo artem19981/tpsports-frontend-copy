@@ -10,6 +10,7 @@ import { Button, IconButton, TextArea } from 'shared/ui';
 import BorderArrow from 'shared/assets/borderArrow.svg?component';
 
 import styles from './OnboardingOtherModal.module.scss';
+import classNames from 'classnames';
 
 interface Props extends Omit<DialogProps, 'onSubmit' | 'onClose'> {
   title: string;
@@ -25,12 +26,16 @@ export const OnboardingOtherModal = ({
   defaultValue,
   label,
   onSubmit,
+  className,
   ...props
 }: Props) => {
   const [value, setValue] = useState(defaultValue);
 
   return (
-    <Dialog {...props} classes={{ paper: styles.dialog }}>
+    <Dialog
+      {...props}
+      classes={{ paper: classNames(styles.dialog, className) }}
+    >
       <DialogTitle className={styles.header}>
         <IconButton onClick={props.onClose}>
           <BorderArrow />

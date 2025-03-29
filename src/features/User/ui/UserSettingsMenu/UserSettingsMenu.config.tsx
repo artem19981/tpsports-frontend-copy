@@ -8,12 +8,13 @@ import SettingsImg from '@/app/assets/images/aiChat/menu/menu-settings.svg?compo
 export const getMenuItems = (
   onExit: () => void,
   router: AppRouterInstance,
-  showHealth: () => void
+  showHealth: () => void,
+  openUserSettings: () => void
 ) => [
   {
     icon: <ProfileImg />,
     label: 'Моё здоровье',
-    onClick: () => showHealth(),
+    onClick: showHealth,
   },
   {
     icon: <PlanImg />,
@@ -22,8 +23,8 @@ export const getMenuItems = (
   },
   {
     icon: <SettingsImg />,
-    label: 'Настройки',
-    onClick: () => router.push('/user-settings'),
+    label: 'Аккаунт TPS',
+    onClick: openUserSettings,
   },
   {
     icon: <ExitImg />,

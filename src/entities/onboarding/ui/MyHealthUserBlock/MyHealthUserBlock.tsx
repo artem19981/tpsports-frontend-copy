@@ -23,7 +23,7 @@ export const MyHealthUserBlock = ({ first_name, last_name, email }: Props) => {
         />
       )}
 
-      <h3 className={styles.title}>Мое Здоровье</h3>
+      <h3 className={styles.title}>Моё Здоровье</h3>
       <h3 className={styles.subtitle}>
         {first_name ? capitalizeFirstLetter(first_name) : ''}{' '}
         {last_name ? capitalizeFirstLetter(last_name) : ''}

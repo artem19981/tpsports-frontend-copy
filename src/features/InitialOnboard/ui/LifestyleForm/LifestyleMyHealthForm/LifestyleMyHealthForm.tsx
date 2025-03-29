@@ -49,6 +49,7 @@ export const LifestyleMyHealthForm = ({ userProfile, onSuccess }: Props) => {
             isSleepQualityDefined={isSleepQualityDefined}
             setValue={setValue}
             control={control}
+            modalClassName={styles.modal}
           />
         </div>
       </WithAbsoluteScrollBar>

@@ -83,7 +83,7 @@ export const MyHealthTrainingForm = ({ userProfile, onSuccess }: Props) => {
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <WithAbsoluteScrollBar>
-        <p className={styles.title}>Тренировки</p>
+        <p className={styles.title}>Спорт</p>
 
         <StrengthTrainingFormFields
           userProfile={userProfile}
@@ -91,6 +91,7 @@ export const MyHealthTrainingForm = ({ userProfile, onSuccess }: Props) => {
           favoriteTrainingTypesOther={form.favorite_training_types_other || ''}
           setValue={setValue}
           categoriesClassName={styles.categories}
+          modalClassName={styles.modal}
         />
 
         <Divider className={styles.divider} />

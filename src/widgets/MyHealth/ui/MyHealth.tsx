@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { useMediaQuery } from '@mui/material';
 
@@ -15,12 +15,14 @@ import { useGetUserProfile } from 'features/User/lib';
 import { CategoryState } from '../types';
 import { MyHealthActiveForm } from './MyHealthActiveForm/MyHealthActiveForm';
 import { getActiveCategoryIcon } from './MyHealthActiveForm/lib/getActiveCategoryIcon';
+import { Gender } from 'entities/user/model';
 
 interface Props {
+  open?: boolean;
   onClose(): void;
 }
 
-export const MyHealth = ({ onClose }: Props) => {
+export const MyHealth = ({ open, onClose }: Props) => {
   const isMobile = useMediaQuery('(max-width: 650px)');
   const isTablet = useMediaQuery('(max-width: 950px)');
   const [activeCategory, setActiveCategory] = useState<CategoryState>(
@@ -29,7 +31,7 @@ export const MyHealth = ({ onClose }: Props) => {
 
   const { data } = useGetUserProfile();
 
-  const isMan = data?.gender === 'мужчина';
+  const isMan = data?.gender === Gender.Male;
 
   const activeCategoryIcon = useMemo(
     () => getActiveCategoryIcon(isMan, activeCategory),
@@ -37,7 +39,7 @@ export const MyHealth = ({ onClose }: Props) => {
   );
 
   return (
-    <MainPageModal onClose={onClose}>
+    <MainPageModal onClose={onClose} open={open}>
       <div className={styles.container}>
         <div className={styles.categories}>
           <MyHealthUserBlock

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 const THRESHOLDS = {
-  10: 3,
+  10: 2,
   13: 4,
   16: 5,
 };
@@ -24,11 +24,16 @@ export const usePrintMessage = ({
   );
 
   const messageRef = useRef(messageText);
+  const isGPTMessageStreamingRef = useRef(isGPTMessageStreaming);
   const lastFrameTimeRef = useRef<number>(performance.now());
 
   useEffect(() => {
     messageRef.current = messageText;
   }, [messageText]);
+
+  useEffect(() => {
+    isGPTMessageStreamingRef.current = isGPTMessageStreaming;
+  }, [isGPTMessageStreaming]);
 
   useEffect(() => {
     if (!withAnimation) {
@@ -43,7 +48,7 @@ export const usePrintMessage = ({
       const now = performance.now();
       const timeSinceLastFrame = now - lastFrameTimeRef.current;
 
-      let charsPerFrame = 3;
+      let charsPerFrame = 2;
       for (const [threshold, chars] of Object.entries(THRESHOLDS)) {
         if (timeSinceLastFrame <= Number(threshold)) {
           charsPerFrame = chars;
@@ -51,23 +56,45 @@ export const usePrintMessage = ({
         }
       }
 
-      console.log(timeSinceLastFrame, charsPerFrame, 'charsPerFrame');
+      const isMessageLoaded = messageRef.current.length !== currentIndex;
 
-      currentIndex += charsPerFrame;
-      setDisplayedText(messageRef.current.slice(0, currentIndex));
+      if (isMessageLoaded) {
+        currentIndex += charsPerFrame;
+        console.log(
+          'print',
+          messageRef.current.slice(0, currentIndex).length,
+          'отображаемая длина'
+        );
+
+        setDisplayedText(messageRef.current.slice(0, currentIndex));
+      } else {
+        console.log(
+          'wait ',
+          messageRef.current.slice(0, currentIndex).length,
+          '- отображаемая длина',
+          messageRef.current.length,
+          '- длина загруженного текста'
+        );
+      }
+
       lastFrameTimeRef.current = now;
 
-      if (currentIndex < messageRef.current.length) {
-        frameId = requestAnimationFrame(printNextChar);
-      } else if (!isGPTMessageStreaming) {
+      frameId = requestAnimationFrame(printNextChar);
+
+      if (!isGPTMessageStreamingRef.current) {
+        console.log('end print');
+
+        cancelAnimationFrame(frameId);
         onEndPrint();
       }
     };
 
-    frameId = requestAnimationFrame(printNextChar);
+    printNextChar();
 
-    return () => cancelAnimationFrame(frameId);
-  }, [withAnimation, isGPTMessageStreaming, onEndPrint]);
+    return () => {
+      cancelAnimationFrame(frameId);
+    };
+  }, [withAnimation, onEndPrint]);
 
   return displayedText;
 };

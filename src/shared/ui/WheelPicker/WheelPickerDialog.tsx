@@ -30,6 +30,7 @@ export const WheelPickerDialog = ({
   open,
   withCancelButton = true,
   contentClassName,
+  className,
   onClose,
   onSubmit,
   ...dialogProps
@@ -53,7 +54,7 @@ export const WheelPickerDialog = ({
       {...dialogProps}
       open={open}
       onClose={onClose}
-      classes={{ paper: classNames(styles.dialog, dialogProps.className) }}
+      classes={{ paper: classNames(styles.dialog, className) }}
     >
       <DialogContent className={classNames(styles.content, contentClassName)}>
         <p className={styles.title}>{title}</p>

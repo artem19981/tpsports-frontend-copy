@@ -1,11 +1,10 @@
+import { ResetPasswordSchema } from 'features/Auth/model';
 import { Control } from 'react-hook-form';
 
 import { ControlledInput } from 'shared/ui';
 
-import { ChangePasswordSchema } from '../../model';
-
 interface Props {
-  control: Control<ChangePasswordSchema>;
+  control: Control<ResetPasswordSchema>;
 }
 
 export function ChangePasswordForm({ control }: Props) {

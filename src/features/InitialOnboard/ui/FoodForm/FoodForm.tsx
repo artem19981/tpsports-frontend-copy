@@ -22,6 +22,7 @@ import styles from './FoodForm.module.scss';
 import { getDefaultValues } from './lib/getDefaultValues';
 import { useChangedFields } from 'shared/lib';
 import { isDefined } from 'shared/lib/is-defined';
+import { Gender } from 'entities/user';
 
 export const FoodForm = (userProfile: UserProfile) => {
   const router = useRouter();
@@ -30,7 +31,7 @@ export const FoodForm = (userProfile: UserProfile) => {
   const defaultValues = useMemo(() => getDefaultValues(userProfile), []);
 
   const nextStep =
-    userProfile.gender === 'мужчина'
+    userProfile.gender === Gender.Male
       ? InitialOnboardStep.OrgansAssessmentPrepare
       : InitialOnboardStep.WomenHealth;
 
@@ -154,19 +155,19 @@ export const FoodForm = (userProfile: UserProfile) => {
           tooltip={
             <>
               <p>
-                <strong>0-3</strong> - Испытываю трудности с запоминанием,
-                быстро забываю.
+                <strong>0-3</strong> Испытываю трудности с запоминанием, быстро
+                забываю.
               </p>
               <p>
-                <strong>4-6</strong> - Запоминаю со средней скоростью, иногда
+                <strong>4-6</strong> Запоминаю со средней скоростью, иногда
                 приходится повторять.
               </p>
               <p>
-                <strong>7-8</strong> - Запоминаю хорошо, редко испытываю
+                <strong>7-8</strong> Запоминаю хорошо, редко испытываю
                 сложности.
               </p>
               <p>
-                <strong>9-10</strong> - Быстро усваиваю информацию и легко её
+                <strong>9-10</strong> Быстро усваиваю информацию и легко её
                 вспоминаю.
               </p>
             </>
@@ -193,19 +194,19 @@ export const FoodForm = (userProfile: UserProfile) => {
           tooltip={
             <>
               <p>
-                <strong>0-3</strong> - Неинтересно, избегаю нового.
+                <strong>0-3</strong> Неинтересно, избегаю нового.
               </p>
               <p>
-                <strong>4-6</strong> - Учусь при необходимости, но без особого
+                <strong>4-6</strong> Учусь при необходимости, но без особого
                 энтузиазма.
               </p>
               <p>
-                <strong>7-8</strong> - Люблю осваивать новое, интересуюсь
-                разными темами.
+                <strong>7-8</strong> Люблю осваивать новое, интересуюсь разными
+                темами.
               </p>
               <p>
-                <strong>9-10</strong> - Обожаю учиться, всегда ищу новые знания
-                и навыки.
+                <strong>9-10</strong> Обожаю учиться, всегда ищу новые знания и
+                навыки.
               </p>
             </>
           }

@@ -17,6 +17,7 @@ import {
   MyHealthFormSubmitButton,
   OnboardingOtherModal,
 } from 'entities/onboarding/ui';
+import classNames from 'classnames';
 
 interface Props {
   userProfile: UserProfile;
@@ -58,7 +59,9 @@ export const SportGoalFormMyHealth = ({ userProfile, onSuccess }: Props) => {
             >
               <Button
                 onClick={() => setShowModal(true)}
-                className={styles.button}
+                className={classNames(styles.button, {
+                  [styles.active]: !!fitnessGoalOther,
+                })}
                 variant="transparent"
               >
                 Другие
@@ -72,6 +75,7 @@ export const SportGoalFormMyHealth = ({ userProfile, onSuccess }: Props) => {
         type="submit"
         disabled={isPending}
         visible={formState.isDirty}
+        label="ИЗМЕНИТЬ ЦЕЛИ"
       />
 
       {isPending && <Loader />}
@@ -86,6 +90,7 @@ export const SportGoalFormMyHealth = ({ userProfile, onSuccess }: Props) => {
         title="Другие"
         label="Опишите ваши индивидуальные цели"
         defaultValue={fitnessGoalOther || ''}
+        className={styles.modal}
       />
     </form>
   );
