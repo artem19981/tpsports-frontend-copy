@@ -12,7 +12,11 @@ export const sendChatMessage = async (payload: SendMessageDto) => {
   });
 
   const endTime = performance.now();
-  console.log(`Время начала стриминга: ${(endTime - startTime).toFixed(2)} мс`);
+  console.log(
+    `Время начала стриминга: ${(endTime - startTime).toFixed(2)} мс`,
+    'таймстемп',
+    new Date().valueOf()
+  );
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);

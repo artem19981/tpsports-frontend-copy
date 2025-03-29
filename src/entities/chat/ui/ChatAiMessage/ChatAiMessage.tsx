@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, ReactNode } from 'react';
+import React, { memo } from 'react';
 
 import { AiBot } from 'shared/model/aiBot';
 import { ChatMessageDto } from 'features/Chat/model';
