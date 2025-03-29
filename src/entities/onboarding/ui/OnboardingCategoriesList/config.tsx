@@ -13,47 +13,47 @@ export const getMyHealthCategories = (isMan: boolean) => [
   {
     title: 'Измерения тела',
     icon: <BodyMeasurements width={24} height={24} />,
-    category: MyHealthCategory.BodyMeasurements,
+    value: MyHealthCategory.BodyMeasurements,
   },
   {
     title: 'Спорт и активность',
     icon: <SportAndActivity width={24} height={24} />,
-    category: MyHealthCategory.SportAndActivity,
+    value: MyHealthCategory.SportAndActivity,
   },
   {
     title: 'Тренировки',
     icon: <SportAndActivity width={24} height={24} />,
-    category: MyHealthCategory.Training,
+    value: MyHealthCategory.Training,
   },
   {
     title: 'Цели',
     icon: <Goals width={24} height={24} />,
-    category: MyHealthCategory.Goals,
+    value: MyHealthCategory.Goals,
   },
   {
     title: 'Образ жизни',
     icon: <Lifestyle width={24} height={24} />,
-    category: MyHealthCategory.Lifestyle,
+    value: MyHealthCategory.Lifestyle,
   },
   {
     title: 'Питание',
     icon: <Food width={24} height={24} />,
-    category: MyHealthCategory.Food,
+    value: MyHealthCategory.Food,
   },
   {
     title: 'Ментальное здоровье',
     icon: <MentalHealth width={24} height={24} />,
-    category: MyHealthCategory.MentalHealth,
+    value: MyHealthCategory.MentalHealth,
   },
   {
     title: 'Женское здоровье',
     icon: <WomenHealth width={24} height={24} />,
     disabled: isMan,
-    category: MyHealthCategory.WomenHealth,
+    value: MyHealthCategory.WomenHealth,
   },
   {
     title: 'Органы и системы',
     icon: <OrgansAndSystems width={24} height={24} />,
-    category: MyHealthCategory.OrgansAndSystems,
+    value: MyHealthCategory.OrgansAndSystems,
   },
 ];

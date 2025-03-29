@@ -13,6 +13,5 @@ export const getActiveCategoryIcon = (
 
   const categories = getMyHealthCategories(isMan);
 
-  return categories.find((category) => category.category === activeCategory)
-    ?.icon;
+  return categories.find((category) => category.value === activeCategory)?.icon;
 };

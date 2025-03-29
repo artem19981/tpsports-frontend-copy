@@ -6,6 +6,7 @@ import { InitialOnboardStep } from 'features/InitialOnboard/model';
 import { UserProfile } from 'features/User/model';
 import styles from './Food.module.scss';
 import { useRouter } from 'next/navigation';
+import { Gender } from 'entities/user';
 
 interface Props {
   userProfile: UserProfile;
@@ -15,7 +16,7 @@ export const Food = ({ userProfile }: Props) => {
   const router = useRouter();
 
   const nextStep =
-    userProfile.gender === 'мужчина'
+    userProfile.gender === Gender.Male
       ? InitialOnboardStep.OrgansAssessmentPrepare
       : InitialOnboardStep.WomenHealth;
 

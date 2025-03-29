@@ -12,7 +12,7 @@ export * from './ButtonsGroup';
 export * from './WheelPicker/WheelPicker';
 export * from './RadioButton/RadioButton';
 export * from './AnimatedLogo/AnimatedLogo';
-export * from './MainPageModal/MainPageModal';
+export * from './MainPageModal';
 export * from './Swiper/Swiper';
 export * from './FullScreenDialog/FullScreenDialog';
 export * from './WithAbsoluteScrollBar/WithAbsoluteScrollBar';

@@ -27,10 +27,7 @@ export const MyHealthFormSubmitButton = ({
 
   return (
     <div
-      className={classNames(styles.container, {
-        [styles.invisible]: !visible,
-        [styles.hidden]: !_visible,
-      })}
+      className={classNames(styles.container, { [styles.invisible]: !visible })}
     >
       <Button type="submit" className={styles.button} {...props}>
         сохранить

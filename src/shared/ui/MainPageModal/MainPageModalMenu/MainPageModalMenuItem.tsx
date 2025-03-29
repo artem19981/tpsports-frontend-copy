@@ -1,31 +1,30 @@
 import React, { ReactNode } from 'react';
-import styles from './OnboardingCategoriesList.module.scss';
+import styles from './MainPageModalMenu.module.scss';
 import classNames from 'classnames';
-import { MyHealthCategory } from './types';
 import { Stack } from '@mui/material';
 
 interface Props {
   title: string;
   icon: ReactNode;
   isActive: boolean;
-  category: MyHealthCategory;
+  value: any;
 
   disabled?: boolean;
 
-  onClick(category: MyHealthCategory): void;
+  onClick(value: any): void;
 }
 
-export const OnboardingCategory = ({
+export const MainPageModalMenuItem = ({
   title,
   icon,
   isActive,
   disabled,
-  category,
+  value,
   onClick,
 }: Props) => {
   return (
     <div
-      onClick={() => (disabled ? undefined : onClick(category))}
+      onClick={() => (disabled ? undefined : onClick(value))}
       className={classNames(styles.category, {
         [styles.disabledCategory]: disabled,
       })}

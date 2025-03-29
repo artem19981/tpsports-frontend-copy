@@ -22,6 +22,7 @@ import styles from './FoodForm.module.scss';
 import { getDefaultValues } from './lib/getDefaultValues';
 import { useChangedFields } from 'shared/lib';
 import { isDefined } from 'shared/lib/is-defined';
+import { Gender } from 'entities/user';
 
 export const FoodForm = (userProfile: UserProfile) => {
   const router = useRouter();
@@ -30,7 +31,7 @@ export const FoodForm = (userProfile: UserProfile) => {
   const defaultValues = useMemo(() => getDefaultValues(userProfile), []);
 
   const nextStep =
-    userProfile.gender === 'мужчина'
+    userProfile.gender === Gender.Male
       ? InitialOnboardStep.OrgansAssessmentPrepare
       : InitialOnboardStep.WomenHealth;
 

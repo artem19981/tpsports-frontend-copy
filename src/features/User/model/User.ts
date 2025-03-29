@@ -1,3 +1,5 @@
+import { Gender } from 'entities/user/model';
+
 export interface User {
   email: string;
   password: string;
@@ -25,7 +27,7 @@ export interface UserProfile {
   first_name?: string | null;
   last_name?: string | null;
   birth_date?: string | null;
-  gender?: "мужчина" | "женщина";
+  gender?: Gender;
   phone_number?: string | null;
   height?: number | null;
   weight?: number | null;
