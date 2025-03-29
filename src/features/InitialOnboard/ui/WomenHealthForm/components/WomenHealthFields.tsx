@@ -48,18 +48,18 @@ export const WomenHealthFields = ({ control, isShowAllFields }: Props) => {
           tooltip={
             <>
               <p>
-                <strong>0-3</strong> - Нет болей.
+                <strong>0-3</strong> Нет болей.
               </p>
               <p>
-                <strong>4-6</strong> - Лёгкие боли, не мешающие повседневной
+                <strong>4-6</strong> Лёгкие боли, не мешающие повседневной
                 жизни.
               </p>
               <p>
-                <strong>7-8</strong> - Сильные боли, заметно влияющие на
+                <strong>7-8</strong> Сильные боли, заметно влияющие на
                 активность.
               </p>
               <p>
-                <strong>9-10</strong> - Очень сильные боли, существенно
+                <strong>9-10</strong> Очень сильные боли, существенно
                 ограничивающие деятельность.
               </p>
             </>

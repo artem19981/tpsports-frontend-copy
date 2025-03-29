@@ -17,6 +17,8 @@ interface Props {
   pickerItemHeight?: number;
   postfix?: string;
 
+  dialogClassName?: string;
+
   renderContainer(props: { onClick: () => void }): ReactNode;
   onSubmit: (data: WheelItem[]) => void;
 }
@@ -30,6 +32,7 @@ export const WheelPicker = ({
   pickerItemClassName,
   pickerItemHeight,
   postfix,
+  dialogClassName,
   renderContainer,
   onSubmit,
 }: Props) => {
@@ -62,6 +65,7 @@ export const WheelPicker = ({
           onClose={handleClose}
           title={title}
           onSubmit={handleSubmit}
+          className={dialogClassName}
         >
           <div className={styles.wheels}>
             {wheels.map((wheel, idx) => (

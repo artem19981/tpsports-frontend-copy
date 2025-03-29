@@ -12,12 +12,15 @@ interface Props {
   form: BodyMeasurementsSchema;
   setValue: UseFormSetValue<BodyMeasurementsSchema>;
   isSmallHeight: boolean;
+
+  pickersClassName?: string;
 }
 
 export const BodyMeasurementsPickers = ({
   form,
   setValue,
   isSmallHeight,
+  pickersClassName,
 }: Props) => {
   const { kilograms, grams } = getSelectedWeight(form.weight);
 
@@ -43,6 +46,7 @@ export const BodyMeasurementsPickers = ({
         onSubmit={(data) => {
           setValue('height', +data[0].value, { shouldDirty: true });
         }}
+        dialogClassName={pickersClassName}
       />
       <WheelPicker
         title="Вес"
@@ -68,6 +72,7 @@ export const BodyMeasurementsPickers = ({
             shouldDirty: true,
           });
         }}
+        dialogClassName={pickersClassName}
       />
     </>
   );

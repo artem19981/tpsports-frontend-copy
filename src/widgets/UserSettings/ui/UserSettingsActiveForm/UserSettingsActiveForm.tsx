@@ -9,6 +9,7 @@ import { UserSettingsMenuItem } from 'entities/user';
 import {
   UserPersonalInfoForm,
   UserSettingsChangePasswordForm,
+  UserTariffForm,
 } from 'features/User';
 
 interface Props {
@@ -23,7 +24,9 @@ export const UserSettingsActiveForm = memo(
         <UserPersonalInfoForm userProfile={userProfile} />
       ),
       [UserSettingsMenuItem.ChangePassword]: <UserSettingsChangePasswordForm />,
-      [UserSettingsMenuItem.PricingPlan]: <div>Мой тариф</div>,
+      [UserSettingsMenuItem.PricingPlan]: (
+        <UserTariffForm tariff={userProfile.tariff} />
+      ),
     };
 
     if (!activeMenu) {

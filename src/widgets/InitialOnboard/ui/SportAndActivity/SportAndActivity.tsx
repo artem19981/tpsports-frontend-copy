@@ -16,7 +16,7 @@ export const SportAndActivity = ({ userProfile }: Props) => {
 
   return (
     <OnboardingLayout
-      title="Спорт и Активность"
+      title="Активность"
       step={InitialOnboardStep.Sport}
       childrenClassName={styles.container}
       headerClassName={styles.header}

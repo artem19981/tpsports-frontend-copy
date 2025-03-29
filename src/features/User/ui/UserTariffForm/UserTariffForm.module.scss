@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+
+  padding: 0 20px;
+}
+
+.title {
+  font-family: var(--NeueMachina), sans-serif;
+  font-size: 30px;
+  line-height: 32px;
+  letter-spacing: -0.053em;
+  text-align: left;
+
+  margin: 50px 20px 30px 20px;
+
+  @media screen and (max-width: 450px) {
+    margin: 29px 20px;
+  }
+}
+
+.text {
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #dbdbdb;
+
+  margin-left: 20px;
+  margin-bottom: 28px;
+}
+
+button.button {
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  text-transform: capitalize;
+  height: 45px;
+}
+
+.bold {
+  font-weight: 700;
+}

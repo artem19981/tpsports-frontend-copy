@@ -14,7 +14,7 @@ export const UserSettingsBlock = () => {
         height={48}
       />
 
-      <h3 className={styles.title}>Настройки</h3>
+      <h3 className={styles.title}>Аккаунт TPS</h3>
     </div>
   );
 };

@@ -20,6 +20,7 @@ interface Props {
   form: any;
   isAlcoholConsumptionDefined: boolean;
   isSleepQualityDefined: boolean;
+  modalClassName?: string;
 
   setValue: UseFormSetValue<LifestyleSchema>;
   control: Control<LifestyleSchema>;
@@ -30,13 +31,18 @@ export const LifestylesFormFields = ({
   control,
   isAlcoholConsumptionDefined,
   isSleepQualityDefined,
+  modalClassName,
   setValue,
 }: Props) => {
   return (
     <>
       <Label className={styles.label}>Режим сна</Label>
 
-      <SleepWheelPicker form={form} setValue={setValue} />
+      <SleepWheelPicker
+        form={form}
+        setValue={setValue}
+        modalClassName={modalClassName}
+      />
 
       <div className={styles.sleepDurationContainer}>
         <p className={styles.sleepDuration}>
@@ -56,18 +62,18 @@ export const LifestylesFormFields = ({
         tooltip={
           <>
             <p>
-              <strong>0-3</strong> - Частые пробуждения, бессонница, ощущение
+              <strong>0-3</strong> Частые пробуждения, бессонница, ощущение
               усталости после сна.
             </p>
             <p>
-              <strong>4-6</strong> - Сон прерывистый, не всегда чувствую себя
+              <strong>4-6</strong> Сон прерывистый, не всегда чувствую себя
               отдохнувшим.
             </p>
             <p>
-              <strong>7-8</strong> - Сплю спокойно, просыпаюсь бодрым.
+              <strong>7-8</strong> Сплю спокойно, просыпаюсь бодрым.
             </p>
             <p>
-              <strong>9-10</strong> - Глубокий, восстанавливающий сон, полное
+              <strong>9-10</strong> Глубокий, восстанавливающий сон, полное
               ощущение отдыха.
             </p>
           </>
@@ -105,25 +111,6 @@ export const LifestylesFormFields = ({
       <Slider
         forcePositionForLabel
         label="Употребление алкоголя"
-        tooltip={
-          <>
-            <p>
-              <strong>0-3</strong> - Частые пробуждения, бессонница, ощущение
-              усталости после сна.
-            </p>
-            <p>
-              <strong>4-6</strong> - Сон прерывистый, не всегда чувствую себя
-              отдохнувшим.
-            </p>
-            <p>
-              <strong>7-8</strong> - Сплю спокойно, просыпаюсь бодрым.
-            </p>
-            <p>
-              <strong>9-10</strong> - Глубокий, восстанавливающий сон, полное
-              ощущение отдыха.
-            </p>
-          </>
-        }
         control={control}
         name="alcohol_consumption"
         min={0}

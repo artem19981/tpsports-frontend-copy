@@ -16,7 +16,7 @@ export const StrengthTraining = ({ userProfile }: Props) => {
 
   return (
     <OnboardingLayout
-      title="Спорт и Активность"
+      title="Спорт"
       step={InitialOnboardStep.StrengthTraining}
       containerClassName={styles.container}
       contentClassName={styles.content}

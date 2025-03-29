@@ -9,13 +9,17 @@ interface Props {
   value?: string;
 
   inputClassName?: string;
+  modalClassName?: string;
 
   onChange: (value: string) => void;
   renderAfterInput?: (ref: RefObject<HTMLInputElement>) => ReactNode;
 }
 
 export const DateWheelPicker = forwardRef<HTMLInputElement, Props>(
-  ({ value = '', inputClassName, renderAfterInput, onChange }, ref) => {
+  (
+    { value = '', inputClassName, modalClassName, renderAfterInput, onChange },
+    ref
+  ) => {
     const [showDialog, setShowDialog] = useState(false);
 
     const onClose = () => {
@@ -44,6 +48,7 @@ export const DateWheelPicker = forwardRef<HTMLInputElement, Props>(
           onClose={onClose}
           title="Дата рождения"
           footer={null}
+          className={modalClassName}
         >
           <DateWheelPickerContent
             onClose={onClose}

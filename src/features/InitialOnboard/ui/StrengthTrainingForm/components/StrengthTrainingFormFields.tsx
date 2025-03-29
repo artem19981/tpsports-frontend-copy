@@ -27,6 +27,8 @@ interface Props {
   favoriteTrainingTypesOther: string;
   categoriesClassName: string;
 
+  modalClassName?: string;
+
   setValue: UseFormSetValue<any>;
 }
 
@@ -35,6 +37,7 @@ export const StrengthTrainingFormFields = ({
   favoriteTrainingTypes,
   favoriteTrainingTypesOther,
   categoriesClassName,
+  modalClassName,
   setValue,
 }: Props) => {
   const [showModal, setShowModal] = useState(false);
@@ -142,7 +145,7 @@ export const StrengthTrainingFormFields = ({
         </Swiper>
 
         {categories.length > 0 && (
-          <Label className={styles.secondLabel}>Физическая активность</Label>
+          <Label className={styles.secondLabel}>Тренировки</Label>
         )}
 
         <div className={categoriesClassName}>
@@ -166,6 +169,7 @@ export const StrengthTrainingFormFields = ({
           title="Другие"
           label="Опишите виды спорта и физической активности"
           defaultValue={favoriteTrainingTypesOther || ''}
+          className={modalClassName}
         />
       )}
     </>

@@ -23,7 +23,7 @@ export const getMenuItems = (
   },
   {
     icon: <SettingsImg />,
-    label: 'Настройки',
+    label: 'Аккаунт TPS',
     onClick: openUserSettings,
   },
   {

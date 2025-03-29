@@ -17,11 +17,12 @@ import styles from '../LifestyleForm.module.scss';
 
 interface Props {
   form: any;
+  modalClassName?: string;
 
   setValue: UseFormSetValue<LifestyleSchema>;
 }
 
-export const SleepWheelPicker = ({ form, setValue }: Props) => {
+export const SleepWheelPicker = ({ form, modalClassName, setValue }: Props) => {
   const [showDialog, setShowDialog] = useState(false);
 
   const defaultValues = useMemo(
@@ -81,6 +82,7 @@ export const SleepWheelPicker = ({ form, setValue }: Props) => {
           onClose={handleClose}
           title="Режим сна"
           onSubmit={handleSubmit}
+          className={modalClassName}
         >
           <div className={styles.wheels}>
             <div className={styles.wheelItem}>

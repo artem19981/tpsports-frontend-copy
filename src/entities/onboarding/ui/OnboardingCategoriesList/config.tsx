@@ -16,12 +16,12 @@ export const getMyHealthCategories = (isMan: boolean) => [
     value: MyHealthCategory.BodyMeasurements,
   },
   {
-    title: 'Спорт и активность',
+    title: 'Активность',
     icon: <SportAndActivity width={24} height={24} />,
     value: MyHealthCategory.SportAndActivity,
   },
   {
-    title: 'Тренировки',
+    title: 'Спорт',
     icon: <SportAndActivity width={24} height={24} />,
     value: MyHealthCategory.Training,
   },

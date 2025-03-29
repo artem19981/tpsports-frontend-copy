@@ -45,6 +45,7 @@ export const UserPersonalInfoForm = ({ userProfile }: Props) => {
             control={control}
             birthDate={birthDate}
             setValue={setValue}
+            modalClassName={styles.modal}
           />
         </div>
       </WithAbsoluteScrollBar>

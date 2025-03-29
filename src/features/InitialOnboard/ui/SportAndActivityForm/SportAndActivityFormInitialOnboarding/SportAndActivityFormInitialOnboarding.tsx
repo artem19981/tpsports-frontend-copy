@@ -81,7 +81,7 @@ export const SportAndActivityFormInitialOnboarding = ({
           className={styles.label}
           tooltip="Посмотреть данные можно в приложении «Здоровье» (iPhone), Google Fit или на фитнес-трекере."
         >
-          Средняя дистанция, которую вы проходите / пробегаете за день
+          Средняя дистанция, которую вы преодолеваете за день
         </Label>
 
         <div className={styles.steps}>

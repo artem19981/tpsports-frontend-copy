@@ -18,6 +18,7 @@ interface Props {
   control: Control<UserSettingsSchema>;
   birthDate: string | undefined;
   inputWrapperClassName?: string;
+  modalClassName?: string;
 
   setValue: UseFormSetValue<UserSettingsSchema>;
 }
@@ -26,6 +27,7 @@ export const UserPersonalInfoFormFields = ({
   control,
   birthDate,
   inputWrapperClassName,
+  modalClassName,
   setValue,
 }: Props) => {
   return (
@@ -49,6 +51,7 @@ export const UserPersonalInfoFormFields = ({
           setValue('birth_date', value, { shouldDirty: true })
         }
         inputClassName={inputWrapperClassName}
+        modalClassName={modalClassName}
       />
 
       <ControlledToggleButtons

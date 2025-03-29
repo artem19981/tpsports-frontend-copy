@@ -6,8 +6,9 @@ import classNames from 'classnames';
 
 export const MyHealthFormSubmitButton = ({
   visible,
+  label = 'сохранить',
   ...props
-}: ButtonProps & { visible: boolean }) => {
+}: ButtonProps & { visible: boolean; label?: string }) => {
   const [_visible, setVisible] = React.useState(visible);
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export const MyHealthFormSubmitButton = ({
       className={classNames(styles.container, { [styles.invisible]: !visible })}
     >
       <Button type="submit" className={styles.button} {...props}>
-        сохранить
+        {label}
       </Button>
     </div>
   );

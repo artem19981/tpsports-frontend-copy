@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 334px;
+
+  flex: 1;
+}
+
+div.modal {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+  opacity: 0.4;
+
+  margin-bottom: 30px;
+}
+
+button.button {
+  color: #c81515;
+
+  // background: transparent;
+  border-color: #707070;
+}

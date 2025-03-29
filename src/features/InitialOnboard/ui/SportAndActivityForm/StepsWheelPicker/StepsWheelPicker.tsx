@@ -17,12 +17,14 @@ import { kilometersWheels, metresWheels, toggleButtons } from './config';
 interface Props {
   defaultSelectedValues: string[];
   inputValue: number;
+  className?: string;
   onSubmit: (data: WheelItem[]) => void;
 }
 
 export const StepsWheelPicker = ({
   defaultSelectedValues,
   inputValue,
+  className,
   onSubmit,
 }: Props) => {
   const isSmallHeight = useMediaQuery('(max-height: 570px)');
@@ -101,8 +103,9 @@ export const StepsWheelPicker = ({
         <WheelPickerDialog
           open={showDialog}
           onClose={handleClose}
-          title="Средняя дистанция, которую вы проходите / пробегаете за день"
+          title="Средняя дистанция, которую вы преодолеваете за день"
           onSubmit={handleSubmit}
+          className={className}
         >
           <div className={localStyles.toggleButtonsContainer}>
             <ToggleButtons

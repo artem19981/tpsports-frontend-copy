@@ -15,6 +15,7 @@ import styles from '../SportGoalForm.module.scss';
 import { buttons } from '../config';
 import { OnboardingOtherModal } from 'entities/onboarding/ui';
 import Image from 'next/image';
+import classNames from 'classnames';
 
 interface Props {
   userProfile: UserProfile;
@@ -52,7 +53,9 @@ export const SportGoalFormInitialOnboarding = ({
         >
           <Button
             onClick={() => setShowModal(true)}
-            className={styles.button}
+            className={classNames(styles.button, {
+              [styles.active]: !!fitnessGoalOther,
+            })}
             variant="transparent"
           >
             Другие

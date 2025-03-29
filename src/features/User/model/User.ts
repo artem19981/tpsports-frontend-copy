@@ -19,6 +19,11 @@ export interface UserDto {
   isOnboardingCompleted: boolean;
 }
 
+export interface UserTariff {
+  name: string;
+  messages_limit: number;
+}
+
 export interface UserProfile {
   id: number;
   email: string;
@@ -71,4 +76,6 @@ export interface UserProfile {
 
   // todo: прошел ли пользователь начальный онбординг
   is_completed: boolean;
+
+  tariff: UserTariff;
 }

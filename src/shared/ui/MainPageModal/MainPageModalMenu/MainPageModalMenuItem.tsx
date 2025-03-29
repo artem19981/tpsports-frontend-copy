@@ -32,6 +32,8 @@ export const MainPageModalMenuItem = ({
       <Stack style={{ color: isActive ? '#00FF3B' : '#fff' }}>{icon}</Stack>
 
       <p className={styles.categoryTitle}>{title}</p>
+
+      {isActive && <div className={styles.activeLine} />}
     </div>
   );
 };

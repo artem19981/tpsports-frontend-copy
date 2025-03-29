@@ -58,6 +58,7 @@ export const BodyMeasurementsHealthForm = ({
             form={form}
             setValue={setValue}
             isSmallHeight={isSmallHeight}
+            pickersClassName={styles.bodyMeasurementsPickers}
           />
 
           <BodyIndex form={form} className={styles.bodyIndexContainer} />
