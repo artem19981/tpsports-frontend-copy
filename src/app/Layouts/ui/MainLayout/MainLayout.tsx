@@ -5,7 +5,7 @@ import { FC, PropsWithChildren, ReactNode, useState } from "react";
 import cn from "classnames";
 import { useChatType } from "entities/chat/ui";
 
-import { Sidebar } from "pageModules/AiPage/ui/Sidebar";
+import { Sidebar } from "widgets/SideBar/Sidebar";
 import { getBackgroundColorByChatType } from "../../lib/getBackgroundColorByChatType";
 import styles from "./MainLayout.module.scss";
 

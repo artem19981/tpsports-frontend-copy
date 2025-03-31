@@ -18,11 +18,6 @@ export function PageContent({ userData }: PageContentProps) {
 
   return (
     <div className={styles.pageContainer}>
-      {/* <Sidebar
-        isOpen={isSidebarOpen}
-        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-      /> */}
-
       <div
         className={styles.mainSection}
         style={{
