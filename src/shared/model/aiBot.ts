@@ -6,11 +6,7 @@ export interface AiBot {
   borderColor: string;
   animation: any;
   questions: AiBotQuestion[];
-  icon: string;
-  welcomeIcon: string;
   shadowColor: string;
-  topLight: string;
-  bottomLight: string;
   gradient: string;
   messageLoaderBackground: string;
 }

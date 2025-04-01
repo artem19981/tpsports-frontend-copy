@@ -10,16 +10,3 @@ export const phoneNumberSchema = string()
 
     return createError({ message: 'Введите корректный номер телефона' });
   });
-
-function validatePhoneNumber(phone: string): boolean {
-  if (phone.startsWith('+8')) {
-    return false;
-  }
-
-  const cleanedPhone = phone.replace(/[^\d+]/g, '');
-
-  return (
-    (cleanedPhone.startsWith('+7') && cleanedPhone.length === 12) ||
-    (cleanedPhone.startsWith('8') && cleanedPhone.length === 11)
-  );
-}

@@ -4,22 +4,6 @@ import medicAnimationJson from '@/app/assets/animations/Doctor.json';
 import nutritionologAnimationJson from '@/app/assets/animations/Natucirolog.json';
 import psychologistAnimationJson from '@/app/assets/animations/Psycholog.json';
 import coachAnimationJson from '@/app/assets/animations/Trainer.json';
-import nutritionologBottomLightImg from '@/app/assets/images/aiChat/lights/blue-bottom-light.svg';
-import nutritionologTopLightImg from '@/app/assets/images/aiChat/lights/blue-top-light.svg';
-import psychologistBottomLightImg from '@/app/assets/images/aiChat/lights/orange-bottom-light.svg';
-import psychologistTopLightImg from '@/app/assets/images/aiChat/lights/orange-top-light.svg';
-import medicBottomLightImg from '@/app/assets/images/aiChat/lights/white-bottom-light.svg';
-import medicTopLightImg from '@/app/assets/images/aiChat/lights/white-top-light.svg';
-import coachBottomLightImg from '@/app/assets/images/aiChat/lights/yellow-bottom-light.svg';
-import coachTopLightImg from '@/app/assets/images/aiChat/lights/yellow-top-light.svg';
-import coachImg from '@/app/assets/images/aiChat/message-circles/coach-circle.svg';
-import medicImg from '@/app/assets/images/aiChat/message-circles/medic-circle.svg';
-import nutritionologImg from '@/app/assets/images/aiChat/message-circles/nutritionolog-circle.svg';
-import psychologistImg from '@/app/assets/images/aiChat/message-circles/psychologist-circle.svg';
-import coachWelcomeImg from '@/app/assets/images/aiChat/welcome-circles/coach-welcome-circle.svg';
-import medicWelcomeImg from '@/app/assets/images/aiChat/welcome-circles/medic-welcome-circle.svg';
-import nutritionologWelcomeImg from '@/app/assets/images/aiChat/welcome-circles/nutritionolog-welcome-circle.svg';
-import psychologistWelcomeImg from '@/app/assets/images/aiChat/welcome-circles/psychologist-welcome-circle.svg';
 import { ChatType } from 'entities/chat/model/ChatType';
 
 export const BOTS: AiBot[] = [
@@ -49,11 +33,7 @@ export const BOTS: AiBot[] = [
         message: 'Как правильно подготовиться к марафону?',
       },
     ],
-    icon: coachImg,
-    welcomeIcon: coachWelcomeImg,
     shadowColor: '0px 0px 11px 0px #D7BF084A',
-    topLight: coachTopLightImg,
-    bottomLight: coachBottomLightImg,
     gradient:
       'transparent linear-gradient(180deg, #D8BF08 0%, #5EB712 100%) 0% 0% no-repeat padding-box',
     messageLoaderBackground:
@@ -85,11 +65,7 @@ export const BOTS: AiBot[] = [
         message: 'Как предотвратить диабет?',
       },
     ],
-    icon: medicImg,
-    welcomeIcon: medicWelcomeImg,
     shadowColor: '0px 0px 11px 0px #FFFFFF4D',
-    topLight: medicTopLightImg,
-    bottomLight: medicBottomLightImg,
     gradient:
       'transparent linear-gradient(180deg, #F9F9F9 0%, #BCBCBC 100%) 0% 0% no-repeat padding-box',
     messageLoaderBackground:
@@ -121,11 +97,7 @@ export const BOTS: AiBot[] = [
         message: 'Как мне подобрать бады?',
       },
     ],
-    icon: nutritionologImg,
-    welcomeIcon: nutritionologWelcomeImg,
     shadowColor: '0px 0px 11px 0px #019CFE4D',
-    topLight: nutritionologTopLightImg,
-    bottomLight: nutritionologBottomLightImg,
     gradient:
       'transparent linear-gradient(180deg, #01D582 0%, #0166FF 100%) 0% 0% no-repeat padding-box',
     messageLoaderBackground:
@@ -157,11 +129,7 @@ export const BOTS: AiBot[] = [
         message: 'Мне мешает волнение, как с ним справиться?',
       },
     ],
-    icon: psychologistImg,
-    welcomeIcon: psychologistWelcomeImg,
     shadowColor: '0px 0px 11px 0px #F54B0066',
-    topLight: psychologistTopLightImg,
-    bottomLight: psychologistBottomLightImg,
     gradient:
       'transparent linear-gradient(180deg, #F14A03 0%, #95384C 100%) 0% 0% no-repeat padding-box',
     messageLoaderBackground:
