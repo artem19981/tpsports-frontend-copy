@@ -1,7 +1,7 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { axiosInstance, withTokenInterceptor } from 'shared/api';
+import { deleteAccessToken } from '../lib';
 
 export const logoutUserFromAllDevices = async () => {
   await withTokenInterceptor(async (accessToken: string) => {
@@ -13,7 +13,7 @@ export const logoutUserFromAllDevices = async () => {
       }
     );
 
-    cookies().delete('access_token');
+    deleteAccessToken();
 
     return {};
   });

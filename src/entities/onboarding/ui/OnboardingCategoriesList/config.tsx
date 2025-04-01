@@ -1,6 +1,7 @@
 import BodyMeasurements from './assets/bodyMeasurements.svg?component';
 import Goals from './assets/goals.svg?component';
 import SportAndActivity from './assets/sportAndActivity.svg?component';
+import Activity from './assets/activity.svg?component';
 import WomenHealth from './assets/womenHealth.svg?component';
 import Lifestyle from './assets/lifestyle.svg?component';
 import Food from './assets/food.svg?component';
@@ -17,7 +18,7 @@ export const getMyHealthCategories = (isMan: boolean) => [
   },
   {
     title: 'Активность',
-    icon: <SportAndActivity width={24} height={24} />,
+    icon: <Activity width={24} height={24} />,
     value: MyHealthCategory.SportAndActivity,
   },
   {

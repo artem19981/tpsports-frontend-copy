@@ -6,6 +6,7 @@ import { ActionResult, ActionStatus } from 'shared/ui/ActionResult';
 
 import { confirmRegistration } from 'features/Auth/api';
 import styles from './RegistrationConfirmPage.module.scss';
+import { RedirectToPage } from './RedirectToPage';
 
 interface Props {
   token: string;
@@ -21,12 +22,7 @@ export const RegistrationConfirmPage = async ({ token }: Props) => {
       headerClassName={styles.header}
     >
       {isSuccessConfirm ? (
-        <ActionResult
-          title="Вы успешно зарегестрировались"
-          status={ActionStatus.Success}
-          subtitle="Войдите в аккаунт"
-          action={<Button href={'/login'}>Войти</Button>}
-        />
+        <RedirectToPage token={token} />
       ) : (
         <ActionResult
           title="Не удалось подтвердить почту"
