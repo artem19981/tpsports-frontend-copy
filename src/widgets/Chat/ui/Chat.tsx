@@ -1,28 +1,29 @@
-'use client';
+"use client";
 
-import React, { useCallback } from 'react';
-import { Stack } from '@mui/material';
+import { Stack } from "@mui/material";
 import {
+  AnimatedChatLogo,
   ChatAiMessage,
   ChatAiMessageActionsProps,
   ChatUserMessage,
-} from 'entities/chat/ui';
-import { ChatVariant } from 'features/Chat/model';
-import { ChatMessageActions } from 'features/Chat/ui';
+} from "entities/chat/ui";
+import { ChatVariant } from "features/Chat/model";
+import { ChatMessageActions } from "features/Chat/ui";
+import { useCallback } from "react";
 
-import { AiBot } from 'shared/model/aiBot';
+import { AiBot } from "shared/model/aiBot";
 
-import classNames from 'classnames';
-import { ChatPageInput } from 'features/Chat/ui/ChatPageInput/ChatPageInput';
-import { MessageSkeletons } from './MessageSkeletons/MessageSkeletons';
-import { useGetSelectedBot } from 'entities/chat/lib/useGetSelectedBot';
-import { NEW_USER_MESSAGE_ID } from 'entities/chat/config';
-import { useAiMessageWithLoading, useChat, useShowScrollButton } from '../lib';
+import classNames from "classnames";
+import { NEW_USER_MESSAGE_ID } from "entities/chat/config";
+import { useGetSelectedBot } from "entities/chat/lib/useGetSelectedBot";
+import { ChatPageInput } from "features/Chat/ui/ChatPageInput/ChatPageInput";
+import { useAiMessageWithLoading, useChat, useShowScrollButton } from "../lib";
+import { MessageSkeletons } from "./MessageSkeletons/MessageSkeletons";
 
-import styles from './Chat.module.scss';
-import { DEFAULT_AI_MESSAGE_HEIGHT } from '../config/defaultMessageheight';
-import { ScrollButton } from './ScrollButton/ScrollButton';
-import { useSendMessageWhenMount } from '../lib/useSendMessageWhenMount';
+import { DEFAULT_AI_MESSAGE_HEIGHT } from "../config/defaultMessageheight";
+import { useSendMessageWhenMount } from "../lib/useSendMessageWhenMount";
+import styles from "./Chat.module.scss";
+import { ScrollButton } from "./ScrollButton/ScrollButton";
 
 interface Props {
   chatVariant: ChatVariant;
@@ -74,10 +75,19 @@ export const Chat = ({ chatVariant }: Props) => {
     refetch();
   }, []);
 
+  console.log(messages);
+
   return (
     <Stack className={styles.container}>
+      {messages.length === 0 ? (
+        <div className={styles.animateLogo}>
+          <AnimatedChatLogo />
+        </div>
+      ) : (
+        <></>
+      )}
       <Stack
-        className={classNames(styles.messages, 'hide-scroll', {
+        className={classNames(styles.messages, "hide-scroll", {
           [styles.withLoading]: isFetching,
         })}
         ref={messagesRef}
@@ -85,7 +95,7 @@ export const Chat = ({ chatVariant }: Props) => {
         {isFetching && !hasData && <MessageSkeletons />}
 
         {messages.map((message, idx) => {
-          if (message.sender === 'user') {
+          if (message.sender === "user") {
             const isLastMessage = message.id.startsWith(NEW_USER_MESSAGE_ID);
 
             return (
