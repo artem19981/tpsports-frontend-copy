@@ -1,4 +1,15 @@
-div.layout {
+.pageContainer {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.mainSection {
+  flex: 1;
+  margin: 0 auto;
+}
+
+.layout {
   padding: 100px 0;
 
   @media screen and (max-width: 600px) {
@@ -9,17 +20,14 @@ div.layout {
   }
 }
 
-div.content {
-  flex: 1;
-
+.content {
   @media screen and (max-width: 600px) {
     max-height: none;
     height: auto;
   }
 }
 
-div.children {
+.children {
   justify-content: space-between;
-
   overflow: overlay;
 }

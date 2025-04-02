@@ -1,17 +1,13 @@
-'use client';
+"use client";
 
-import React, { FC, PropsWithChildren, ReactNode } from 'react';
+import { FC, PropsWithChildren, ReactNode, useState } from "react";
 
-import cn from 'classnames';
-import { useChatType } from 'entities/chat/ui';
-import { UserSettingsMenu } from 'features/User';
-import Image from 'next/image';
-import Link from 'next/link';
+import cn from "classnames";
+import { useChatType } from "entities/chat/ui";
 
-import styles from './MainLayout.module.scss';
-import logoImg from '@/app/assets/images/aiChat/logo/logo.png';
-import whiteLogo from '@/app/assets/images/aiChat/logo/tps-white.png';
-import { getBackgroundColorByChatType } from '../../lib/getBackgroundColorByChatType';
+import { Sidebar } from "widgets/SideBar/Sidebar";
+import { getBackgroundColorByChatType } from "../../lib/getBackgroundColorByChatType";
+import styles from "./MainLayout.module.scss";
 
 interface Props {
   links?: ReactNode;
@@ -35,6 +31,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   const chatTypeContext = useChatType();
 
   const backgrounds = getBackgroundColorByChatType(chatTypeContext?.chatType);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
     <div className={cn(styles.container, containerClassName)}>
@@ -48,12 +45,12 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
       />
 
       <div className={cn(styles.content, contentClassName)}>
-        <div className={cn(styles.header, headerClassName)}>
+        {/* <div className={cn(styles.header, headerClassName)}>
           <div className={styles.logoWrapper}>
             <Link
               href="/ai"
               onClick={() => chatTypeContext?.setChatType?.(undefined)}
-              style={{ display: 'flex' }}
+              style={{ display: "flex" }}
             >
               <Image
                 src={chatTypeContext?.chatType ? whiteLogo : logoImg}
@@ -65,12 +62,17 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
             </Link>
           </div>
 
-          {!!links && <div className={styles.desktopLinks}>{links}</div>}
-
           {withUserMenu && <UserSettingsMenu />}
-        </div>
+        </div> */}
+        {withUserMenu && (
+          <Sidebar
+            isOpen={isSidebarOpen}
+            onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+          />
+        )}
 
-        <div className={cn(styles.children, childrenClassName)}>
+        <div className={cn(styles.children, childrenClassName)} id="children">
+          {!!links && <div className={styles.desktopLinks}>{links}</div>}
           {!!links && <div className={styles.mobileLinks}>{links}</div>}
           {children}
         </div>
