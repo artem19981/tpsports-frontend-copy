@@ -231,7 +231,7 @@
   position: relative;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -304,7 +304,7 @@
   font-family: var(--gilroy), sans-serif !important;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: -5px;
     top: 50%;
