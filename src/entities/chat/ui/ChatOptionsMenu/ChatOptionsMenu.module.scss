@@ -1,0 +1,17 @@
+div.popper {
+  z-index: 2;
+
+  border-radius: 13px;
+}
+
+div.paper {
+  background: transparent;
+  box-shadow: none;
+
+  transition: background 0s !important;
+}
+
+button.icon {
+  border-radius: 8px;
+  padding: 8px 5px;
+}

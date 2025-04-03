@@ -215,7 +215,7 @@
   position: relative;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -286,7 +286,7 @@
   pointer-events: none;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: -5px;
     top: 50%;
