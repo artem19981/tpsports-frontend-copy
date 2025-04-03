@@ -10,6 +10,16 @@
   padding-bottom: 15px;
 }
 
+.animateLogo {
+  position: absolute;
+  top: 250px;
+  left: 45%;
+  z-index: -7;
+}
+.tags {
+  margin-bottom: 30px;
+}
+
 .messages {
   flex-direction: column;
   width: 100%;

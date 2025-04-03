@@ -21,6 +21,8 @@ export const Tariff = (user: any) => {
     useState<ExtendedPricingCardProps | null>(null);
 
   const activeTariffName = user.user.tariff?.name;
+  const activeTariff = user.user;
+  console.log(activeTariff.tariff.tariff_type);
 
   const handleSubscribe = (plan: ExtendedPricingCardProps) => {
     if (plan.buttonText === "Связаться") {
@@ -129,12 +131,24 @@ export const Tariff = (user: any) => {
               ? card.buttonText
               : `Выбрать ${card.title}`;
           let buttonColor = card.buttonColor;
+
           if (
-            activeTariffName === card.title &&
+            activeTariff &&
+            activeTariff.tariff.tariff === card.title &&
             card.buttonText !== "Связаться"
           ) {
-            buttonText = "Мой текущий тариф";
-            buttonColor = "lightgray";
+            if (
+              activeTariff.tariff.tariff_type === (showYears ? "year" : "month")
+            ) {
+              buttonText = "Мой текущий тариф";
+              buttonColor = "lightgray";
+            } else if (activeTariff.tariff.tariff_type === "year") {
+              buttonText = "Мой текущий тариф";
+              buttonColor = "lightgray";
+            } else {
+              buttonText = "Продлить тариф";
+              buttonColor = "lightgray";
+            }
           }
 
           return (

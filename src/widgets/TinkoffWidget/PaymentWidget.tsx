@@ -27,11 +27,7 @@ export const PaymentWidget: React.FC<PaymentWidgetProps> = ({
 
   useEffect(() => {
     const processPayment = async () => {
-      if (
-        !user.email
-        // !user.phone_number ||
-        // !(user.first_name && user.last_name)
-      ) {
+      if (!user.email) {
         alert("Пожалуйста, заполните профиль (email) для оплаты.");
         return;
       }
@@ -59,7 +55,7 @@ export const PaymentWidget: React.FC<PaymentWidgetProps> = ({
           if (receiptInput) {
             const receiptData = {
               EmailCompany: "mail@mail.com",
-              Taxation: "patent", // замените на используемую систему налогообложения
+              Taxation: "patent",
               FfdVersion: "1.2",
               Items: [
                 {
@@ -107,6 +103,8 @@ export const PaymentWidget: React.FC<PaymentWidgetProps> = ({
       <input type="text" name="amount" value={finalPrice} readOnly />
       <input type="hidden" name="order" value="" />
       <input type="hidden" name="receipt" value="" />
+      <input type="hidden" name="reccurentPayment" value="true" />
+      <input type="hidden" name="customerKey" value="testCustomer1234"></input>
       <input
         type="text"
         name="description"

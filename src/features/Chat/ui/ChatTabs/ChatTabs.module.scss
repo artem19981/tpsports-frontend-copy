@@ -4,9 +4,15 @@
   justify-content: center;
   gap: 18px;
 
-  width: 100%;
+  // width: 100%;
   margin: 0 auto;
   height: fit-content;
+  max-width: 782px;
+  overflow: hidden;
+
+  @media (max-width: 490px) {
+    width: 90vw;
+  }
 }
 
 .tab {

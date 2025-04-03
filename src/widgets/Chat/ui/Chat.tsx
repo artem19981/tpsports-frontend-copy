@@ -1,34 +1,42 @@
-'use client';
+"use client";
 
-import React, { useCallback } from 'react';
-import { Stack } from '@mui/material';
+import { Stack } from "@mui/material";
 import {
+  AnimatedChatLogo,
   ChatAiMessage,
   ChatAiMessageActionsProps,
   ChatUserMessage,
-} from 'entities/chat/ui';
-import { ChatVariant } from 'features/Chat/model';
-import { ChatMessageActions } from 'features/Chat/ui';
+} from "entities/chat/ui";
+import { ChatVariant } from "features/Chat/model";
+import { ChatMessageActions } from "features/Chat/ui";
+import { useCallback, useEffect } from "react";
 
-import { AiBot } from 'shared/model/aiBot';
-
-import classNames from 'classnames';
-import { ChatPageInput } from 'features/Chat/ui/ChatPageInput/ChatPageInput';
-import { MessageSkeletons } from './MessageSkeletons/MessageSkeletons';
-import { useGetSelectedBot } from 'entities/chat/lib/useGetSelectedBot';
-import { NEW_USER_MESSAGE_ID } from 'entities/chat/config';
-import { useAiMessageWithLoading, useChat, useShowScrollButton } from '../lib';
-
-import styles from './Chat.module.scss';
-import { DEFAULT_AI_MESSAGE_HEIGHT } from '../config/defaultMessageheight';
-import { ScrollButton } from './ScrollButton/ScrollButton';
-import { useSendMessageWhenMount } from '../lib/useSendMessageWhenMount';
+import classNames from "classnames";
+import { NEW_USER_MESSAGE_ID } from "entities/chat/config";
+import { useGetSelectedBot } from "entities/chat/lib/useGetSelectedBot";
+import { ChatTabs } from "features/Chat/ui";
+import { ChatPageInput } from "features/Chat/ui/ChatPageInput/ChatPageInput";
+import { useChatMessage } from "features/Chat/ui/ChatPageInput/lib/useChatMessage";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { AiBot } from "shared/model/aiBot";
+import { DEFAULT_AI_MESSAGE_HEIGHT } from "../config/defaultMessageheight";
+import { useAiMessageWithLoading, useChat, useShowScrollButton } from "../lib";
+import { useSendMessageWhenMount } from "../lib/useSendMessageWhenMount";
+import styles from "./Chat.module.scss";
+import { MessageSkeletons } from "./MessageSkeletons/MessageSkeletons";
+import { ScrollButton } from "./ScrollButton/ScrollButton";
 
 interface Props {
   chatVariant: ChatVariant;
 }
 
 export const Chat = ({ chatVariant }: Props) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const messageFromTag = searchParams.get("message");
+  const botFromTag = searchParams.get("bot");
+
   const {
     messages,
     messagesRef,
@@ -72,12 +80,34 @@ export const Chat = ({ chatVariant }: Props) => {
   const onEndPrint = useCallback(() => {
     setAnimateText(false);
     refetch();
-  }, []);
+  }, [refetch, setAnimateText]);
+
+  const { sendMessage, setLoading } = useChatMessage(
+    chatVariant,
+    setIsGPTMessageLoading,
+    setIsGPTMessageStreaming
+  );
+
+  useEffect(() => {
+    if (messageFromTag && botFromTag) {
+      sendMessage({ content: messageFromTag });
+      router.replace(pathname);
+    }
+  }, [messageFromTag, botFromTag, sendMessage]);
+
+  const handleLocalTagClick = (tag: { description: string }) => {
+    sendMessage({ content: tag.description });
+  };
 
   return (
     <Stack className={styles.container}>
+      {messages.length === 0 ? (
+        <div className={styles.animateLogo}>
+          <AnimatedChatLogo />
+        </div>
+      ) : null}
       <Stack
-        className={classNames(styles.messages, 'hide-scroll', {
+        className={classNames(styles.messages, "hide-scroll", {
           [styles.withLoading]: isFetching,
         })}
         ref={messagesRef}
@@ -85,7 +115,7 @@ export const Chat = ({ chatVariant }: Props) => {
         {isFetching && !hasData && <MessageSkeletons />}
 
         {messages.map((message, idx) => {
-          if (message.sender === 'user') {
+          if (message.sender === "user") {
             const isLastMessage = message.id.startsWith(NEW_USER_MESSAGE_ID);
 
             return (
@@ -131,6 +161,10 @@ export const Chat = ({ chatVariant }: Props) => {
       </Stack>
 
       <div className={styles.chatInput}>
+        {messages.length === 0 && isMessageLoading && !hasData ? (
+          <ChatTabs onLocalTagClick={handleLocalTagClick} />
+        ) : null}
+
         <ChatPageInput
           isMessageLoading={
             isMessageLoading || isGPTMessageStreaming || isGPTMessageLoading
