@@ -1,14 +1,17 @@
 'use server';
 
+import { getUserProfile } from 'features/User/api';
 import { setAccessToken } from '../lib';
-import { redirect } from 'next/navigation';
+import { InitialOnboardStep } from 'features/InitialOnboard/model';
 
 export const loginAfterConfirmRegistration = async (token: string) => {
-  try {
-    setAccessToken(token);
+  await setAccessToken(token);
 
-    redirect('/ai');
-  } catch (e) {
-    return false;
+  const profile = await getUserProfile();
+
+  if (profile.is_completed) {
+    return '/ai';
   }
+
+  return '/initial-onboard?step=' + InitialOnboardStep.Initial;
 };
