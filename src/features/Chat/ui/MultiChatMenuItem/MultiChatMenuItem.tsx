@@ -97,7 +97,11 @@ export const MultiChatMenuItem = ({
       <ChatOptionsMenu
         color={accentColor}
         renderChildren={(onClose) => (
-          <MultiChatMenuItemOptions isFavorite={isFavorite} assistantColor={accentColor} onClose={onClose} onStartRename={onStartRename} />
+          <MultiChatMenuItemOptions
+            isFavorite={isFavorite}
+            onClose={onClose}
+            onStartRename={onStartRename}
+          />
         )}
       />
     </li>
