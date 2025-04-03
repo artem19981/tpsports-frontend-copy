@@ -10,9 +10,7 @@ export const RedirectToPage = ({ token }: { token: string }) => {
   const router = useRouter();
 
   useLayoutEffect(() => {
-    loginAfterConfirmRegistration(token).then(() => {
-      router.push('/ai');
-    });
+    loginAfterConfirmRegistration(token).then(router.replace);
   }, []);
 
   return (
