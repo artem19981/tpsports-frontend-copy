@@ -21,7 +21,7 @@ export function PageContent({ userData }: PageContentProps) {
         className={styles.mainSection}
         style={{
           transition: "margin-left 0.3s",
-          maxWidth: "768px",
+          maxWidth: "792px",
         }}
       >
         <Stack mt={7} gap={4} paddingInline={1} mb={3}>

@@ -9,20 +9,21 @@ import {
 } from "entities/chat/ui";
 import { ChatVariant } from "features/Chat/model";
 import { ChatMessageActions } from "features/Chat/ui";
-import { useCallback } from "react";
-
-import { AiBot } from "shared/model/aiBot";
+import { useCallback, useEffect } from "react";
 
 import classNames from "classnames";
 import { NEW_USER_MESSAGE_ID } from "entities/chat/config";
 import { useGetSelectedBot } from "entities/chat/lib/useGetSelectedBot";
+import { ChatTabs } from "features/Chat/ui";
 import { ChatPageInput } from "features/Chat/ui/ChatPageInput/ChatPageInput";
-import { useAiMessageWithLoading, useChat, useShowScrollButton } from "../lib";
-import { MessageSkeletons } from "./MessageSkeletons/MessageSkeletons";
-
+import { useChatMessage } from "features/Chat/ui/ChatPageInput/lib/useChatMessage";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { AiBot } from "shared/model/aiBot";
 import { DEFAULT_AI_MESSAGE_HEIGHT } from "../config/defaultMessageheight";
+import { useAiMessageWithLoading, useChat, useShowScrollButton } from "../lib";
 import { useSendMessageWhenMount } from "../lib/useSendMessageWhenMount";
 import styles from "./Chat.module.scss";
+import { MessageSkeletons } from "./MessageSkeletons/MessageSkeletons";
 import { ScrollButton } from "./ScrollButton/ScrollButton";
 
 interface Props {
@@ -30,6 +31,12 @@ interface Props {
 }
 
 export const Chat = ({ chatVariant }: Props) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const messageFromTag = searchParams.get("message");
+  const botFromTag = searchParams.get("bot");
+
   const {
     messages,
     messagesRef,
@@ -73,9 +80,24 @@ export const Chat = ({ chatVariant }: Props) => {
   const onEndPrint = useCallback(() => {
     setAnimateText(false);
     refetch();
-  }, []);
+  }, [refetch, setAnimateText]);
 
-  console.log(messages);
+  const { sendMessage, setLoading } = useChatMessage(
+    chatVariant,
+    setIsGPTMessageLoading,
+    setIsGPTMessageStreaming
+  );
+
+  useEffect(() => {
+    if (messageFromTag && botFromTag) {
+      sendMessage({ content: messageFromTag });
+      router.replace(pathname);
+    }
+  }, [messageFromTag, botFromTag, sendMessage]);
+
+  const handleLocalTagClick = (tag: { description: string }) => {
+    sendMessage({ content: tag.description });
+  };
 
   return (
     <Stack className={styles.container}>
@@ -83,9 +105,7 @@ export const Chat = ({ chatVariant }: Props) => {
         <div className={styles.animateLogo}>
           <AnimatedChatLogo />
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
       <Stack
         className={classNames(styles.messages, "hide-scroll", {
           [styles.withLoading]: isFetching,
@@ -141,6 +161,10 @@ export const Chat = ({ chatVariant }: Props) => {
       </Stack>
 
       <div className={styles.chatInput}>
+        {messages.length === 0 && isMessageLoading && !hasData ? (
+          <ChatTabs onLocalTagClick={handleLocalTagClick} />
+        ) : null}
+
         <ChatPageInput
           isMessageLoading={
             isMessageLoading || isGPTMessageStreaming || isGPTMessageLoading

@@ -1,79 +1,78 @@
-'use client';
+"use client";
 
-import React, { memo, useMemo } from 'react';
+import { useRouter } from "next/navigation";
+import { memo } from "react";
 
-import { useChatType } from 'entities/chat/ui';
-import { BOTS } from 'shared/constants/bots';
+import { useChatType } from "entities/chat/ui";
+import { CategoriesSwipe } from "features/InitialOnboard/ui/StrengthTrainingForm/components/CategoriesSwipe";
+import { useGetAllTags } from "features/Tags/lib/useGetAllTabs";
+import { useGetTagsBy } from "features/Tags/lib/useGetTagsBy";
+import { BOTS } from "shared/constants/bots";
+import { Swiper } from "shared/ui";
+import { SwiperSlide } from "swiper/react";
+import styles from "./ChatTabs.module.scss";
 
-import styles from './ChatTabs.module.scss';
+interface Tag {
+  id: string;
+  name: string;
+  description: string;
+  bot_name: string;
+  borderColor?: string;
+}
 
-export const ChatTabs = memo(({}: any) => {
+interface ChatTabsProps {
+  onLocalTagClick?: (tag: Tag) => void;
+}
+
+export const ChatTabs = memo(({ onLocalTagClick }: ChatTabsProps) => {
+  const router = useRouter();
   const chatType = useChatType()?.chatType;
-  const selectedBot = useMemo(
-    () => BOTS.find((bot) => bot.name === chatType),
-    [chatType]
-  );
+  const { data: allTags } = useGetAllTags();
+  const { data: botTags } = useGetTagsBy(chatType);
 
-  const defaultQuestion = [
-    {
-      bot: {
-        name: 'psychologist',
-        translation: 'психолог',
-      },
-      text: 'Стресс',
-      borderColor: '#ED4A06',
-      message: 'Как правильно справляться со стрессом?',
-    },
-    {
-      bot: {
-        name: 'nutritionolog',
-        translation: 'нутрициолог',
-      },
-      text: 'Здоровое питание',
-      borderColor: '#0173FF',
-      message: 'Как создать свой идеальный рацион здорового питания?',
-    },
-    {
-      bot: {
-        name: 'medic',
-        translation: 'доктор',
-      },
-      text: 'Реабилитация',
-      borderColor: '#FFF9F7',
-      message: 'Как правильно спланировать реабилитацию после травмы?',
-    },
-    {
-      bot: {
-        name: 'coach',
-        translation: 'тренер',
-      },
-      text: 'Фитнес-цели',
-      borderColor: '#AEBD0C',
-      message: 'Как мне поставить фитнес-цели?',
-    },
-  ];
+  const tags: Tag[] = chatType ? botTags || [] : allTags || [];
 
-  const questions = selectedBot?.questions || defaultQuestion;
+  const getBorderColor = (tag: Tag) => {
+    return (
+      tag.borderColor ||
+      BOTS.find((bot) => bot.name === tag.bot_name)?.borderColor ||
+      "#000"
+    );
+  };
+
+  const handleTagClick = (tag: Tag) => {
+    if (chatType && tag.bot_name === chatType) {
+      onLocalTagClick && onLocalTagClick(tag);
+    } else {
+      router.push(
+        `/ai/chat/${tag.bot_name}?bot=${tag.bot_name}&message=${encodeURIComponent(tag.description)}`
+      );
+    }
+  };
 
   return (
     <div className={styles.container}>
-      {questions.map((question: any) => (
-        <p
-          key={question.text}
-          onClick={() => {
-            // askFastQuestion(question.message, selectedBot);
-          }}
-          className={styles.tab}
-          style={{
-            borderColor: selectedBot?.borderColor || question?.borderColor,
-            fontSize: 13,
-          }}
-        >
-          {question.text}
-        </p>
-      ))}
+      <Swiper withArrows={false}>
+        {tags.map((tag) => (
+          <SwiperSlide
+            key={tag.id}
+            style={{
+              width: "auto",
+              paddingLeft: 15,
+              cursor: "pointer",
+            }}
+            onClick={() => handleTagClick(tag)}
+          >
+            <CategoriesSwipe
+              value={tag.name}
+              height={71}
+              borderColor={getBorderColor(tag)}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 });
 
-ChatTabs.displayName = 'ChatTabs';
+ChatTabs.displayName = "ChatTabs";

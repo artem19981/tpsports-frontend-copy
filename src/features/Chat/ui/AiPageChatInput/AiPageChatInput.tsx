@@ -40,7 +40,7 @@ export const AiPageChatInput = ({ disabled }: Props) => {
   return (
     <>
       <Stack gap={3.5} alignItems={"center"} className={styles.container}>
-        <Typography variant="h1" sx={{ fontSize: 45 }}>
+        <Typography variant="h1" sx={{ fontSize: 45, textAlign: "center" }}>
           Привет, я твой <Image src={Logo} alt="logo" className={styles.logo} />{" "}
           Ассистент.
         </Typography>
