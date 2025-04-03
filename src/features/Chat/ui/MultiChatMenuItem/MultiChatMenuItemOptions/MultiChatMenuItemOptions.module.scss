@@ -2,15 +2,8 @@ ul.menu {
   border-radius: 13px;
   border: 1px solid #393737;
 
-  background: linear-gradient(
-    108.85deg,
-    rgba(48, 48, 48, 0.4) 0.8%,
-    rgba(48, 48, 48, 0.4) 76%,
-    rgba(65, 65, 65, 0.4) 99.1%
-  );
+  background: linear-gradient(108.85deg, rgba(48, 48, 48, 0.4) 0.8%, rgba(48, 48, 48, 0.4) 76%, rgba(65, 65, 65, 0.4) 99.1%);
   backdrop-filter: blur(100px);
-
-  // width: 151px;
 }
 
 li.menuItem {
@@ -29,6 +22,14 @@ li.menuItem {
   &.largeMenuItem {
     gap: 9px;
   }
+
+  &.nestedMenu {
+    gap: 4px;
+  }
+}
+
+.nestedMenuItemText {
+  margin-left: 27px;
 }
 
 li.red {
@@ -47,4 +48,38 @@ li.red {
 
 li.green {
   color: #03f392;
+}
+
+.chevron {
+  width: 15px;
+  height: 8px;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 30px;
+  letter-spacing: 0%;
+
+  border-radius: 2px;
+
+  padding: 3px;
+  height: 17px;
+}
+
+.csv {
+  background: #e39e09;
+}
+
+.pdf {
+  background: #0095ff;
 }
