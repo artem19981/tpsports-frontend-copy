@@ -14,9 +14,15 @@
   }
 }
 
+.chatAdd {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  cursor: pointer;
+}
+
 .content {
   display: flex;
-  // flex-direction: column;
 
   border-radius: 28px;
   border: 1px solid #ffffff17;

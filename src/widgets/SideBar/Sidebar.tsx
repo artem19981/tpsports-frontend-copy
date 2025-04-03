@@ -364,7 +364,10 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
       </aside>
 
       {isMobile && (
-        <button className={styles.burgerBtn} onClick={handleMobileToggle}>
+        <button
+          className={`${styles.burgerBtn} ${isMobile && isMobileOpen ? styles.mobileOpener : ""}`}
+          onClick={handleMobileToggle}
+        >
           <Burger />
         </button>
       )}

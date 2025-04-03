@@ -1,7 +1,7 @@
 "use client";
 
 import Logo from "@/app/assets/images/aiChat/logo/logo.png";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, useMediaQuery } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChatType } from "entities/chat/model/ChatType";
 import { useChatType } from "entities/chat/ui";
@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ChatInput } from "../ChatInput/ChatInput";
+import { ChatTabs } from "../ChatTabs/ChatTabs";
 import styles from "./AiPageChatInput.module.scss";
 
 interface Props {
@@ -24,7 +25,7 @@ export const AiPageChatInput = ({ disabled }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const chatType = chatTypeContext?.chatType || ChatType.Trainer;
-
+  const isMobile = useMediaQuery("(max-width: 650px)");
   const mutation = useMutation({
     mutationFn: async (payload: Omit<SendMessageDto, "bot_name">) => payload,
     onSuccess: (data) => {
@@ -50,12 +51,15 @@ export const AiPageChatInput = ({ disabled }: Props) => {
           отвечу на твой вопрос
         </Typography>
       </Stack>
+      {isMobile && <ChatTabs />}
+
       <ChatInput
         onSendMessage={onSendMessage}
         isPending={loading}
         disabled={disabled}
         setLoading={setLoading}
       />
+      {!isMobile && <ChatTabs />}
     </>
   );
 };

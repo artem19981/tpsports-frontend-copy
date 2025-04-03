@@ -58,7 +58,7 @@ export const ChatTabs = memo(({ onLocalTagClick }: ChatTabsProps) => {
             key={tag.id}
             style={{
               width: "auto",
-              paddingLeft: 15,
+              paddingLeft: 20,
               cursor: "pointer",
             }}
             onClick={() => handleTagClick(tag)}

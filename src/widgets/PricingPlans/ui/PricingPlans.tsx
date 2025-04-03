@@ -38,7 +38,7 @@ export const PricingPlans = (user: any) => {
           maxWidth: 1200,
           paddingRight: { xs: 2, lg: 0 },
           paddingLeft: { xs: 2, lg: 0 },
-          mr: { xs: 2, md: 0 },
+          // mr: { xs: 2, md: 0 },
         }}
       >
         <Typography variant="h3" className={styles.title}>
@@ -92,6 +92,7 @@ export const PricingPlans = (user: any) => {
           overflowX: "scroll",
           paddingTop: 4,
           scrollbarWidth: "none",
+          paddingLeft: { xs: 2.5, lg: 0 },
         }}
       >
         {pricingCards.map((card, idx) => {

@@ -105,7 +105,7 @@ export const PricingCard = ({
         <Stack className={styles.features}>
           {features.map((feature, index) => (
             <li key={index} className={styles.featureItem}>
-              <Typography variant="body2">
+              <Typography variant="body2" className={styles.gilroy}>
                 {renderHighlightedText(feature)}
               </Typography>
               <Border />

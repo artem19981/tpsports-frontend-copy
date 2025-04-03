@@ -43,9 +43,21 @@ const rows: PricingRow[] = [
     ),
     info: "",
     basic: "10 запросов",
-    standard: <CloseIcon />,
-    pro: <CloseIcon />,
-    sportsClub: <CloseIcon />,
+    standard: (
+      <div className={styles.icon}>
+        <CloseIcon />
+      </div>
+    ),
+    pro: (
+      <div className={styles.icon}>
+        <CloseIcon />
+      </div>
+    ),
+    sportsClub: (
+      <div className={styles.icon}>
+        <CloseIcon />
+      </div>
+    ),
   },
   {
     feature: "Персонализация",
@@ -66,10 +78,26 @@ const rows: PricingRow[] = [
   {
     feature: "Уведомления и напоминания",
     info: "",
-    basic: <CloseIcon />,
-    standard: <CheckIcon />,
-    pro: <CheckIcon />,
-    sportsClub: <CheckIcon />,
+    basic: (
+      <div className={styles.icon}>
+        <CloseIcon />
+      </div>
+    ),
+    standard: (
+      <div className={styles.icon}>
+        <CheckIcon />
+      </div>
+    ),
+    pro: (
+      <div className={styles.icon}>
+        <CheckIcon />
+      </div>
+    ),
+    sportsClub: (
+      <div className={styles.icon}>
+        <CheckIcon />
+      </div>
+    ),
   },
   {
     feature: "Покупка дополнительных запросов",
@@ -82,18 +110,50 @@ const rows: PricingRow[] = [
   {
     feature: "Экспорт данных",
     info: "",
-    basic: <CloseIcon />,
-    standard: <CloseIcon />,
-    pro: <CheckIcon />,
-    sportsClub: <CheckIcon />,
+    basic: (
+      <div className={styles.icon}>
+        <CloseIcon />
+      </div>
+    ),
+    standard: (
+      <div className={styles.icon}>
+        <CloseIcon />
+      </div>
+    ),
+    pro: (
+      <div className={styles.icon}>
+        <CheckIcon />
+      </div>
+    ),
+    sportsClub: (
+      <div className={styles.icon}>
+        <CheckIcon />
+      </div>
+    ),
   },
   {
     feature: "Защита данных",
     info: "",
-    basic: <CheckIcon />,
-    standard: <CheckIcon />,
-    pro: <CheckIcon />,
-    sportsClub: <CheckIcon />,
+    basic: (
+      <div className={styles.icon}>
+        <CheckIcon />
+      </div>
+    ),
+    standard: (
+      <div className={styles.icon}>
+        <CheckIcon />
+      </div>
+    ),
+    pro: (
+      <div className={styles.icon}>
+        <CheckIcon />
+      </div>
+    ),
+    sportsClub: (
+      <div className={styles.icon}>
+        <CheckIcon />
+      </div>
+    ),
   },
   {
     feature: "Техническая поддержка",

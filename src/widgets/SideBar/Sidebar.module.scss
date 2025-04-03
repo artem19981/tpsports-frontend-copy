@@ -116,12 +116,21 @@
     display: block;
     position: fixed;
     top: 40px;
-    right: 26px;
+    left: 26px;
     z-index: 10000;
     background: none;
     border: none;
     cursor: pointer;
     color: #fff;
+    transform: translateX(0);
+    transition: transform 0.4s ease;
+  }
+}
+
+.mobileOpener {
+  @media (max-width: 490px) {
+    transform: translateX(46%);
+    right: 26px;
   }
 }
 

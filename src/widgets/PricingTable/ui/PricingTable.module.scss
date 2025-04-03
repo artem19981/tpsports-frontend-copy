@@ -4,6 +4,9 @@
     padding-left: 24px;
   }
 }
+.icon {
+  height: 20px;
+}
 .table::-webkit-scrollbar {
   display: none;
 }
@@ -18,6 +21,7 @@
   text-align: center !important;
   width: 240px;
   font-size: 22px !important;
+  font-family: var(--gilroy), sans-serif !important;
 }
 
 .table__row {
@@ -26,6 +30,9 @@
   font-size: 14px !important;
   text-align: center !important;
   width: 240px;
+  font-family: var(--gilroy), sans-serif !important;
+  display: flex;
+  justify-content: center;
 }
 
 div.tooltip {

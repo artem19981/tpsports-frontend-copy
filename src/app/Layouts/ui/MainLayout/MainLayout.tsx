@@ -5,6 +5,8 @@ import { FC, PropsWithChildren, ReactNode, useState } from "react";
 import cn from "classnames";
 import { useChatType } from "entities/chat/ui";
 
+import ChatAdd from "app/assets/images/aiChat/ChatAdd.svg";
+import Image from "next/image";
 import { Sidebar } from "widgets/SideBar/Sidebar";
 import { getBackgroundColorByChatType } from "../../lib/getBackgroundColorByChatType";
 import styles from "./MainLayout.module.scss";
@@ -45,6 +47,10 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
       />
 
       <div className={cn(styles.content, contentClassName)}>
+        {withUserMenu && (
+          <Image src={ChatAdd} alt="ChatAdd" className={styles.chatAdd} />
+        )}
+
         {/* <div className={cn(styles.header, headerClassName)}>
           <div className={styles.logoWrapper}>
             <Link

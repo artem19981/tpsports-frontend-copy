@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-
+import styles from "./FAQ.module.scss";
 import { faqData } from "./config";
 
 export interface FAQItem {
@@ -38,7 +38,11 @@ const FAQ: React.FC = () => {
       >
         ЕСТЬ ВОПРОСЫ?
       </Typography>
-      <Typography variant="body2" sx={{ mb: 4, maxWidth: 300, opacity: 0.8 }}>
+      <Typography
+        variant="body2"
+        sx={{ mb: 4, maxWidth: 300, opacity: 0.8 }}
+        className={styles.gilroy}
+      >
         Если у вас есть вопросы, ниже вы можете увидеть самые частые вопросы и
         ответы.
       </Typography>
@@ -86,12 +90,20 @@ const FAQ: React.FC = () => {
                 paddingLeft: 0,
               }}
             >
-              <Typography variant="h6" sx={{ fontWeight: 500 }}>
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: 500 }}
+                className={styles.gilroy}
+              >
                 {item.question}
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ pb: 2, pl: 0 }}>
-              <Typography variant="body2" sx={{ opacity: 0.5, maxWidth: 800 }}>
+              <Typography
+                variant="body2"
+                sx={{ opacity: 0.5, maxWidth: 800 }}
+                className={styles.gilroy}
+              >
                 {item.answer}
               </Typography>
             </AccordionDetails>
