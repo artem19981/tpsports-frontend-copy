@@ -92,7 +92,7 @@ const Footer: React.FC = () => {
 
               <Typography
                 variant="subtitle1"
-                sx={{ fontWeight: "normal", mt: 3, mb: 1.25 }}
+                sx={{ fontWeight: "normal", mt: { xs: 6.3, md: 3 }, mb: 1.25 }}
               >
                 СОТРУДНИЧЕСТВО
               </Typography>
@@ -176,7 +176,6 @@ const Footer: React.FC = () => {
           }}
         >
           <Box className={styles.supFooter}>
-            <Typography variant="body2">TPSports</Typography>
             <Typography variant="body2">© 2025 Все права защищены.</Typography>
           </Box>
           <Typography variant="body2">Правовая информация</Typography>

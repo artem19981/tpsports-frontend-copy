@@ -17,6 +17,9 @@ export function CategoriesSwipe({
       style={{
         borderColor: borderColor,
         height: height,
+        width: height ? "auto" : "",
+        padding: height ? "0 14px 0 12px" : "",
+        maxWidth: height ? "182px" : "",
       }}
     />
   );

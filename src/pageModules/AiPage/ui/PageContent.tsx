@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import { Stack } from "@mui/material";
-import { ChatTabs } from "features/Chat/ui";
 import { AiPageChatInput } from "features/Chat/ui/AiPageChatInput/AiPageChatInput";
 
 import styles from "./AiPage.module.scss";
@@ -27,7 +26,7 @@ export function PageContent({ userData }: PageContentProps) {
         <Stack mt={7} gap={4} paddingInline={1} mb={3}>
           {/* <AnimatedChatLogo /> */}
           <AiPageChatInput disabled={!userData} />
-          <ChatTabs />
+          {/* <ChatTabs /> */}
         </Stack>
       </div>
     </div>

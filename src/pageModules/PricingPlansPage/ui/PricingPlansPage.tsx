@@ -100,6 +100,7 @@ export const PricingPlansPage = async () => {
               textAlign: "center",
             }}
             variant="body2"
+            className={styles.gilroy}
           >
             Личная команда умных ассистентов TPS готова взять на себя все
             сложные расчёты и вопросы. Забудь о неуверенности, нехватке знаний и

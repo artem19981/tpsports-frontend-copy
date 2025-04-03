@@ -1,5 +1,10 @@
 .container {
-  margin-top: 214px;
+  margin-top: 154px;
+
+  @media (max-width: 650px) {
+    margin-top: 0;
+    margin-bottom: 134px;
+  }
 }
 .logo {
   width: 62px;
