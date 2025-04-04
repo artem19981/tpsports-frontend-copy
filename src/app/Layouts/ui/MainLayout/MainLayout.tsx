@@ -47,10 +47,6 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
       />
 
       <div className={cn(styles.content, contentClassName)}>
-        {withUserMenu && (
-          <Image src={ChatAdd} alt="ChatAdd" className={styles.chatAdd} />
-        )}
-
         {/* <div className={cn(styles.header, headerClassName)}>
           <div className={styles.logoWrapper}>
             <Link
@@ -78,6 +74,9 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
         )}
 
         <div className={cn(styles.children, childrenClassName)} id="children">
+          {withUserMenu && (
+            <Image src={ChatAdd} alt="ChatAdd" className={styles.chatAdd} />
+          )}
           {!!links && <div className={styles.desktopLinks}>{links}</div>}
           {!!links && <div className={styles.mobileLinks}>{links}</div>}
           {children}

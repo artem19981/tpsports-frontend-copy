@@ -15,6 +15,10 @@
   top: 250px;
   left: 45%;
   z-index: -7;
+
+  @media (max-width: 600px) {
+    top: 42vh;
+  }
 }
 .tags {
   margin-bottom: 30px;
@@ -52,4 +56,8 @@
   height: 40px;
   width: 40px;
   min-width: 40px;
+}
+
+.chatTabs {
+  margin-bottom: 30px;
 }

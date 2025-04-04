@@ -186,7 +186,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
         <OverlayScrollbarsComponent
           defer
           options={{ scrollbars: { autoHide: "leave" } }}
-          className={styles.scrollableContent}
+          className={`${styles.scrollableContent} ${!isOpen ? styles.scrollContent : ""}`}
           color={accentColor}
           style={
             {

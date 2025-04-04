@@ -161,8 +161,10 @@ export const Chat = ({ chatVariant }: Props) => {
       </Stack>
 
       <div className={styles.chatInput}>
-        {messages.length === 0 && isMessageLoading && !hasData ? (
-          <ChatTabs onLocalTagClick={handleLocalTagClick} />
+        {messages.length === 0 ? (
+          <div className={styles.chatTabs}>
+            <ChatTabs onLocalTagClick={handleLocalTagClick} />
+          </div>
         ) : null}
 
         <ChatPageInput

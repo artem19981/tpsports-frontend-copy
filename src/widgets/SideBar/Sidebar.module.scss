@@ -19,7 +19,7 @@
     position: fixed;
     top: 0;
     left: -30px;
-    max-height: 855px;
+    max-height: 95vh;
     max-width: -webkit-fill-available;
     width: 100%;
     height: 100%;
@@ -31,6 +31,8 @@
     backdrop-filter: blur(28px);
     background: rgba(255, 255, 255, 0.0341);
     border-radius: 28px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
   &.mobileOpen {
@@ -80,6 +82,7 @@
   font-size: 16px;
   font-weight: 500;
   color: rgba(147, 147, 147, 1);
+  font-family: var(--gilroy), sans-serif !important;
 }
 
 .icon {
@@ -156,6 +159,9 @@
     --os-track-bg: transparent;
   }
 }
+.scrollContent {
+  display: none;
+}
 
 .navSection {
   margin-bottom: 24px;
@@ -180,6 +186,7 @@
   justify-content: space-between;
   cursor: pointer;
   transition: color 0.2s;
+  font-family: var(--gilroy), sans-serif !important;
 
   &:hover {
     color: #00ffb0;
@@ -240,6 +247,7 @@
   color: rgba(147, 147, 147, 1);
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: var(--gilroy), sans-serif !important;
 }
 
 .dots {
@@ -293,6 +301,7 @@
   margin-left: 10px;
   z-index: 10;
   pointer-events: none;
+  font-family: var(--gilroy), sans-serif !important;
 
   &::before {
     content: "";
