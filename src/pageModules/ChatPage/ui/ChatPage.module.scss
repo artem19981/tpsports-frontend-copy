@@ -4,4 +4,8 @@ div.layoutContainer {
 
 div.content {
   flex: 1;
+
+  @media (max-width: 600px) {
+    max-height: 95vh !important;
+  }
 }

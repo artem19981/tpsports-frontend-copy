@@ -55,8 +55,13 @@ export const MultiChatSelect: React.FC<Props> = ({
         onChange(type);
         return;
       }
+      if (activeChats[type]) {
+        router.push("/ai/chat/" + type);
+      } else {
+        setChatType?.(type);
+      }
 
-      router.push(`/ai/chat/${type}`);
+      // router.push(`/ai/chat/${type}`);
     },
     [
       isLoading,

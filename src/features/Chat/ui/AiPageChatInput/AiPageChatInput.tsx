@@ -45,7 +45,11 @@ export const AiPageChatInput = ({ disabled }: Props) => {
           Привет, я твой <Image src={Logo} alt="logo" className={styles.logo} />{" "}
           Ассистент.
         </Typography>
-        <Typography variant="body2" sx={{ textAlign: "center" }}>
+        <Typography
+          variant="body2"
+          sx={{ textAlign: "center" }}
+          className={styles.suptitle}
+        >
           Ты можешь выбрать Ассистента или написать мне, и я отправлю тебя к
           нужному Ассистенту: Тренеру, Доктору, Нутрициологу или Психологу и
           отвечу на твой вопрос

@@ -11,6 +11,7 @@
 
   @media screen and (max-width: 500px) {
     height: 100dvh;
+    justify-content: flex-end;
   }
 }
 
@@ -19,6 +20,11 @@
   top: 40px;
   right: 40px;
   cursor: pointer;
+
+  @media (max-width: 600px) {
+    top: 30px;
+    right: 27px;
+  }
 }
 
 .content {
@@ -32,14 +38,16 @@
 
   width: 100%;
   height: 100%;
-  max-width: min(1320px, 95%);
-  max-height: min(780px, 95%);
+  max-width: min(1320px, 100%);
+  max-height: min(780px, 100%);
   z-index: 1;
 
   @media screen and (max-width: 600px) {
     min-width: 90%;
-    width: 95%;
-    max-height: 855px;
+    width: 100%;
+    // max-height: 855px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }
 
@@ -59,7 +67,7 @@
   position: relative;
 
   @media (max-width: 600px) {
-    height: 855px;
+    height: 95vh;
   }
 }
 
