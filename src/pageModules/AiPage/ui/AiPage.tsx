@@ -27,12 +27,7 @@ export async function AiPage() {
         childrenClassName={classNames(styles.children, "hide-scroll")}
         links={<MultiChatSelect isUserAuthorized={!!userData} />}
       >
-        <Stack
-          gap={3.5}
-          alignItems={"center"}
-          className={styles.container}
-          sx={{ marginTop: "56px" }}
-        >
+        <Stack gap={3.5} alignItems={"center"} className={styles.container}>
           <Typography variant="h1" sx={{ fontSize: 45, textAlign: "center" }}>
             Привет, я твой{" "}
             <Image src={Logo} alt="logo" className={styles.logo} /> Ассистент.
