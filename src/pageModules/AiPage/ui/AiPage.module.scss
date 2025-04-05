@@ -31,6 +31,13 @@
   justify-content: space-between;
   overflow: overlay;
 }
+
+.container {
+  // margin-top: 214px;
+  @media screen and (max-width: 600px) {
+    margin-top: 56px;
+  }
+}
 .logo {
   width: 62px;
   height: 33px;
