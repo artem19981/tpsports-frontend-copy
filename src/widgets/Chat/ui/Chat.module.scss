@@ -17,7 +17,8 @@
   z-index: -7;
 
   @media (max-width: 600px) {
-    top: 42vh;
+    top: calc(50vh - 38px);
+    left: calc(50vw - 38px);
   }
 }
 .tags {
