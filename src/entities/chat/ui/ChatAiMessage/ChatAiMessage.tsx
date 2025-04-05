@@ -29,6 +29,7 @@ interface Props {
   isMessageLoading: boolean;
   height: string | undefined;
 
+  redirectButton?: React.ReactNode;
   renderActions: (actionsProps: ChatAiMessageActionsProps) => React.ReactNode;
   onEndPrint: () => void;
 }
@@ -43,6 +44,7 @@ export const ChatAiMessage = memo(
     isGPTMessageStreaming,
     withAnimation,
     height,
+    redirectButton,
     renderActions,
     onEndPrint,
   }: Props) => {
@@ -54,15 +56,12 @@ export const ChatAiMessage = memo(
     });
 
     return (
-      <Stack gap={1} style={{ minHeight: height }}>
+      <Stack gap={0} style={{ minHeight: height }}>
         <Stack gap={1} direction="row">
           {isGPTMessageStreaming ? (
             <AiMessageLoader selectedBot={selectedBot} />
           ) : (
-            <AnimatedLogo
-              animation={selectedBot.animation}
-              className={styles.logo}
-            />
+            <AnimatedLogo animation={selectedBot.animation} className={styles.logo} />
           )}
 
           {!isMessageLoading && (
@@ -78,9 +77,11 @@ export const ChatAiMessage = memo(
             rate,
             message_id: messageId,
           })}
+
+        {redirectButton}
       </Stack>
     );
-  }
+  },
 );
 
 ChatAiMessage.displayName = 'ChatAiMessage';

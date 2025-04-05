@@ -1,30 +1,30 @@
-"use client";
+'use client';
 
-import { Stack } from "@mui/material";
+import { Stack } from '@mui/material';
 import {
   AnimatedChatLogo,
   ChatAiMessage,
   ChatAiMessageActionsProps,
   ChatUserMessage,
-} from "entities/chat/ui";
-import { ChatVariant } from "features/Chat/model";
-import { ChatMessageActions } from "features/Chat/ui";
-import { useCallback, useEffect } from "react";
+} from 'entities/chat/ui';
+import { ChatVariant } from 'features/Chat/model';
+import { ChatMessageActions, RedirectToAnotherChatButton } from 'features/Chat/ui';
+import { useCallback, useEffect } from 'react';
 
-import classNames from "classnames";
-import { NEW_USER_MESSAGE_ID } from "entities/chat/config";
-import { useGetSelectedBot } from "entities/chat/lib/useGetSelectedBot";
-import { ChatTabs } from "features/Chat/ui";
-import { ChatPageInput } from "features/Chat/ui/ChatPageInput/ChatPageInput";
-import { useChatMessage } from "features/Chat/ui/ChatPageInput/lib/useChatMessage";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { AiBot } from "shared/model/aiBot";
-import { DEFAULT_AI_MESSAGE_HEIGHT } from "../config/defaultMessageheight";
-import { useAiMessageWithLoading, useChat, useShowScrollButton } from "../lib";
-import { useSendMessageWhenMount } from "../lib/useSendMessageWhenMount";
-import styles from "./Chat.module.scss";
-import { MessageSkeletons } from "./MessageSkeletons/MessageSkeletons";
-import { ScrollButton } from "./ScrollButton/ScrollButton";
+import classNames from 'classnames';
+import { NEW_USER_MESSAGE_ID } from 'entities/chat/config';
+import { useGetSelectedBot } from 'entities/chat/lib/useGetSelectedBot';
+import { ChatTabs } from 'features/Chat/ui';
+import { ChatPageInput } from 'features/Chat/ui/ChatPageInput/ChatPageInput';
+import { useChatMessage } from 'features/Chat/ui/ChatPageInput/lib/useChatMessage';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { AiBot } from 'shared/model/aiBot';
+import { DEFAULT_AI_MESSAGE_HEIGHT } from '../config/defaultMessageheight';
+import { useAiMessageWithLoading, useChat, useShowScrollButton } from '../lib';
+import { useSendMessageWhenMount } from '../lib/useSendMessageWhenMount';
+import styles from './Chat.module.scss';
+import { MessageSkeletons } from './MessageSkeletons/MessageSkeletons';
+import { ScrollButton } from './ScrollButton/ScrollButton';
 
 interface Props {
   chatVariant: ChatVariant;
@@ -34,8 +34,8 @@ export const Chat = ({ chatVariant }: Props) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const messageFromTag = searchParams.get("message");
-  const botFromTag = searchParams.get("bot");
+  const messageFromTag = searchParams.get('message');
+  const botFromTag = searchParams.get('bot');
 
   const {
     messages,
@@ -50,13 +50,8 @@ export const Chat = ({ chatVariant }: Props) => {
     scrollToLastMessage,
   } = useChat(chatVariant);
 
-  const {
-    lastUserMessageRef,
-    lastGPTMessageHeight,
-    animateText,
-    onSendMessage,
-    setAnimateText,
-  } = useAiMessageWithLoading(messagesRef, chatVariant, scrollToLastMessage);
+  const { lastUserMessageRef, lastGPTMessageHeight, animateText, onSendMessage, setAnimateText } =
+    useAiMessageWithLoading(messagesRef, chatVariant, scrollToLastMessage);
 
   const { isMessageLoading } = useSendMessageWhenMount({
     chatVariant,
@@ -67,14 +62,13 @@ export const Chat = ({ chatVariant }: Props) => {
   });
 
   const showScrollButton = useShowScrollButton(messagesRef);
-
   const selectedBot = useGetSelectedBot(chatVariant) as AiBot;
 
   const Actions = useCallback(
     (props: ChatAiMessageActionsProps) => (
       <ChatMessageActions {...props} chatVariant={chatVariant} />
     ),
-    [chatVariant]
+    [chatVariant],
   );
 
   const onEndPrint = useCallback(() => {
@@ -82,10 +76,10 @@ export const Chat = ({ chatVariant }: Props) => {
     refetch();
   }, [refetch, setAnimateText]);
 
-  const { sendMessage, setLoading } = useChatMessage(
+  const { sendMessage } = useChatMessage(
     chatVariant,
     setIsGPTMessageLoading,
-    setIsGPTMessageStreaming
+    setIsGPTMessageStreaming,
   );
 
   useEffect(() => {
@@ -107,7 +101,7 @@ export const Chat = ({ chatVariant }: Props) => {
         </div>
       ) : null}
       <Stack
-        className={classNames(styles.messages, "hide-scroll", {
+        className={classNames(styles.messages, 'hide-scroll', {
           [styles.withLoading]: isFetching,
         })}
         ref={messagesRef}
@@ -115,7 +109,7 @@ export const Chat = ({ chatVariant }: Props) => {
         {isFetching && !hasData && <MessageSkeletons />}
 
         {messages.map((message, idx) => {
-          if (message.sender === "user") {
+          if (message.sender === 'user') {
             const isLastMessage = message.id.startsWith(NEW_USER_MESSAGE_ID);
 
             return (
@@ -129,6 +123,9 @@ export const Chat = ({ chatVariant }: Props) => {
             const isLastMessage = idx === messages.length - 1;
             const isMessageWithAnimation = animateText && isLastMessage;
 
+            const lastMessageRedirectAssistant = messages.at(-1)?.redirect?.bot;
+            const showRedirectButton = !!lastMessageRedirectAssistant && isLastMessage;
+
             return (
               <ChatAiMessage
                 key={message.id}
@@ -138,10 +135,17 @@ export const Chat = ({ chatVariant }: Props) => {
                 messageText={message.content[0].text.value}
                 onEndPrint={onEndPrint}
                 renderActions={Actions}
+                redirectButton={
+                  showRedirectButton && (
+                    <RedirectToAnotherChatButton
+                      message={messages.at(-2)!}
+                      newChat={lastMessageRedirectAssistant}
+                    />
+                  )
+                }
                 isMessageLoading={isGPTMessageLoading && isLastMessage}
                 height={
-                  isLastMessage &&
-                  lastGPTMessageHeight !== DEFAULT_AI_MESSAGE_HEIGHT
+                  isLastMessage && lastGPTMessageHeight !== DEFAULT_AI_MESSAGE_HEIGHT
                     ? lastGPTMessageHeight
                     : undefined
                 }
@@ -168,9 +172,7 @@ export const Chat = ({ chatVariant }: Props) => {
         ) : null}
 
         <ChatPageInput
-          isMessageLoading={
-            isMessageLoading || isGPTMessageStreaming || isGPTMessageLoading
-          }
+          isMessageLoading={isMessageLoading || isGPTMessageStreaming || isGPTMessageLoading}
           chatVariant={chatVariant}
           onSend={onSendMessage}
           setIsGPTMessageLoading={setIsGPTMessageLoading}

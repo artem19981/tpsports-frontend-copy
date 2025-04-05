@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import { useMediaQuery } from "@mui/material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ChatType } from "entities/chat/model/ChatType";
-import { useChatType } from "entities/chat/ui";
-import { SendMessageDto } from "features/Chat/model";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { ChatInput } from "../ChatInput/ChatInput";
-import { ChatTabs } from "../ChatTabs/ChatTabs";
+import { useMediaQuery } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
+import { ChatType } from 'entities/chat/model/ChatType';
+import { useChatType } from 'entities/chat/ui';
+import { SendMessageDto } from 'features/Chat/model';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { ChatInput } from '../ChatInput/ChatInput';
+import { useSetOptimisticChatMessage } from 'entities/chat/lib';
+import { ChatTabs } from '../ChatTabs/ChatTabs';
 
 interface Props {
   disabled: boolean;
@@ -17,21 +18,27 @@ interface Props {
 export const AiPageChatInput = ({ disabled }: Props) => {
   const router = useRouter();
   const chatTypeContext = useChatType();
-  const queryClient = useQueryClient();
+
+  const setOptimisticChatMessage = useSetOptimisticChatMessage();
 
   const [loading, setLoading] = useState(false);
 
   const chatType = chatTypeContext?.chatType || ChatType.Trainer;
-  const isMobile = useMediaQuery("(max-width: 650px)");
+  const isMobile = useMediaQuery('(max-width: 650px)');
   const mutation = useMutation({
-    mutationFn: async (payload: Omit<SendMessageDto, "bot_name">) => payload,
+    mutationFn: async (payload: Omit<SendMessageDto, 'bot_name'>) => payload,
     onSuccess: (data) => {
-      queryClient.setQueryData(["chatMessage"], data);
-      router.push("/ai/chat/" + chatType);
+      setOptimisticChatMessage(data);
+      router.push('/ai/chat/' + chatType);
     },
   });
 
-  const onSendMessage = async (payload: Omit<SendMessageDto, "bot_name">) => {
+  const onSendMessage = async (payload: Omit<SendMessageDto, 'bot_name'>) => {
+    if (!chatTypeContext?.chatType) {
+      console.log('redirecter');
+      return;
+    }
+
     mutation.mutate(payload);
   };
 
