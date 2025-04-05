@@ -1,17 +1,14 @@
 "use client";
 
-import Logo from "@/app/assets/images/aiChat/logo/logo.png";
-import { Stack, Typography, useMediaQuery } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChatType } from "entities/chat/model/ChatType";
 import { useChatType } from "entities/chat/ui";
 import { SendMessageDto } from "features/Chat/model";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ChatInput } from "../ChatInput/ChatInput";
 import { ChatTabs } from "../ChatTabs/ChatTabs";
-import styles from "./AiPageChatInput.module.scss";
 
 interface Props {
   disabled: boolean;
@@ -40,7 +37,7 @@ export const AiPageChatInput = ({ disabled }: Props) => {
 
   return (
     <>
-      <Stack gap={3.5} alignItems={"center"} className={styles.container}>
+      {/* <Stack gap={3.5} alignItems={"center"} className={styles.container}>
         <Typography variant="h1" sx={{ fontSize: 45, textAlign: "center" }}>
           Привет, я твой <Image src={Logo} alt="logo" className={styles.logo} />{" "}
           Ассистент.
@@ -54,7 +51,7 @@ export const AiPageChatInput = ({ disabled }: Props) => {
           нужному Ассистенту: Тренеру, Доктору, Нутрициологу или Психологу и
           отвечу на твой вопрос
         </Typography>
-      </Stack>
+      </Stack> */}
       {isMobile && <ChatTabs />}
 
       <ChatInput

@@ -59,6 +59,7 @@ export const MultiChatSelect: React.FC<Props> = ({
         router.push("/ai/chat/" + type);
       } else {
         setChatType?.(type);
+        router.push(`/ai/chat/${type}`);
       }
 
       // router.push(`/ai/chat/${type}`);
