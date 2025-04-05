@@ -1,11 +1,12 @@
 div.layoutContainer {
   height: 100dvh;
+
+  @media (max-width: 600px) {
+    height: auto;
+    max-height: 855px;
+  }
 }
 
 div.content {
   flex: 1;
-
-  @media (max-width: 600px) {
-    max-height: 95vh !important;
-  }
 }
