@@ -4,7 +4,6 @@ import { useState } from "react";
 
 import { Stack } from "@mui/material";
 import { AiPageChatInput } from "features/Chat/ui/AiPageChatInput/AiPageChatInput";
-
 import styles from "./AiPage.module.scss";
 
 interface PageContentProps {

@@ -101,7 +101,7 @@ export const Chat = ({ chatVariant }: Props) => {
 
   return (
     <Stack className={styles.container}>
-      {messages.length === 0 ? (
+      {messages.length === 0 && !isFetching && hasData ? (
         <div className={styles.animateLogo}>
           <AnimatedChatLogo />
         </div>
@@ -161,7 +161,7 @@ export const Chat = ({ chatVariant }: Props) => {
       </Stack>
 
       <div className={styles.chatInput}>
-        {messages.length === 0 ? (
+        {messages.length === 0 && !isFetching && hasData ? (
           <div className={styles.chatTabs}>
             <ChatTabs onLocalTagClick={handleLocalTagClick} />
           </div>
