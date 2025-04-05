@@ -16,20 +16,21 @@
     padding: 40px 0 0 0;
     overflow-y: auto;
     min-height: 100%;
-    height: auto;
+    height: 100%;
+    // height: auto;
   }
 }
 
 .content {
   @media screen and (max-width: 600px) {
     max-height: none;
-    height: auto;
+    // height: auto;
   }
 }
 
 .children {
   justify-content: space-between;
-  overflow: overlay;
+  // overflow: overlay;
 }
 
 .container {
