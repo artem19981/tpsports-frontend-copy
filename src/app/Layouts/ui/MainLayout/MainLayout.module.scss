@@ -46,8 +46,7 @@
     min-width: 90%;
     width: 100%;
     max-width: 100%;
-    max-height: 95vh;
-    // max-height: 855px;
+    max-height: 855px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -71,7 +70,7 @@
 
   @media (max-width: 600px) {
     max-height: 855px;
-    height: 100%;
+    height: 120vh;
     justify-content: space-between !important;
   }
 }
