@@ -1,23 +1,20 @@
-"use client";
+'use client';
 
-import { ChatType } from "entities/chat/model/ChatType";
-import { useChatType } from "entities/chat/ui";
-import { useGetActiveChats } from "features/Chat/lib/useGetActiveChats";
-import { useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { BOTS } from "shared/constants/bots";
-import { useSnackbar } from "shared/ui";
-import styles from "./MultiChatSelect.module.scss";
+import { ChatType } from 'entities/chat/model/ChatType';
+import { useChatType } from 'entities/chat/ui';
+import { useGetActiveChats } from 'features/Chat/lib/useGetActiveChats';
+import { useRouter } from 'next/navigation';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { BOTS } from 'shared/constants/bots';
+import { useSnackbar } from 'shared/ui';
+import styles from './MultiChatSelect.module.scss';
 
 interface Props {
   isUserAuthorized: boolean;
   onChange?: (type: ChatType) => void;
 }
 
-export const MultiChatSelect: React.FC<Props> = ({
-  isUserAuthorized,
-  onChange,
-}) => {
+export const MultiChatSelect: React.FC<Props> = ({ isUserAuthorized, onChange }) => {
   const router = useRouter();
   const showSnackbar = useSnackbar();
 
@@ -27,24 +24,20 @@ export const MultiChatSelect: React.FC<Props> = ({
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const {
-    data: activeChats,
-    isLoading,
-    error,
-  } = useGetActiveChats(isUserAuthorized);
+  const { data: activeChats, isLoading, error } = useGetActiveChats(isUserAuthorized);
 
   const handleSelect = useCallback(
     (type: ChatType) => {
       setIsOpen(false);
 
       if (isLoading) {
-        showSnackbar("Подождите, идет загрузка чатов", "info");
+        showSnackbar('Подождите, идет загрузка чатов', 'info');
         return;
       }
 
       if (!activeChats || error) {
         if (isUserAuthorized) {
-          showSnackbar("Не удалось загрузить активные чаты", "error");
+          showSnackbar('Не удалось загрузить активные чаты', 'error');
         }
         onChange?.(type);
         setChatType?.(type);
@@ -56,24 +49,19 @@ export const MultiChatSelect: React.FC<Props> = ({
         return;
       }
       if (activeChats[type]) {
-        router.push("/ai/chat/" + type);
+        router.push('/ai/chat/' + type);
       } else {
         setChatType?.(type);
         router.push(`/ai/chat/${type}`);
       }
 
-      // router.push(`/ai/chat/${type}`);
+      if (activeChats[type]) {
+        router.push('/ai/chat/' + type);
+      } else {
+        setChatType?.(type);
+      }
     },
-    [
-      isLoading,
-      error,
-      activeChats,
-      isUserAuthorized,
-      onChange,
-      router,
-      setChatType,
-      showSnackbar,
-    ]
+    [isLoading, error, activeChats, isUserAuthorized, onChange, router, setChatType, showSnackbar],
   );
 
   const toggleOpen = useCallback(() => {
@@ -82,15 +70,12 @@ export const MultiChatSelect: React.FC<Props> = ({
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setIsOpen(false);
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const selectedBot = BOTS.find((b) => b.name === chatType);
@@ -100,11 +85,11 @@ export const MultiChatSelect: React.FC<Props> = ({
       {/* <div className={styles.selectLabel}>Ассистенты</div> */}
 
       <div className={styles.selectedValue} onClick={toggleOpen}>
-        {selectedBot ? selectedBot.translation : "Ассистенты"}
+        {selectedBot ? selectedBot.translation : 'Ассистенты'}
       </div>
 
-      <div className={`${styles.dropdownList} ${isOpen ? styles.open : ""}`}>
-        <div className={styles.dropdownTitle} style={{ cursor: "auto" }}>
+      <div className={`${styles.dropdownList} ${isOpen ? styles.open : ''}`}>
+        <div className={styles.dropdownTitle} style={{ cursor: 'auto' }}>
           Ассистенты
         </div>
         {BOTS.map((bot) => (
