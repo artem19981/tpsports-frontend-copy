@@ -3,6 +3,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { getSortedChatMessages } from './getSortedChatMessages';
 import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 import { getLastDialogue } from 'features/Chat/api/getLastDialogue';
+import { useSetChatType } from './useSetChatType';
 
 export const useChat = (chatId: number | null) => {
   const [isGPTMessageLoading, setIsGPTMessageLoading] = useState(false);
@@ -11,6 +12,8 @@ export const useChat = (chatId: number | null) => {
   const { data, refetch, isFetching } = useGetMessages(chatId);
   const setActiveChatId = useSetActiveChatId();
   const messagesRef = useRef<HTMLDivElement>(null);
+
+  useSetChatType(chatId, data?.bot);
 
   const scrollToLastMessage = useCallback((withAnimation = true) => {
     if (messagesRef.current) {

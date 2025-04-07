@@ -2,9 +2,9 @@
 
 import type { FC, PropsWithChildren } from 'react';
 import React, { createContext, useCallback, useState } from 'react';
-
+import Cookies from 'js-cookie';
 import { ChatType } from 'entities/chat/model/ChatType';
-import { usePathname } from 'next/navigation';
+import { CHAT_TYPE_COOKIE_KEY } from 'entities/chat/config';
 
 interface ChatTypeContextProps {
   chatType: ChatType | undefined;
@@ -12,38 +12,25 @@ interface ChatTypeContextProps {
 }
 
 const ChatTypeContext = createContext<ChatTypeContextProps | undefined>(undefined);
-const ASSISTANCE = [
-  ChatType.Trainer,
-  ChatType.Doctor,
-  ChatType.Nutritionolog,
-  ChatType.Psychologist,
-];
-const LOCAL_STORAGE_KEY = 'chatType';
 
-export const ChatTypeProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
-  const pathname = usePathname();
+interface Props {
+  initialChatType: ChatType | null;
+}
 
+export const ChatTypeProvider: FC<PropsWithChildren<Props>> = ({ initialChatType, children }) => {
   const [chatType, setChatType] = useState<ChatType | undefined>(() => {
-    // @todo: НЕ УДАЛЯТЬ!
-    const valueFromLS = localStorage?.getItem?.(LOCAL_STORAGE_KEY);
-
-    if (valueFromLS) {
-      return valueFromLS as ChatType;
-    }
-
-    const lastPartOfPath = pathname.split('/').at(-1);
-
-    if (lastPartOfPath && ASSISTANCE.includes(lastPartOfPath as ChatType)) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, lastPartOfPath);
-      return lastPartOfPath as ChatType;
+    if (initialChatType) {
+      return initialChatType as ChatType;
     }
   });
 
   const onChange = useCallback((type: ChatType | undefined) => {
     if (type) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, type || '');
+      Cookies.set(CHAT_TYPE_COOKIE_KEY, type || '', {
+        expires: 30,
+      });
     } else {
-      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      Cookies.remove(CHAT_TYPE_COOKIE_KEY);
     }
 
     setChatType(type);

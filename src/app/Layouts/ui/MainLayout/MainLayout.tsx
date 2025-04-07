@@ -18,6 +18,7 @@ interface Props {
   withUserMenu?: boolean;
   withCreateChatButton?: boolean;
 
+  headerClassName?: string;
   containerClassName?: string;
   contentClassName?: string;
   childrenClassName?: string;
@@ -30,7 +31,6 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   contentClassName,
   childrenClassName,
   withUserMenu = true,
-  withCreateChatButton = true,
 }) => {
   const router = useRouter();
   const chatTypeContext = useChatType();

@@ -3,8 +3,12 @@ import { getChatMessages } from '../api';
 import { ChatDto } from '../model';
 import { NEW_CHAT_ID } from 'entities/chat/config';
 import { QueryKeys } from 'shared/constants/query-keys';
+import { useChatType } from 'entities/chat/ui';
+import { ChatType } from 'entities/chat/model/ChatType';
 
 export const useGetMessages = (chatId: number | null) => {
+  const { chatType, setChatType } = useChatType() || {};
+
   return useQuery<ChatDto, Error>({
     queryKey: [QueryKeys.Chat, chatId || NEW_CHAT_ID],
     queryFn: async () => {
@@ -13,6 +17,10 @@ export const useGetMessages = (chatId: number | null) => {
       const data = await getChatMessages({
         dialogue_id: chatId!,
       });
+
+      if (data.bot && !chatType) {
+        setChatType?.(data.bot as ChatType);
+      }
 
       return data;
     },
