@@ -11,7 +11,7 @@ export const BOTS: AiBot[] = [
     name: ChatType.Trainer,
     welcomeText:
       'Я твой персональный Тренер. Моя цель - помочь тебе стать лучшей версией себя. Вперёд к результатам, которые перевернут твою жизнь!',
-    translation: 'тренер',
+    translation: 'Спорт',
     color: '#fff',
     borderColor: 'rgb(174, 189, 12)',
     animation: coachAnimationJson,
@@ -43,7 +43,7 @@ export const BOTS: AiBot[] = [
     name: ChatType.Doctor,
     welcomeText:
       'Я Спортивный Доктор и моя задача - сделать так, чтобы твоё тело работало как часы. Твоё здоровье - мой приоритет!',
-    translation: 'доктор',
+    translation: 'Здоровье',
     color: '#000000',
     borderColor: 'rgb(255, 249, 247)',
     animation: medicAnimationJson,
@@ -75,7 +75,7 @@ export const BOTS: AiBot[] = [
     name: ChatType.Nutritionolog,
     welcomeText:
       'Я Спортивный Нутрициолог. Помогу тебе наладить питание, восполнить дефициты и составлю рекомендации для достижения твоих целей.',
-    translation: 'нутрициолог',
+    translation: 'Питание',
     color: '#fff',
     borderColor: 'rgb(1, 115, 255)',
     animation: nutritionologAnimationJson,
@@ -107,7 +107,7 @@ export const BOTS: AiBot[] = [
     name: ChatType.Psychologist,
     welcomeText:
       'Я Спортивный Психолог. Меняя мысли и осознавая чувства, ты придёшь к победе в спорте, к победе в жизни.',
-    translation: 'психолог',
+    translation: 'Сознание',
     color: '#fff',
     borderColor: 'rgb(237, 74, 6)',
     animation: psychologistAnimationJson,

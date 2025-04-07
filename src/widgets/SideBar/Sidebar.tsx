@@ -12,14 +12,14 @@ import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { BOTS } from 'shared/constants/bots';
 
-import styles from './Sidebar.module.scss';
-import { MultiChatMenuItem } from 'features/Chat/ui';
-import { useGetMultiChats } from 'features/Chat/lib/useGetMultiChats';
 import { useMediaQuery } from '@mui/material';
+import { useGetActiveChatId } from 'features/Chat/lib/useActiveChatId';
+import { useGetMultiChats } from 'features/Chat/lib/useGetMultiChats';
 import { FrontendMultiChat } from 'features/Chat/model';
+import { MultiChatMenuItem } from 'features/Chat/ui';
 import { MyHealth } from 'widgets/MyHealth';
 import { UserSettings } from 'widgets/UserSettings';
-import { useGetActiveChatId } from 'features/Chat/lib/useActiveChatId';
+import styles from './Sidebar.module.scss';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -106,7 +106,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
                 }}
               >
                 <Tp className={styles.icon} />
-                <span className={styles.link_text}>Мой Кабинет</span>
+                <span className={styles.link_text}>Моё Здоровье</span>
               </div>
               <div
                 className={styles.side_link}
@@ -115,7 +115,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
                 }}
               >
                 <Settings className={styles.icon} />
-                <span className={styles.link_text}>Настройки</span>
+                <span className={styles.link_text}>Аккаунт TPS</span>
               </div>
             </div>
           ) : null}
@@ -150,7 +150,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
                 }}
               >
                 <Tp className={styles.icon} />
-                <span className={styles.link_text}>Мой Кабинет</span>
+                <span className={styles.link_text}>Моё Здоровье</span>
               </div>
               <div
                 className={styles.side_link}
@@ -159,7 +159,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
                 }}
               >
                 <Settings className={styles.icon} />
-                <span className={styles.link_text}>Настройки</span>
+                <span className={styles.link_text}>Аккаунт TPS</span>
               </div>
             </div>
           )}
