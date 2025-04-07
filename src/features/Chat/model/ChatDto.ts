@@ -1,8 +1,9 @@
+import { ChatVariant } from './ChatVariant';
+
 export interface ChatDto {
   dialogue_id: string;
   messages: ChatMessageDto[];
-  messages_limit: number;
-  used_limit: number;
+  bot: ChatVariant;
 }
 
 export interface ChatMessageDto {
@@ -18,6 +19,9 @@ export interface ChatMessageDto {
       };
     },
   ];
+  redirect?: {
+    bot: ChatVariant;
+  };
   timestamp: string;
   rate: 'like' | 'dislike' | 'not rated';
   files: string[];

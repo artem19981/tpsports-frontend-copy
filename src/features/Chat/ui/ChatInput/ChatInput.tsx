@@ -4,11 +4,7 @@ import { KeyboardEventHandler, SyntheticEvent, useMemo, useState } from 'react';
 
 import ArrowIcon from '@/app/assets/images/aiChat/arrow.svg?component';
 import ClipIcon from '@/app/assets/images/aiChat/pClip.svg?component';
-import {
-  INPUT_FILE_ACCEPT,
-  UploadedFiles,
-  useChatType,
-} from 'entities/chat/ui';
+import { INPUT_FILE_ACCEPT, UploadedFiles, useChatType } from 'entities/chat/ui';
 import { BOTS } from 'shared/constants/bots';
 
 import styles from './ChatInput.module.scss';
@@ -23,7 +19,7 @@ interface Props {
   isPending: boolean;
   disabled?: boolean;
   rootClassName?: string;
-  onSendMessage: (payload: Omit<SendMessageDto, 'bot_name'>) => void;
+  onSendMessage: (payload: Omit<SendMessageDto, 'bot_name' | 'dialogue_id'>) => void;
   setLoading?: (value: boolean) => void;
 }
 
@@ -50,10 +46,7 @@ export function ChatInput({
   } = useUploadFiles();
 
   const chatType = useChatType()?.chatType;
-  const selectedBot = useMemo(
-    () => BOTS.find((bot) => bot.name === chatType),
-    [chatType]
-  );
+  const selectedBot = useMemo(() => BOTS.find((bot) => bot.name === chatType), [chatType]);
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
@@ -72,9 +65,7 @@ export function ChatInput({
     setLoading?.(true);
 
     const hasFiles = files.length > 0;
-    const uploadedFileIds = hasFiles
-      ? await uploadFiles(files, showSnackbar)
-      : [];
+    const uploadedFileIds = hasFiles ? await uploadFiles(files, showSnackbar) : [];
 
     onSendMessage({
       content: inputValue,
@@ -94,9 +85,7 @@ export function ChatInput({
     if (e.shiftKey) {
       const start = input.selectionStart;
       const end = input.selectionEnd;
-      setInputValue(
-        (value) => value.substring(0, start) + '\n' + value.substring(end)
-      );
+      setInputValue((value) => value.substring(0, start) + '\n' + value.substring(end));
 
       input.selectionStart = input.selectionEnd = start + 1;
       e.preventDefault();
@@ -124,9 +113,7 @@ export function ChatInput({
             value={inputValue === '\n' ? '' : inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             className={styles.input}
-            placeholder={
-              isPending ? loadingPlaceholder : 'Написать ИИ ассистенту'
-            }
+            placeholder={isPending ? loadingPlaceholder : 'Написать ИИ ассистенту'}
             onKeyDown={onKeyDown}
             onPaste={onPasteFiles}
           />
@@ -157,11 +144,7 @@ export function ChatInput({
             disabled={isPending || disabled}
             style={{ background: selectedBot?.gradient }}
           >
-            <ArrowIcon
-              style={{ color: selectedBot?.color }}
-              width="11"
-              height="10"
-            />
+            <ArrowIcon style={{ color: selectedBot?.color }} width="11" height="10" />
           </IconButton>
         </Stack>
       </form>

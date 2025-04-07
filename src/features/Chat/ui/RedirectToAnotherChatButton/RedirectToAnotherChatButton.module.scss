@@ -1,0 +1,24 @@
+button.button {
+  border: 1px solid #aebd0c;
+  box-shadow: 0px 0px 5px 0px #aebd0c;
+  padding: 28px 0;
+  text-transform: none;
+
+  font-size: 13px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+
+  font-size: 13px;
+
+  transition: all 0.3s ease;
+  margin-top: 20px;
+
+  &:hover {
+    box-shadow: 0px 0px 10px 0px #aebd0c;
+  }
+
+  span {
+    color: #aebd0c;
+  }
+}

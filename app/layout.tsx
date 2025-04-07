@@ -5,6 +5,9 @@ import localFont from 'next/font/local';
 import 'overlayscrollbars/overlayscrollbars.css';
 import './globals.css';
 import classNames from 'classnames';
+import { cookies } from 'next/headers';
+import { ChatType } from 'entities/chat/model/ChatType';
+import { CHAT_TYPE_COOKIE_KEY } from 'entities/chat/config';
 
 const neumachineFont = localFont({
   src: [
@@ -60,16 +63,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const chatType = cookies().get(CHAT_TYPE_COOKIE_KEY)?.value ?? null;
+
   return (
     <html lang="ru">
-      <Providers>
-        <body
-          className={classNames(
-            neumachineFont.variable,
-            gilroyFont.variable,
-            'antialiased'
-          )}
-        >
+      <Providers initialChatType={chatType as ChatType}>
+        <body className={classNames(neumachineFont.variable, gilroyFont.variable, 'antialiased')}>
           {children}
         </body>
       </Providers>

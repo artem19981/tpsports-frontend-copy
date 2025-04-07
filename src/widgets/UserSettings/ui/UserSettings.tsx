@@ -17,6 +17,7 @@ import {
   userSettingsMenuItems,
 } from 'entities/user';
 import { UserSettingsActions } from 'features/User';
+import { TariffDialog } from 'widgets/TariffDialog';
 
 interface Props {
   open?: boolean;
@@ -27,15 +28,16 @@ export const UserSettings = ({ open, onClose }: Props) => {
   const isMobile = useMediaQuery('(max-width: 650px)');
   const isTablet = useMediaQuery('(max-width: 950px)');
   const [activeMenu, setActiveMenu] = useState<UserSettingsMenuState>(
-    isMobile ? undefined : UserSettingsMenuItem.PersonalInfo
+    isMobile ? undefined : UserSettingsMenuItem.PersonalInfo,
   );
   const [showExit, setShowExit] = useState(false);
+  const [isShowChangeTariff, setIsShowChangeTariff] = useState(false);
 
   const { data } = useGetUserProfile();
 
   const activeMenuIcon = useMemo(
     () => userSettingsMenuItems.find((item) => item.value === activeMenu)?.icon,
-    [activeMenu]
+    [activeMenu],
   );
 
   const onSelectMenuItem = useCallback((value: UserSettingsMenuState) => {
@@ -52,10 +54,7 @@ export const UserSettings = ({ open, onClose }: Props) => {
         <div className={styles.container}>
           <div className={styles.categories}>
             <UserSettingsBlock />
-            <UserSettingsMenu
-              onClick={onSelectMenuItem}
-              activeValue={activeMenu}
-            />
+            <UserSettingsMenu onClick={onSelectMenuItem} activeValue={activeMenu} />
           </div>
 
           {isMobile && activeMenu !== UserSettingsMenuItem.Exit ? (
@@ -67,24 +66,26 @@ export const UserSettings = ({ open, onClose }: Props) => {
               <UserSettingsActiveForm
                 activeMenu={activeMenu}
                 userProfile={data!}
+                onOpenTariff={setIsShowChangeTariff}
               />
             </FullScreenDialog>
           ) : (
             <UserSettingsActiveForm
               activeMenu={activeMenu}
               userProfile={data!}
+              onOpenTariff={setIsShowChangeTariff}
             />
           )}
 
-          {!isTablet && (
-            <div className={styles.emptyBlock}>{activeMenuIcon}</div>
-          )}
+          {!isTablet && <div className={styles.emptyBlock}>{activeMenuIcon}</div>}
         </div>
       </MainPageModal>
 
       <LogoutUserModal open={showExit} onClose={() => setShowExit(false)}>
         <UserSettingsActions withLoader={!isMobile} />
       </LogoutUserModal>
+
+      <TariffDialog setOpen={setIsShowChangeTariff} open={isShowChangeTariff} />
     </>
   );
 };

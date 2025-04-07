@@ -18,7 +18,7 @@ export const userSettingsMenuItems = [
   },
   {
     title: 'Мой тариф',
-    icon: <PricingPlan width={24} height={24} />,
+    icon: <PricingPlan width={22} height={22} />,
     value: UserSettingsMenuItem.PricingPlan,
   },
   {

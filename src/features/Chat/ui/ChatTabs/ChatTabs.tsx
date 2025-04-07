@@ -1,16 +1,18 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { memo } from "react";
+import { useRouter } from 'next/navigation';
+import { memo } from 'react';
 
-import { useChatType } from "entities/chat/ui";
-import { CategoriesSwipe } from "features/InitialOnboard/ui/StrengthTrainingForm/components/CategoriesSwipe";
-import { useGetAllTags } from "features/Tags/lib/useGetAllTabs";
-import { useGetTagsBy } from "features/Tags/lib/useGetTagsBy";
-import { BOTS } from "shared/constants/bots";
-import { Swiper } from "shared/ui";
-import { SwiperSlide } from "swiper/react";
-import styles from "./ChatTabs.module.scss";
+import { useChatType } from 'entities/chat/ui';
+import { CategoriesSwipe } from 'features/InitialOnboard/ui/StrengthTrainingForm/components/CategoriesSwipe';
+import { useGetAllTags } from 'features/Tags/lib/useGetAllTabs';
+import { useGetTagsBy } from 'features/Tags/lib/useGetTagsBy';
+import { BOTS } from 'shared/constants/bots';
+import { Swiper } from 'shared/ui';
+import { SwiperSlide } from 'swiper/react';
+import styles from './ChatTabs.module.scss';
+import { useSetOptimisticChatMessage } from 'entities/chat/lib';
+import { ChatType } from 'entities/chat/model/ChatType';
 
 interface Tag {
   id: string;
@@ -26,27 +28,24 @@ interface ChatTabsProps {
 
 export const ChatTabs = memo(({ onLocalTagClick }: ChatTabsProps) => {
   const router = useRouter();
-  const chatType = useChatType()?.chatType;
+  const { chatType, setChatType } = useChatType() || {};
   const { data: allTags } = useGetAllTags();
   const { data: botTags } = useGetTagsBy(chatType);
+  const setOptimisticChatMessage = useSetOptimisticChatMessage();
 
   const tags: Tag[] = chatType ? botTags || [] : allTags || [];
 
   const getBorderColor = (tag: Tag) => {
-    return (
-      tag.borderColor ||
-      BOTS.find((bot) => bot.name === tag.bot_name)?.borderColor ||
-      "#000"
-    );
+    return tag.borderColor || BOTS.find((bot) => bot.name === tag.bot_name)?.borderColor || '#000';
   };
 
   const handleTagClick = (tag: Tag) => {
     if (chatType && tag.bot_name === chatType) {
       onLocalTagClick && onLocalTagClick(tag);
     } else {
-      router.push(
-        `/ai/chat/${tag.bot_name}?bot=${tag.bot_name}&message=${encodeURIComponent(tag.description)}`
-      );
+      setOptimisticChatMessage({ content: tag.description });
+      setChatType?.(tag.bot_name as ChatType);
+      router.push('/ai/chat/');
     }
   };
 
@@ -57,17 +56,13 @@ export const ChatTabs = memo(({ onLocalTagClick }: ChatTabsProps) => {
           <SwiperSlide
             key={tag.id}
             style={{
-              width: "auto",
+              width: 'auto',
               paddingLeft: 20,
-              cursor: "pointer",
+              cursor: 'pointer',
             }}
             onClick={() => handleTagClick(tag)}
           >
-            <CategoriesSwipe
-              value={tag.name}
-              height={71}
-              borderColor={getBorderColor(tag)}
-            />
+            <CategoriesSwipe value={tag.name} height={71} borderColor={getBorderColor(tag)} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -75,4 +70,4 @@ export const ChatTabs = memo(({ onLocalTagClick }: ChatTabsProps) => {
   );
 });
 
-ChatTabs.displayName = "ChatTabs";
+ChatTabs.displayName = 'ChatTabs';

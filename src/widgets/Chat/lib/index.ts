@@ -3,3 +3,4 @@ export * from './getUpdatedGPTMessage';
 export * from './useAiMessageWithLoading';
 export * from './useChat';
 export * from './useShowScrollButton';
+export * from './useSetPageTitle';

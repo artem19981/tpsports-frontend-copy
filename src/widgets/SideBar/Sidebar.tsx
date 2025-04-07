@@ -1,31 +1,25 @@
-"use client";
+'use client';
 
-import ChevronDown from "@/app/assets/images/aiChat/arrow-down.svg?component";
-import Burger from "@/app/assets/images/aiChat/burger.svg?component";
-import Settings from "@/app/assets/images/aiChat/settings.svg?component";
-import Side from "@/app/assets/images/aiChat/side.svg?component";
-import Tp from "@/app/assets/images/aiChat/tp.svg?component";
-import cn from "classnames";
-import { useChatType } from "entities/chat/ui";
-import { useRouter } from "next/navigation";
-import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import React, { FC, useEffect, useState } from "react";
-import { BOTS } from "shared/constants/bots";
+import ChevronDown from '@/app/assets/images/aiChat/arrow-down.svg?component';
+import Burger from '@/app/assets/images/aiChat/burger.svg?component';
+import Settings from '@/app/assets/images/aiChat/settings.svg?component';
+import Side from '@/app/assets/images/aiChat/side.svg?component';
+import Tp from '@/app/assets/images/aiChat/tp.svg?component';
+import cn from 'classnames';
+import { useChatType } from 'entities/chat/ui';
+import { useRouter } from 'next/navigation';
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import { BOTS } from 'shared/constants/bots';
 
-import styles from "./Sidebar.module.scss";
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 490);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  return isMobile;
-}
+import styles from './Sidebar.module.scss';
+import { MultiChatMenuItem } from 'features/Chat/ui';
+import { useGetMultiChats } from 'features/Chat/lib/useGetMultiChats';
+import { useMediaQuery } from '@mui/material';
+import { FrontendMultiChat } from 'features/Chat/model';
+import { MyHealth } from 'widgets/MyHealth';
+import { UserSettings } from 'widgets/UserSettings';
+import { useGetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -33,44 +27,32 @@ interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
-  const isMobile = useIsMobile();
+  const isMobile = useMediaQuery('(max-width: 490px)');
   const router = useRouter();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const { chatType } = useChatType() || {};
-  const currentBot = BOTS.find((bot) => bot.name === chatType);
-  const accentColor = currentBot?.borderColor || "#00ffb0";
-  const activeBgColor = currentBot
-    ? "rgba(255,255,255,0.1)"
-    : "rgba(0,255,176,0.1)";
+  const [showHealth, setShowHealth] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
-  const [activeItem, setActiveItem] = useState<string | null>(null);
+  const { chatType } = useChatType() || {};
+  const currentBot = useMemo(() => BOTS.find((bot) => bot.name === chatType), [chatType]);
+  const accentColor = currentBot?.borderColor || '#00ffb0';
+
   const [expandedSections, setExpandedSections] = useState({
     favorites: true,
     chats: true,
   });
 
-  const favorites = [
-    { id: 1, label: "Рост мышц без вреда" },
-    { id: 2, label: "Как получить красивое..." },
-    { id: 3, label: "Правильное питание" },
-  ];
+  const { data: chatsData } = useGetMultiChats();
+  const activeChatId = useGetActiveChatId();
 
-  const myChats = [
-    { id: 4, label: "Рост мышц без вреда." },
-    { id: 5, label: "Как получить красивое...." },
-    { id: 6, label: "Правильное питание." },
-  ];
+  const chatData = (
+    chatType ? chatsData?.chatsByAssistants[chatType] : chatsData?.chats
+  ) as FrontendMultiChat;
 
-  const handleClickItem = (label: string) => {
-    setActiveItem(label);
+  console.log(activeChatId, 'activeChatIdactiveChatId');
 
-    if (isMobile) {
-      setIsMobileOpen(false);
-    }
-  };
-
-  const toggleSection = (section: "favorites" | "chats") => {
+  const toggleSection = (section: 'favorites' | 'chats') => {
     setExpandedSections((prev) => ({
       ...prev,
       [section]: !prev[section],
@@ -82,15 +64,15 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
   };
 
   useEffect(() => {
-    const child = document.getElementById("children");
+    const child = document.getElementById('children');
 
     if (!isMobileOpen && child) {
       setIsMobileOpen(false);
-      child.style.opacity = "1";
-      child.style.transition = "opacity 0.3s ease ";
+      child.style.opacity = '1';
+      child.style.transition = 'opacity 0.3s ease ';
     }
     if (child && isMobileOpen) {
-      child.style.opacity = "0";
+      child.style.opacity = '0';
     }
     console.log(isOpen, isMobileOpen);
   }, [isMobileOpen, handleMobileToggle]);
@@ -111,7 +93,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
           },
           {
             [styles.mobileOpen]: isMobile && isMobileOpen,
-          }
+          },
         )}
       >
         <div className={styles.topSection}>
@@ -120,7 +102,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
               <div
                 className={styles.side_link}
                 onClick={() => {
-                  router.push(`/user-settings`);
+                  setShowHealth(true);
                 }}
               >
                 <Tp className={styles.icon} />
@@ -129,7 +111,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
               <div
                 className={styles.side_link}
                 onClick={() => {
-                  router.push(`/user-settings`);
+                  setShowSettings(true);
                 }}
               >
                 <Settings className={styles.icon} />
@@ -141,10 +123,10 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
           {!isMobile && !isOpen ? (
             <div className={styles.side_main_collapsed}>
               <div className={styles.side_link}>
-                <Tp className={styles.icon} />
+                <Tp className={styles.icon} onClick={() => setShowHealth(true)} />
               </div>
               <div className={styles.side_link}>
-                <Settings className={styles.icon} />
+                <Settings className={styles.icon} onClick={() => setShowSettings(true)} />
               </div>
             </div>
           ) : null}
@@ -185,13 +167,13 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
 
         <OverlayScrollbarsComponent
           defer
-          options={{ scrollbars: { autoHide: "leave" } }}
-          className={`${styles.scrollableContent} ${!isOpen ? styles.scrollContent : ""}`}
+          options={{ scrollbars: { autoHide: 'leave' } }}
+          className={`${styles.scrollableContent} ${!isOpen ? styles.scrollContent : ''}`}
           color={accentColor}
           style={
             {
-              "--os-handle-bg": accentColor,
-              "--os-track-bg": accentColor,
+              '--os-handle-bg': accentColor,
+              '--os-track-bg': accentColor,
             } as React.CSSProperties
           }
         >
@@ -200,17 +182,12 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
               className={styles.navTitle}
               style={{
                 color: accentColor,
-                borderBottom:
-                  isOpen || isMobile
-                    ? "1px solid rgba(255, 255, 255, 0.1)"
-                    : "",
+                borderBottom: isOpen || isMobile ? '1px solid rgba(255, 255, 255, 0.1)' : '',
               }}
-              onClick={() => toggleSection("favorites")}
+              onClick={() => toggleSection('favorites')}
             >
               {isOpen || isMobile ? (
-                <div
-                  style={{ display: "flex", alignItems: "flex-start", gap: 10 }}
-                >
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                   <svg
                     width="13"
                     height="16"
@@ -240,47 +217,15 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
             </div>
             {expandedSections.favorites && (
               <ul>
-                {favorites.map((fav) => (
-                  <li
-                    key={fav.id}
-                    className={cn(styles.navItem, {
-                      [styles.active]: fav.label === activeItem,
-                    })}
-                    onClick={() => handleClickItem(fav.label)}
-                    style={{
-                      borderBottom:
-                        isOpen || isMobile
-                          ? "1px solid rgba(255, 255, 255, 0.1)"
-                          : "",
-                      ...(fav.label === activeItem
-                        ? {
-                            borderLeft: `2px solid ${accentColor}`,
-                          }
-                        : {}),
-                    }}
-                  >
-                    {isOpen || isMobile ? (
-                      <>
-                        <span className={styles.label}>{fav.label}</span>
-                        <div
-                          className={styles.dots}
-                          style={{ color: accentColor }}
-                        >
-                          ...
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className={styles.tooltip}>{fav.label}</div>
-                        <div
-                          className={styles.dots_collapsed}
-                          style={{ color: accentColor }}
-                        >
-                          ...
-                        </div>
-                      </>
-                    )}
-                  </li>
+                {chatData.favoriteChats.map((chat) => (
+                  <MultiChatMenuItem
+                    key={chat.id}
+                    {...chat}
+                    accentColor={accentColor}
+                    isActive={chat.id === activeChatId}
+                    isMobile={isMobile}
+                    isOpen={isOpen}
+                  />
                 ))}
               </ul>
             )}
@@ -290,11 +235,15 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
             <div
               className={styles.navTitle}
               style={{ color: accentColor }}
-              onClick={() => toggleSection("chats")}
+              onClick={() => toggleSection('chats')}
             >
               {isOpen || isMobile ? (
                 <div
-                  style={{ display: "flex", alignItems: "flex-start", gap: 10 }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: 10,
+                  }}
                 >
                   <svg
                     width="15"
@@ -324,38 +273,15 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
             </div>
             {expandedSections.chats && (
               <ul>
-                {myChats.map((chat) => (
-                  <li
+                {chatData.allChats.map((chat) => (
+                  <MultiChatMenuItem
                     key={chat.id}
-                    className={cn(styles.navItem, {
-                      [styles.active]: chat.label === activeItem,
-                    })}
-                    onClick={() => handleClickItem(chat.label)}
-                    style={
-                      chat.label === activeItem
-                        ? {
-                            borderLeft: `2px solid ${accentColor}`,
-                          }
-                        : {}
-                    }
-                  >
-                    {isOpen || isMobile ? (
-                      <>
-                        <span className={styles.label}>{chat.label}</span>
-                        <div
-                          className={styles.dots}
-                          style={{ color: accentColor }}
-                        >
-                          ...
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className={styles.tooltip}>{chat.label}</div>
-                        <div className={styles.dots_collapsed}>...</div>
-                      </>
-                    )}
-                  </li>
+                    {...chat}
+                    accentColor={accentColor}
+                    isActive={chat.id === activeChatId}
+                    isMobile={isMobile}
+                    isOpen={isOpen}
+                  />
                 ))}
               </ul>
             )}
@@ -365,12 +291,15 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
 
       {isMobile && (
         <button
-          className={`${styles.burgerBtn} ${isMobile && isMobileOpen ? styles.mobileOpener : ""}`}
+          className={`${styles.burgerBtn} ${isMobile && isMobileOpen ? styles.mobileOpener : ''}`}
           onClick={handleMobileToggle}
         >
           <Burger />
         </button>
       )}
+
+      <MyHealth open={showHealth} onClose={() => setShowHealth(false)} />
+      <UserSettings open={showSettings} onClose={() => setShowSettings(false)} />
     </>
   );
 };

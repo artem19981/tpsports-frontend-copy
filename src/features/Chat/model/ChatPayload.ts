@@ -1,3 +1,3 @@
 export interface ChatPayload {
-  botName: string;
+  dialogue_id: number;
 }

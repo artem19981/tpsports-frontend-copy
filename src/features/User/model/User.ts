@@ -19,7 +19,21 @@ export interface UserDto {
   isOnboardingCompleted: boolean;
 }
 
+export enum UserTariffDto {
+  Demo = 'Demo',
+  Basic = 'Basic',
+  Pro = 'Pro',
+  SportsClub = 'Sports club',
+}
+
 export interface UserTariff {
+  id: string;
+  email: string;
+
+  tariff: UserTariffDto | null;
+  tariff_type: 'month' | 'year' | null;
+  tariff_end_date: number | null;
+
   name: string;
   messages_limit: number;
 }
