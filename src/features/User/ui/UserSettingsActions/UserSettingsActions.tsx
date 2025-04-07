@@ -7,10 +7,7 @@ import { Stack } from '@mui/material';
 import { useLogoutUser } from 'features/Auth/lib/useLogoutUser';
 import { useRouter } from 'next/navigation';
 import { Button, Loader } from 'shared/ui';
-import {
-  logoutUser as onLogout,
-  logoutUserFromAllDevices,
-} from 'features/Auth/api';
+import { logoutUser as onLogout, logoutUserFromAllDevices } from 'features/Auth/api';
 
 import { revalidatePath } from 'next/cache';
 import { useQueryClient } from '@tanstack/react-query';
@@ -23,10 +20,7 @@ export const UserSettingsActions = ({ withLoader = true }: Props) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const logoutUser = useLogoutUser(onLogout, afterLogout);
-  const logoutFromAllDevices = useLogoutUser(
-    logoutUserFromAllDevices,
-    afterLogout
-  );
+  const logoutFromAllDevices = useLogoutUser(logoutUserFromAllDevices, afterLogout);
 
   function afterLogout() {
     queryClient.clear();
@@ -41,7 +35,7 @@ export const UserSettingsActions = ({ withLoader = true }: Props) => {
     logoutFromAllDevices.isSuccess;
 
   return (
-    <Stack direction="column" gap={1.5} width="100%">
+    <Stack direction="column" gap={1.9} width="100%">
       <Button onClick={() => logoutUser.mutate()} disabled={disableLogouts}>
         Выход
       </Button>

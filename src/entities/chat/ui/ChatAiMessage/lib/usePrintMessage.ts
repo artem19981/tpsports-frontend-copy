@@ -19,9 +19,7 @@ export const usePrintMessage = ({
   isGPTMessageStreaming,
   onEndPrint,
 }: Props) => {
-  const [displayedText, setDisplayedText] = useState(
-    withAnimation ? '' : messageText
-  );
+  const [displayedText, setDisplayedText] = useState(withAnimation ? '' : messageText);
 
   const messageRef = useRef(messageText);
   const isGPTMessageStreamingRef = useRef(isGPTMessageStreaming);
@@ -60,21 +58,8 @@ export const usePrintMessage = ({
 
       if (isMessageLoaded) {
         currentIndex += charsPerFrame;
-        console.log(
-          'print',
-          messageRef.current.slice(0, currentIndex).length,
-          'отображаемая длина'
-        );
 
         setDisplayedText(messageRef.current.slice(0, currentIndex));
-      } else {
-        console.log(
-          'wait ',
-          messageRef.current.slice(0, currentIndex).length,
-          '- отображаемая длина',
-          messageRef.current.length,
-          '- длина загруженного текста'
-        );
       }
 
       lastFrameTimeRef.current = now;
@@ -82,8 +67,6 @@ export const usePrintMessage = ({
       frameId = requestAnimationFrame(printNextChar);
 
       if (!isGPTMessageStreamingRef.current) {
-        console.log('end print');
-
         cancelAnimationFrame(frameId);
         onEndPrint();
       }

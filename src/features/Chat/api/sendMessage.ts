@@ -15,7 +15,7 @@ export const sendChatMessage = async (payload: SendMessageDto) => {
   console.log(
     `Время начала стриминга: ${(endTime - startTime).toFixed(2)} мс`,
     'таймстемп',
-    new Date().valueOf()
+    new Date().valueOf(),
   );
 
   if (!response.ok) {

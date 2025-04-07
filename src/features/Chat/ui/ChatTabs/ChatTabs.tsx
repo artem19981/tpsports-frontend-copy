@@ -28,7 +28,7 @@ interface ChatTabsProps {
 
 export const ChatTabs = memo(({ onLocalTagClick }: ChatTabsProps) => {
   const router = useRouter();
-  const { chatType, setChatType } = useChatType() || {};
+  const { chatType } = useChatType() || {};
   const { data: allTags } = useGetAllTags();
   const { data: botTags } = useGetTagsBy(chatType);
   const setOptimisticChatMessage = useSetOptimisticChatMessage();
@@ -43,8 +43,7 @@ export const ChatTabs = memo(({ onLocalTagClick }: ChatTabsProps) => {
     if (chatType && tag.bot_name === chatType) {
       onLocalTagClick && onLocalTagClick(tag);
     } else {
-      setOptimisticChatMessage({ content: tag.description });
-      setChatType?.(tag.bot_name as ChatType);
+      setOptimisticChatMessage({ content: tag.description, bot_name: tag.bot_name });
       router.push('/ai/chat/');
     }
   };

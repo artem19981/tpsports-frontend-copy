@@ -50,8 +50,6 @@ export const useChatMessage = (
   const sendMessage = async (payload: Omit<SendMessageDto, 'bot_name' | 'dialogue_id'>) => {
     let intervalId: NodeJS.Timeout | null = null;
 
-    const startTime = performance.now();
-
     try {
       let fullData = '';
 
@@ -71,21 +69,14 @@ export const useChatMessage = (
 
       const { reader, decoder } = await sendChatMessage({
         bot_name: chatVariant,
-        dialogue_id: chatId || 0,
+        ...(chatId && { dialogue_id: chatId }),
         ...payload,
       });
-
-      const endTime = performance.now();
-      console.log(`Время ответа от сервера: ${(endTime - startTime).toFixed(2)} мс`);
 
       setIsGPTMessageLoading(false);
       setLoading(false);
 
       intervalId = setInterval(() => {
-        const endTime = performance.now();
-
-        console.log(`получил больше текста ${(endTime - startTime).toFixed(2)} мс`);
-
         if (fullData) {
           updateGPTMessage(fullData);
         }

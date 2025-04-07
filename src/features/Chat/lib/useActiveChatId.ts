@@ -18,6 +18,15 @@ export const useGetActiveChatId = () => {
 
       return idFromParams ? +idFromParams : null;
     },
+    initialData: () => {
+      const id = localStorage.getItem(ACTIVE_CHAT_ID_LOCAL_STORAGE_KEY);
+
+      if (id) return +id;
+
+      const idFromParams = searchParams.get(CHAT_ID_QUERY_PARAM);
+
+      return idFromParams ? +idFromParams : null;
+    },
   }).data as number | null;
 };
 

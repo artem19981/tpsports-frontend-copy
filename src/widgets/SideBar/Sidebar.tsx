@@ -7,7 +7,6 @@ import Side from '@/app/assets/images/aiChat/side.svg?component';
 import Tp from '@/app/assets/images/aiChat/tp.svg?component';
 import cn from 'classnames';
 import { useChatType } from 'entities/chat/ui';
-import { useRouter } from 'next/navigation';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { BOTS } from 'shared/constants/bots';
@@ -17,8 +16,8 @@ import { useGetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 import { useGetMultiChats } from 'features/Chat/lib/useGetMultiChats';
 import { FrontendMultiChat } from 'features/Chat/model';
 import { MultiChatMenuItem } from 'features/Chat/ui';
-import { MyHealth } from 'widgets/MyHealth';
-import { UserSettings } from 'widgets/UserSettings';
+import { MyHealth, useMyHealthModal } from 'widgets/MyHealth';
+import { UserSettings, useSettingsModal } from 'widgets/UserSettings';
 import styles from './Sidebar.module.scss';
 
 interface SidebarProps {
@@ -28,11 +27,10 @@ interface SidebarProps {
 
 export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const isMobile = useMediaQuery('(max-width: 490px)');
-  const router = useRouter();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const [showHealth, setShowHealth] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
+  const [showHealth, setShowHealth] = useMyHealthModal();
+  const [showSettings, setShowSettings] = useSettingsModal();
 
   const { chatType } = useChatType() || {};
   const currentBot = useMemo(() => BOTS.find((bot) => bot.name === chatType), [chatType]);
@@ -46,11 +44,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const { data: chatsData } = useGetMultiChats();
   const activeChatId = useGetActiveChatId();
 
-  const chatData = (
-    chatType ? chatsData?.chatsByAssistants[chatType] : chatsData?.chats
-  ) as FrontendMultiChat;
-
-  console.log(activeChatId, 'activeChatIdactiveChatId');
+  const chatData = chatsData?.chats as FrontendMultiChat;
 
   const toggleSection = (section: 'favorites' | 'chats') => {
     setExpandedSections((prev) => ({
@@ -74,7 +68,6 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
     if (child && isMobileOpen) {
       child.style.opacity = '0';
     }
-    console.log(isOpen, isMobileOpen);
   }, [isMobileOpen, handleMobileToggle]);
 
   const mobileBackdrop = isMobile && isMobileOpen && (
@@ -146,7 +139,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
               <div
                 className={styles.side_link}
                 onClick={() => {
-                  router.push(`/user-settings`);
+                  setShowHealth(true);
                 }}
               >
                 <Tp className={styles.icon} />
@@ -155,7 +148,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
               <div
                 className={styles.side_link}
                 onClick={() => {
-                  router.push(`/user-settings`);
+                  setShowSettings(true);
                 }}
               >
                 <Settings className={styles.icon} />
@@ -221,10 +214,10 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
                   <MultiChatMenuItem
                     key={chat.id}
                     {...chat}
-                    accentColor={accentColor}
                     isActive={chat.id === activeChatId}
                     isMobile={isMobile}
                     isOpen={isOpen}
+                    onClose={handleMobileToggle}
                   />
                 ))}
               </ul>
@@ -277,10 +270,10 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
                   <MultiChatMenuItem
                     key={chat.id}
                     {...chat}
-                    accentColor={accentColor}
                     isActive={chat.id === activeChatId}
                     isMobile={isMobile}
                     isOpen={isOpen}
+                    onClose={handleMobileToggle}
                   />
                 ))}
               </ul>

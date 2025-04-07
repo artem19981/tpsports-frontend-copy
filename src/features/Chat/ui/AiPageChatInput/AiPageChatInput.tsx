@@ -27,7 +27,7 @@ export const AiPageChatInput = ({ disabled }: Props) => {
   const mutation = useMutation({
     mutationFn: async (payload: Omit<SendMessageDto, 'bot_name' | 'dialogue_id'>) => payload,
     onSuccess: (data) => {
-      setOptimisticChatMessage(data);
+      setOptimisticChatMessage({ ...data, bot_name: chatTypeContext?.chatType as string });
       router.push('/ai/chat/');
     },
   });
@@ -35,8 +35,12 @@ export const AiPageChatInput = ({ disabled }: Props) => {
   const onSendMessage = async (payload: Omit<SendMessageDto, 'bot_name' | 'dialogue_id'>) => {
     if (!chatTypeContext?.chatType) {
       sendMessageToRedirecter(payload).then((data) => {
-        setOptimisticChatMessage(payload);
-        chatTypeContext?.setChatType(data.bot_name);
+        console.log('redirect to', data.bot_name);
+
+        setOptimisticChatMessage({
+          ...payload,
+          bot_name: data.bot_name,
+        });
         router.push('/ai/chat/');
       });
 

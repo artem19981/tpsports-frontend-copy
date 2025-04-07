@@ -4,4 +4,7 @@ export enum QueryKeys {
   Chat = 'chat',
 
   ActiveChatId = 'activeChatId',
+
+  MyHealthModal = 'myHealthModal',
+  SettingsModal = 'SettingsModal',
 }

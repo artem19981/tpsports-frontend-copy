@@ -4,8 +4,17 @@ import { getSortedChatMessages } from './getSortedChatMessages';
 import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 import { getLastDialogue } from 'features/Chat/api/getLastDialogue';
 import { useSetChatType } from './useSetChatType';
+import { usePathname } from 'next/navigation';
+import { CHAT_ID_QUERY_PARAM, NEW_CHAT_ID } from 'entities/chat/config';
+import { useQueryClient } from '@tanstack/react-query';
+import { QueryKeys } from 'shared/constants/query-keys';
 
 export const useChat = (chatId: number | null) => {
+  const pathname = usePathname();
+  const queryClient = useQueryClient();
+
+  const [showSkeletons, setShowSkeletons] = useState(true);
+
   const [isGPTMessageLoading, setIsGPTMessageLoading] = useState(false);
   const [isGPTMessageStreaming, setIsGPTMessageStreaming] = useState(false);
 
@@ -35,8 +44,12 @@ export const useChat = (chatId: number | null) => {
       refetch().then(() =>
         setTimeout(() => {
           scrollToLastMessage(false);
-        }, 100),
+        }, 150),
       );
+    } else {
+      queryClient.setQueryData([QueryKeys.Chat, chatId || NEW_CHAT_ID], () => {
+        return null;
+      });
     }
 
     setIsGPTMessageStreaming(false);
@@ -46,9 +59,21 @@ export const useChat = (chatId: number | null) => {
 
   const updateChatMessages = useCallback(async () => {
     if (!chatId) {
+      setShowSkeletons(false);
       const chat = await getLastDialogue();
       setActiveChatId(chat.dialogue_id);
-      queueMicrotask(refetch);
+
+      setTimeout(() => {
+        refetch().then(() => {
+          queueMicrotask(() => {
+            setShowSkeletons(true);
+          });
+        });
+      });
+
+      const url = new URL(pathname, window.location.origin);
+      url.searchParams.set(CHAT_ID_QUERY_PARAM, chat.dialogue_id.toString());
+      window.history.replaceState({}, document.title, url.toString());
 
       return;
     }
@@ -59,6 +84,7 @@ export const useChat = (chatId: number | null) => {
   const messages = useMemo(() => getSortedChatMessages(data?.messages || []), [data?.messages]);
 
   return {
+    showSkeletons,
     messagesRef,
     isGPTMessageLoading,
     isGPTMessageStreaming,

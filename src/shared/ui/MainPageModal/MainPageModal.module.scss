@@ -32,11 +32,6 @@ div.content {
     width: calc(100vw - 80px);
   }
 
-  @media screen and (max-height: 700px) {
-    top: 30px;
-    height: calc(100dvh - 60px);
-  }
-
   @media screen and (max-width: 650px) {
     width: 100vw;
     height: calc(100dvh - 50px);

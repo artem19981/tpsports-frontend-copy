@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useRef, useState } from 'react';
+import React, { KeyboardEvent, SyntheticEvent, TouchEvent, useRef, useState } from 'react';
 import cn from 'classnames';
 
 import styles from './MultiChatMenuItem.module.scss';
@@ -13,12 +13,14 @@ import { useRouter } from 'next/navigation';
 import { useChatType } from 'entities/chat/ui';
 import { ChatType } from 'entities/chat/model/ChatType';
 import { CHAT_ID_QUERY_PARAM } from 'entities/chat/config';
+import { COLOR_BY_CHAT_TYPE } from './config';
 
 interface Props extends MultiChatDto {
   isActive: boolean;
   isMobile: boolean;
   isOpen: boolean;
-  accentColor: string;
+
+  onClose: () => void;
 }
 
 export const MultiChatMenuItem = ({
@@ -27,11 +29,12 @@ export const MultiChatMenuItem = ({
   isMobile,
   isOpen,
   name,
-  accentColor,
   bot_name,
-
   is_favorite,
+  onClose,
 }: Props) => {
+  const [open, setOpen] = useState(false);
+
   const router = useRouter();
 
   const [isEditLabelMode, setIsEditLabelMode] = useState(false);
@@ -41,15 +44,55 @@ export const MultiChatMenuItem = ({
   const setChatType = useChatType()?.setChatType;
   const renameChat = useRenameChat(() => setLocalLabel(name));
 
+  const holdTimeout = useRef<NodeJS.Timeout | null>(null);
+  const isChatPressed = useRef(false);
+
+  const handleMouseDown = (e: TouchEvent<HTMLLIElement>) => {
+    e.preventDefault();
+    isChatPressed.current = false;
+
+    holdTimeout.current = setTimeout(() => {
+      e.preventDefault();
+      isChatPressed.current = true;
+      setOpen(true);
+
+      setTimeout(() => {
+        const selection = window.getSelection();
+        console.log(selection, 'selection');
+        selection?.removeAllRanges();
+      }, 200);
+    }, 500);
+  };
+
+  const onMouseUp = (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    setTimeout(() => {
+      isChatPressed.current = false;
+    });
+
+    holdTimeout.current && clearTimeout(holdTimeout.current);
+  };
+
+  const onCancelPress = (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    holdTimeout.current && clearTimeout(holdTimeout.current);
+  };
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onSelectChat = () => {
-    if (isActive) {
+    if (isActive || isChatPressed.current || isEditLabelMode) {
       return;
     }
 
     setActiveChatId(id);
     setChatType?.(bot_name as ChatType);
+
+    if (isMobile) {
+      onClose();
+    }
 
     router.push(`/ai/chat/?${CHAT_ID_QUERY_PARAM}=${id}`);
   };
@@ -75,6 +118,8 @@ export const MultiChatMenuItem = ({
   };
 
   const onKeyDownLabel = (event: KeyboardEvent) => {
+    event.preventDefault();
+
     if (event.key === 'Escape') {
       setIsEditLabelMode(false);
       setLocalLabel(name);
@@ -85,11 +130,16 @@ export const MultiChatMenuItem = ({
     }
   };
 
+  const accentColor = COLOR_BY_CHAT_TYPE[bot_name as ChatType];
+
   return (
     <li
       className={cn(styles.navItem, {
         [styles.active]: isActive,
       })}
+      onTouchStart={handleMouseDown}
+      onTouchEnd={onMouseUp}
+      onTouchCancel={onCancelPress}
       onClick={onSelectChat}
       style={{
         borderBottom: isOpen || isMobile ? '1px solid rgba(255, 255, 255, 0.1)' : '',
@@ -102,11 +152,15 @@ export const MultiChatMenuItem = ({
         value={localLabel}
         onChange={(e) => setLocalLabel(e.target.value)}
         onBlur={onSaveChatName}
+        onTouchStart={(e) => e.preventDefault()}
+        onTouchEnd={(e) => e.preventDefault()}
+        onTouchCancel={(e) => e.preventDefault()}
         onKeyDown={onKeyDownLabel}
         ref={inputRef}
-        className={classNames({
+        className={classNames(styles.readOnly, {
           [styles.label]: isOpen || isMobile,
           [styles.tooltip]: !isOpen && !isMobile,
+          // [styles.readOnly]: !isEditLabelMode,
         })}
         readOnly={!isEditLabelMode}
         inputWrapperClassName={styles.inputWrapper}
@@ -114,12 +168,16 @@ export const MultiChatMenuItem = ({
 
       <ChatOptionsMenu
         color={accentColor}
-        renderChildren={(onClose) => (
+        visibleOnMobile={isActive}
+        isChatPressed={isChatPressed}
+        open={open}
+        setOpen={setOpen}
+        renderChildren={() => (
           <MultiChatMenuItemOptions
             chatId={id}
             isFavorite={is_favorite}
             isActive={isActive}
-            onClose={onClose}
+            onClose={() => setOpen(false)}
             onStartRename={onStartRename}
           />
         )}

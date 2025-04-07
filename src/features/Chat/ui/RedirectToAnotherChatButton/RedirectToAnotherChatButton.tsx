@@ -8,8 +8,7 @@ import React from 'react';
 import { Button } from 'shared/ui';
 import styles from './RedirectToAnotherChatButton.module.scss';
 import { UNBREAKABLE_SEPARATOR } from 'shared/constants/separator';
-import { useChatType } from 'entities/chat/ui';
-import { ChatType } from 'entities/chat/model/ChatType';
+import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 
 interface Props {
   newChat: ChatVariant;
@@ -18,15 +17,17 @@ interface Props {
 
 export const RedirectToAnotherChatButton = ({ newChat, message }: Props) => {
   const router = useRouter();
+
+  const setActiveChatId = useSetActiveChatId();
   const setOptimisticChatMessage = useSetOptimisticChatMessage();
-  const setChatType = useChatType()?.setChatType;
 
   const onClick = () => {
+    setActiveChatId(null);
     setOptimisticChatMessage({
       content: message.content[0].text.value,
       files: message.files,
+      bot_name: newChat,
     });
-    setChatType?.(newChat as ChatType);
 
     router.push('/ai/chat/');
   };

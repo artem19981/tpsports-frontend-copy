@@ -36,13 +36,7 @@ export const MainPageModal = ({
         backdrop: styles.backdrop,
       }}
     >
-      <Slide
-        direction="right"
-        in={open}
-        mountOnEnter
-        unmountOnExit
-        {...slideProps}
-      >
+      <Slide direction="right" in={open} mountOnEnter unmountOnExit {...slideProps}>
         <div className={classNames(styles.content, contentClassName)}>
           {showCloseBtn && (
             <IconButton onClick={onClose} className={styles.closeBtn}>

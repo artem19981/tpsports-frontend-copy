@@ -32,8 +32,7 @@ export const UserSettingsChangePasswordForm = () => {
   });
 
   const { isPending, mutate } = useMutation({
-    mutationFn: (data: UpdateUserPasswordPayload) =>
-      handleServerError(updateUserPassword(data)),
+    mutationFn: (data: UpdateUserPasswordPayload) => handleServerError(updateUserPassword(data)),
     onSuccess: () => {
       reset(defaultValues);
       showSnackbar('Пароль успешно изменен', 'success');
@@ -61,7 +60,7 @@ export const UserSettingsChangePasswordForm = () => {
       <Stack paddingInline={2.5} className={styles.content}>
         <p className={styles.title}>Изменить пароль</p>
 
-        <Stack direction="column" gap={3} className={styles.content}>
+        <Stack direction="column" gap={3.75} className={styles.content}>
           <ControlledInput
             name="old_password"
             type="password"
@@ -86,9 +85,7 @@ export const UserSettingsChangePasswordForm = () => {
       <MyHealthFormSubmitButton
         type="submit"
         disabled={isPending}
-        visible={
-          !!form.confirmPassword && !!form.new_password && !!form.old_password
-        }
+        visible={!!form.confirmPassword && !!form.new_password && !!form.old_password}
       />
 
       {isPending && <Loader />}

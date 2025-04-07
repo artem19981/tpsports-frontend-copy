@@ -1,4 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { ChatType } from 'entities/chat/model/ChatType';
+import { useChatType } from 'entities/chat/ui';
 import { ChatVariant, SendMessageDto } from 'features/Chat/model';
 import { useChatMessage } from 'features/Chat/ui/ChatPageInput/lib/useChatMessage';
 import { useEffect } from 'react';
@@ -20,8 +22,9 @@ export const useSendMessageWhenMount = ({
   onSend,
 }: Props) => {
   const queryClient = useQueryClient();
+  const chatTypeContext = useChatType();
 
-  const { data } = useQuery<Omit<SendMessageDto, 'bot_name'>>({
+  const { data } = useQuery<SendMessageDto>({
     queryKey: [QueryKeys.ChatMessage],
     staleTime: Infinity,
   });
@@ -36,11 +39,14 @@ export const useSendMessageWhenMount = ({
   useEffect(() => {
     if (data && !isFetching) {
       queueMicrotask(() => {
-        sendMessage(data);
+        const { bot_name, ...other } = data;
+
+        sendMessage(other);
+        chatTypeContext?.setChatType(bot_name as ChatType);
         queryClient.setQueryData(['chatMessage'], null);
       });
     }
-  }, [isFetching]);
+  }, [isFetching, data]);
 
   return {
     isMessageLoading: loading,

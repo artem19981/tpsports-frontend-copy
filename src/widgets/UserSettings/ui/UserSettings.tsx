@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 
 import { useMediaQuery } from '@mui/material';
 
@@ -34,6 +34,12 @@ export const UserSettings = ({ open, onClose }: Props) => {
   const [isShowChangeTariff, setIsShowChangeTariff] = useState(false);
 
   const { data } = useGetUserProfile();
+
+  useLayoutEffect(() => {
+    if (open) {
+      setActiveMenu(isMobile ? undefined : UserSettingsMenuItem.PersonalInfo);
+    }
+  }, [open, isMobile]);
 
   const activeMenuIcon = useMemo(
     () => userSettingsMenuItems.find((item) => item.value === activeMenu)?.icon,

@@ -38,6 +38,7 @@ export const Chat = () => {
   useSetPageTitle(chatVariant);
 
   const {
+    showSkeletons,
     messages,
     messagesRef,
     isGPTMessageLoading,
@@ -96,7 +97,7 @@ export const Chat = () => {
         })}
         ref={messagesRef}
       >
-        {isFetching && !hasData && <MessageSkeletons />}
+        {isFetching && showSkeletons && !hasData && <MessageSkeletons />}
 
         {messages.map((message, idx) => {
           if (message.sender === 'user') {

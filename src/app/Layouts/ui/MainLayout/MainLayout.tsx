@@ -12,6 +12,8 @@ import { getBackgroundColorByChatType } from '../../lib/getBackgroundColorByChat
 import styles from './MainLayout.module.scss';
 import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 import { useRouter } from 'next/navigation';
+import { useMyHealthModal } from 'widgets/MyHealth';
+import { useSettingsModal } from 'widgets/UserSettings';
 
 interface Props {
   links?: ReactNode;
@@ -40,17 +42,30 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   const backgrounds = getBackgroundColorByChatType(chatTypeContext?.chatType);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
+  const [isMyHealthModalOpen] = useMyHealthModal();
+  const [isSettingsModalOpen] = useSettingsModal();
+
+  const isChangeLayoutPosition = isMyHealthModalOpen || isSettingsModalOpen;
+
   const createNewChat = () => {
     setActiveChatId(null);
     router.push('/ai/chat/');
   };
 
   return (
-    <div className={cn(styles.container, containerClassName)}>
+    <div
+      className={cn(styles.container, containerClassName, {
+        [styles.changeLayoutPosition]: isChangeLayoutPosition,
+      })}
+    >
       <div className={styles.leftCircle} style={{ background: backgrounds?.left }} />
       <div className={styles.rightCircle} style={{ background: backgrounds?.right }} />
 
-      <div className={cn(styles.content, contentClassName)}>
+      <div
+        className={cn(styles.content, contentClassName, {
+          [styles.changeLayoutPosition]: isChangeLayoutPosition,
+        })}
+      >
         {/* <div className={cn(styles.header, headerClassName)}>
           <div className={styles.logoWrapper}>
             <Link

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useState } from 'react';
 
 import { useMediaQuery } from '@mui/material';
 
@@ -26,8 +26,14 @@ export const MyHealth = ({ open, onClose }: Props) => {
   const isMobile = useMediaQuery('(max-width: 650px)');
   const isTablet = useMediaQuery('(max-width: 950px)');
   const [activeCategory, setActiveCategory] = useState<CategoryState>(
-    isMobile ? undefined : MyHealthCategory.BodyMeasurements
+    isMobile ? undefined : MyHealthCategory.BodyMeasurements,
   );
+
+  useLayoutEffect(() => {
+    if (open) {
+      setActiveCategory(isMobile ? undefined : MyHealthCategory.BodyMeasurements);
+    }
+  }, [open, isMobile]);
 
   const { data } = useGetUserProfile();
 
@@ -35,7 +41,7 @@ export const MyHealth = ({ open, onClose }: Props) => {
 
   const activeCategoryIcon = useMemo(
     () => getActiveCategoryIcon(isMan, activeCategory),
-    [isMan, activeCategory]
+    [isMan, activeCategory],
   );
 
   return (
@@ -60,21 +66,13 @@ export const MyHealth = ({ open, onClose }: Props) => {
             className={styles.fullScreenDialog}
             onClose={() => setActiveCategory(undefined)}
           >
-            <MyHealthActiveForm
-              activeCategory={activeCategory}
-              userProfile={data!}
-            />
+            <MyHealthActiveForm activeCategory={activeCategory} userProfile={data!} />
           </FullScreenDialog>
         ) : (
-          <MyHealthActiveForm
-            activeCategory={activeCategory}
-            userProfile={data!}
-          />
+          <MyHealthActiveForm activeCategory={activeCategory} userProfile={data!} />
         )}
 
-        {!isTablet && (
-          <div className={styles.emptyBlock}>{activeCategoryIcon}</div>
-        )}
+        {!isTablet && <div className={styles.emptyBlock}>{activeCategoryIcon}</div>}
       </div>
     </MainPageModal>
   );
