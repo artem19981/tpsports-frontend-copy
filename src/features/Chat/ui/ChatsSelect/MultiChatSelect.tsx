@@ -2,12 +2,13 @@
 
 import { ChatType } from 'entities/chat/model/ChatType';
 import { useChatType } from 'entities/chat/ui';
-import { useGetActiveChats } from 'features/Chat/lib/useGetActiveChats';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { BOTS } from 'shared/constants/bots';
 import { useSnackbar } from 'shared/ui';
 import styles from './MultiChatSelect.module.scss';
+import { useGetMultiChats } from 'features/Chat/lib/useGetMultiChats';
+import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 
 interface Props {
   isUserAuthorized: boolean;
@@ -24,7 +25,8 @@ export const MultiChatSelect: React.FC<Props> = ({ isUserAuthorized, onChange })
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const { data: activeChats, isLoading, error } = useGetActiveChats(isUserAuthorized);
+  const setActiveChatId = useSetActiveChatId();
+  const { data: multiChats, isLoading } = useGetMultiChats();
 
   const handleSelect = useCallback(
     (type: ChatType) => {
@@ -35,33 +37,25 @@ export const MultiChatSelect: React.FC<Props> = ({ isUserAuthorized, onChange })
         return;
       }
 
-      if (!activeChats || error) {
-        if (isUserAuthorized) {
-          showSnackbar('Не удалось загрузить активные чаты', 'error');
-        }
-        onChange?.(type);
-        setChatType?.(type);
-        return;
-      }
-
       if (onChange) {
         onChange(type);
         return;
       }
-      if (activeChats[type]) {
-        router.push('/ai/chat/' + type);
+
+      const hasSomeChats =
+        multiChats.chatsByAssistants[type].allChats.length > 0 ||
+        multiChats.chatsByAssistants[type].favoriteChats.length > 0;
+
+      if (hasSomeChats) {
+        setActiveChatId(null);
+        router.push(`/ai/chat`);
       } else {
-        setChatType?.(type);
-        router.push(`/ai/chat/${type}`);
+        router.push(`/ai`);
       }
 
-      if (activeChats[type]) {
-        router.push('/ai/chat/' + type);
-      } else {
-        setChatType?.(type);
-      }
+      setChatType?.(type);
     },
-    [isLoading, error, activeChats, isUserAuthorized, onChange, router, setChatType, showSnackbar],
+    [isLoading, multiChats, onChange, router, setChatType, showSnackbar],
   );
 
   const toggleOpen = useCallback(() => {

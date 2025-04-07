@@ -1,52 +1,53 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import {
-  getOptimisticUserMessage,
-  getUpdatedGPTMessage,
-} from 'widgets/Chat/lib';
+import { getOptimisticUserMessage, getUpdatedGPTMessage } from 'widgets/Chat/lib';
 import { ChatDto, ChatVariant, SendMessageDto } from 'features/Chat/model';
 import { useSnackbar } from 'shared/ui';
 import { sendChatMessage } from 'features/Chat/api/sendMessage';
+import { QueryKeys } from 'shared/constants/query-keys';
+import { useGetActiveChatId } from 'features/Chat/lib/useActiveChatId';
+import { NEW_CHAT_ID } from 'entities/chat/config';
 
 export const useChatMessage = (
   chatVariant: ChatVariant,
   setIsGPTMessageLoading: (value: boolean) => void,
   setIsGPTMessageStreaming: (value: boolean) => void,
-  onSend?: () => void
+  onSend?: () => void,
 ) => {
   const queryClient = useQueryClient();
   const showSnackbar = useSnackbar();
+  const chatId = useGetActiveChatId();
 
   const [loading, setLoading] = useState(false);
 
-  const optimisticUpdateUserMessage = async (
-    payload: Omit<SendMessageDto, 'bot_name'>
-  ) => {
-    queryClient.setQueryData(['chat', chatVariant], (prevChat: any) => {
+  const optimisticUpdateUserMessage = async (payload: Omit<SendMessageDto, 'bot_name'>) => {
+    queryClient.setQueryData([QueryKeys.Chat, chatId || NEW_CHAT_ID], (prevChat: ChatDto) => {
+      if (!prevChat) {
+        return {
+          dialogue_id: NEW_CHAT_ID,
+          messages: [getOptimisticUserMessage(payload, chatVariant)],
+          messages_limit: 0,
+          used_limit: 0,
+        };
+      }
+
       return {
         ...prevChat,
-        messages: [
-          ...prevChat.messages,
-          getOptimisticUserMessage(payload, chatVariant),
-        ],
+        messages: [...prevChat.messages, getOptimisticUserMessage(payload, chatVariant)],
       };
     });
   };
 
   const updateGPTMessage = async (fullData: string) => {
-    queryClient.setQueryData(['chat', chatVariant], (prevChat: ChatDto) => {
+    queryClient.setQueryData([QueryKeys.Chat, chatId || NEW_CHAT_ID], (prevChat: ChatDto) => {
       return {
         ...prevChat,
-        messages: getUpdatedGPTMessage(
-          prevChat.messages,
-          fullData,
-          chatVariant
-        ),
+        messages: getUpdatedGPTMessage(prevChat.messages, fullData, chatVariant),
       };
     });
   };
 
-  const sendMessage = async (payload: Omit<SendMessageDto, 'bot_name'>) => {
+  const sendMessage = async (payload: Omit<SendMessageDto, 'bot_name' | 'dialogue_id'>) => {
     let intervalId: NodeJS.Timeout | null = null;
 
     const startTime = performance.now();
@@ -57,7 +58,10 @@ export const useChatMessage = (
       setLoading(true);
       setIsGPTMessageLoading(true);
       setIsGPTMessageStreaming(true);
-      optimisticUpdateUserMessage(payload);
+      optimisticUpdateUserMessage({
+        ...payload,
+        dialogue_id: chatId || 0,
+      });
       updateGPTMessage('');
 
       setTimeout(() => {
@@ -67,13 +71,12 @@ export const useChatMessage = (
 
       const { reader, decoder } = await sendChatMessage({
         bot_name: chatVariant,
+        dialogue_id: chatId || 0,
         ...payload,
       });
 
       const endTime = performance.now();
-      console.log(
-        `Время ответа от сервера: ${(endTime - startTime).toFixed(2)} мс`
-      );
+      console.log(`Время ответа от сервера: ${(endTime - startTime).toFixed(2)} мс`);
 
       setIsGPTMessageLoading(false);
       setLoading(false);
@@ -81,9 +84,7 @@ export const useChatMessage = (
       intervalId = setInterval(() => {
         const endTime = performance.now();
 
-        console.log(
-          `получил больше текста ${(endTime - startTime).toFixed(2)} мс`
-        );
+        console.log(`получил больше текста ${(endTime - startTime).toFixed(2)} мс`);
 
         if (fullData) {
           updateGPTMessage(fullData);

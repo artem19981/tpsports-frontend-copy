@@ -1,13 +1,15 @@
 import { useGetMessages } from 'features/Chat/lib/useGetMessages';
-import { ChatVariant } from 'features/Chat/model';
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { getSortedChatMessages } from './getSortedChatMessages';
+import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
+import { getLastDialogue } from 'features/Chat/api/getLastDialogue';
 
-export const useChat = (chatVariant: ChatVariant) => {
+export const useChat = (chatId: number | null) => {
   const [isGPTMessageLoading, setIsGPTMessageLoading] = useState(false);
   const [isGPTMessageStreaming, setIsGPTMessageStreaming] = useState(false);
 
-  const { data, refetch, isFetching } = useGetMessages(chatVariant);
+  const { data, refetch, isFetching } = useGetMessages(chatId);
+  const setActiveChatId = useSetActiveChatId();
   const messagesRef = useRef<HTMLDivElement>(null);
 
   const scrollToLastMessage = useCallback((withAnimation = true) => {
@@ -19,20 +21,39 @@ export const useChat = (chatVariant: ChatVariant) => {
     }
   }, []);
 
+  useEffect(() => {
+    return () => {
+      setActiveChatId(null);
+    };
+  }, []);
+
   useLayoutEffect(() => {
-    if (!data) {
-      refetch().then(() => setTimeout(() => scrollToLastMessage(false)));
+    if (chatId) {
+      refetch().then(() =>
+        setTimeout(() => {
+          scrollToLastMessage(false);
+        }, 100),
+      );
     }
 
     setIsGPTMessageStreaming(false);
     setIsGPTMessageLoading(false);
     scrollToLastMessage(false);
-  }, [chatVariant]);
+  }, [chatId]);
 
-  const messages = useMemo(
-    () => getSortedChatMessages(data?.messages || []),
-    [data?.messages]
-  );
+  const updateChatMessages = useCallback(async () => {
+    if (!chatId) {
+      const chat = await getLastDialogue();
+      setActiveChatId(chat.dialogue_id);
+      queueMicrotask(refetch);
+
+      return;
+    }
+
+    refetch();
+  }, [chatId, refetch]);
+
+  const messages = useMemo(() => getSortedChatMessages(data?.messages || []), [data?.messages]);
 
   return {
     messagesRef,
@@ -41,7 +62,7 @@ export const useChat = (chatVariant: ChatVariant) => {
     setIsGPTMessageLoading,
     setIsGPTMessageStreaming,
     scrollToLastMessage,
-    refetch,
+    updateChatMessages,
     hasData: !!data,
     isFetching,
     messages,

@@ -6,33 +6,52 @@ import { ChatOptionsMenu } from 'entities/chat/ui/ChatOptionsMenu/ChatOptionsMen
 import { MultiChatMenuItemOptions } from './MultiChatMenuItemOptions';
 import classNames from 'classnames';
 import { Input } from 'shared/ui';
+import { MultiChatDto } from 'features/Chat/model';
+import { useRenameChat } from 'features/Chat/lib/useRenameChat';
+import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
+import { useRouter } from 'next/navigation';
+import { useChatType } from 'entities/chat/ui';
+import { ChatType } from 'entities/chat/model/ChatType';
+import { CHAT_ID_QUERY_PARAM } from 'entities/chat/config';
 
-interface Props {
+interface Props extends MultiChatDto {
   isActive: boolean;
   isMobile: boolean;
   isOpen: boolean;
-  label: string;
   accentColor: string;
-
-  isFavorite: boolean;
 }
 
 export const MultiChatMenuItem = ({
+  id,
   isActive,
   isMobile,
   isOpen,
-  label,
+  name,
   accentColor,
+  bot_name,
 
-  isFavorite,
+  is_favorite,
 }: Props) => {
+  const router = useRouter();
+
   const [isEditLabelMode, setIsEditLabelMode] = useState(false);
-  const [localLabel, setLocalLabel] = useState(label);
+  const [localLabel, setLocalLabel] = useState(name);
+
+  const setActiveChatId = useSetActiveChatId();
+  const setChatType = useChatType()?.setChatType;
+  const renameChat = useRenameChat(() => setLocalLabel(name));
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onSelectChat = () => {
-    console.log('onSelectChat');
+    if (isActive) {
+      return;
+    }
+
+    setActiveChatId(id);
+    setChatType?.(bot_name as ChatType);
+
+    router.push(`/ai/chat/?${CHAT_ID_QUERY_PARAM}=${id}`);
   };
 
   const onStartRename = () => {
@@ -51,15 +70,14 @@ export const MultiChatMenuItem = ({
   };
 
   const onSaveChatName = () => {
-    console.log('onSaveChatName');
-
+    renameChat.mutate({ id, new_name: localLabel });
     setIsEditLabelMode(false);
   };
 
   const onKeyDownLabel = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       setIsEditLabelMode(false);
-      setLocalLabel(label);
+      setLocalLabel(name);
     }
 
     if (event.key === 'Enter') {
@@ -83,7 +101,6 @@ export const MultiChatMenuItem = ({
       <Input
         value={localLabel}
         onChange={(e) => setLocalLabel(e.target.value)}
-        disabled={!isEditLabelMode}
         onBlur={onSaveChatName}
         onKeyDown={onKeyDownLabel}
         ref={inputRef}
@@ -91,6 +108,7 @@ export const MultiChatMenuItem = ({
           [styles.label]: isOpen || isMobile,
           [styles.tooltip]: !isOpen && !isMobile,
         })}
+        readOnly={!isEditLabelMode}
         inputWrapperClassName={styles.inputWrapper}
       />
 
@@ -98,7 +116,9 @@ export const MultiChatMenuItem = ({
         color={accentColor}
         renderChildren={(onClose) => (
           <MultiChatMenuItemOptions
-            isFavorite={isFavorite}
+            chatId={id}
+            isFavorite={is_favorite}
+            isActive={isActive}
             onClose={onClose}
             onStartRename={onStartRename}
           />

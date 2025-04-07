@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { ChatVariant, SendMessageDto } from 'features/Chat/model';
 import { useChatMessage } from 'features/Chat/ui/ChatPageInput/lib/useChatMessage';
 import { useEffect } from 'react';
+import { QueryKeys } from 'shared/constants/query-keys';
 
 interface Props {
   chatVariant: ChatVariant;
@@ -21,7 +22,7 @@ export const useSendMessageWhenMount = ({
   const queryClient = useQueryClient();
 
   const { data } = useQuery<Omit<SendMessageDto, 'bot_name'>>({
-    queryKey: ['chatMessage'],
+    queryKey: [QueryKeys.ChatMessage],
     staleTime: Infinity,
   });
 
@@ -29,7 +30,7 @@ export const useSendMessageWhenMount = ({
     chatVariant,
     setIsGPTMessageLoading,
     setIsGPTMessageStreaming,
-    onSend
+    onSend,
   );
 
   useEffect(() => {

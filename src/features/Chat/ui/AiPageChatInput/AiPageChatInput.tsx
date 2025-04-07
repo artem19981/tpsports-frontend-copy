@@ -2,7 +2,6 @@
 
 import { useMediaQuery } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
-import { ChatType } from 'entities/chat/model/ChatType';
 import { useChatType } from 'entities/chat/ui';
 import { SendMessageDto } from 'features/Chat/model';
 import { useRouter } from 'next/navigation';
@@ -10,6 +9,7 @@ import { useState } from 'react';
 import { ChatInput } from '../ChatInput/ChatInput';
 import { useSetOptimisticChatMessage } from 'entities/chat/lib';
 import { ChatTabs } from '../ChatTabs/ChatTabs';
+import { sendMessageToRedirecter } from 'features/Chat/api';
 
 interface Props {
   disabled: boolean;
@@ -23,19 +23,23 @@ export const AiPageChatInput = ({ disabled }: Props) => {
 
   const [loading, setLoading] = useState(false);
 
-  const chatType = chatTypeContext?.chatType || ChatType.Trainer;
   const isMobile = useMediaQuery('(max-width: 650px)');
   const mutation = useMutation({
-    mutationFn: async (payload: Omit<SendMessageDto, 'bot_name'>) => payload,
+    mutationFn: async (payload: Omit<SendMessageDto, 'bot_name' | 'dialogue_id'>) => payload,
     onSuccess: (data) => {
       setOptimisticChatMessage(data);
-      router.push('/ai/chat/' + chatType);
+      router.push('/ai/chat/');
     },
   });
 
-  const onSendMessage = async (payload: Omit<SendMessageDto, 'bot_name'>) => {
+  const onSendMessage = async (payload: Omit<SendMessageDto, 'bot_name' | 'dialogue_id'>) => {
     if (!chatTypeContext?.chatType) {
-      console.log('redirecter');
+      sendMessageToRedirecter(payload).then((data) => {
+        setOptimisticChatMessage(payload);
+        chatTypeContext?.setChatType(data.bot_name);
+        router.push('/ai/chat/');
+      });
+
       return;
     }
 

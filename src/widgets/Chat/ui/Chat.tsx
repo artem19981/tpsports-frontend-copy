@@ -6,10 +6,10 @@ import {
   ChatAiMessage,
   ChatAiMessageActionsProps,
   ChatUserMessage,
+  useChatType,
 } from 'entities/chat/ui';
-import { ChatVariant } from 'features/Chat/model';
 import { ChatMessageActions, RedirectToAnotherChatButton } from 'features/Chat/ui';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import classNames from 'classnames';
 import { NEW_USER_MESSAGE_ID } from 'entities/chat/config';
@@ -17,25 +17,25 @@ import { useGetSelectedBot } from 'entities/chat/lib/useGetSelectedBot';
 import { ChatTabs } from 'features/Chat/ui';
 import { ChatPageInput } from 'features/Chat/ui/ChatPageInput/ChatPageInput';
 import { useChatMessage } from 'features/Chat/ui/ChatPageInput/lib/useChatMessage';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { AiBot } from 'shared/model/aiBot';
 import { DEFAULT_AI_MESSAGE_HEIGHT } from '../config/defaultMessageheight';
-import { useAiMessageWithLoading, useChat, useShowScrollButton } from '../lib';
+import { useAiMessageWithLoading, useChat, useSetPageTitle, useShowScrollButton } from '../lib';
 import { useSendMessageWhenMount } from '../lib/useSendMessageWhenMount';
-import styles from './Chat.module.scss';
 import { MessageSkeletons } from './MessageSkeletons/MessageSkeletons';
 import { ScrollButton } from './ScrollButton/ScrollButton';
+import { useGetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 
-interface Props {
-  chatVariant: ChatVariant;
-}
+import styles from './Chat.module.scss';
+import { ChatVariant } from 'features/Chat/model';
+import { BOTS } from 'shared/constants/bots';
+import { ChatType } from 'entities/chat/model/ChatType';
 
-export const Chat = ({ chatVariant }: Props) => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-  const messageFromTag = searchParams.get('message');
-  const botFromTag = searchParams.get('bot');
+export const Chat = () => {
+  const chatId = useGetActiveChatId();
+  const chatVariant = (useChatType()?.chatType || ChatType.Trainer) as ChatVariant;
+  const selectedBot = (useGetSelectedBot(chatVariant) || BOTS[0]) as AiBot;
+
+  useSetPageTitle(chatVariant);
 
   const {
     messages,
@@ -44,14 +44,14 @@ export const Chat = ({ chatVariant }: Props) => {
     isGPTMessageStreaming,
     isFetching,
     hasData,
-    refetch,
+    updateChatMessages,
     setIsGPTMessageLoading,
     setIsGPTMessageStreaming,
     scrollToLastMessage,
-  } = useChat(chatVariant);
+  } = useChat(chatId);
 
   const { lastUserMessageRef, lastGPTMessageHeight, animateText, onSendMessage, setAnimateText } =
-    useAiMessageWithLoading(messagesRef, chatVariant, scrollToLastMessage);
+    useAiMessageWithLoading(messagesRef, chatId, scrollToLastMessage);
 
   const { isMessageLoading } = useSendMessageWhenMount({
     chatVariant,
@@ -62,32 +62,22 @@ export const Chat = ({ chatVariant }: Props) => {
   });
 
   const showScrollButton = useShowScrollButton(messagesRef);
-  const selectedBot = useGetSelectedBot(chatVariant) as AiBot;
 
   const Actions = useCallback(
-    (props: ChatAiMessageActionsProps) => (
-      <ChatMessageActions {...props} chatVariant={chatVariant} />
-    ),
-    [chatVariant],
+    (props: ChatAiMessageActionsProps) => <ChatMessageActions {...props} chatId={chatId!} />,
+    [chatId],
   );
 
   const onEndPrint = useCallback(() => {
     setAnimateText(false);
-    refetch();
-  }, [refetch, setAnimateText]);
+    updateChatMessages();
+  }, [updateChatMessages, setAnimateText]);
 
   const { sendMessage } = useChatMessage(
     chatVariant,
     setIsGPTMessageLoading,
     setIsGPTMessageStreaming,
   );
-
-  useEffect(() => {
-    if (messageFromTag && botFromTag) {
-      sendMessage({ content: messageFromTag });
-      router.replace(pathname);
-    }
-  }, [messageFromTag, botFromTag, sendMessage]);
 
   const handleLocalTagClick = (tag: { description: string }) => {
     sendMessage({ content: tag.description });

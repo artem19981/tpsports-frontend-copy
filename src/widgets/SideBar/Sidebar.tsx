@@ -9,24 +9,17 @@ import cn from 'classnames';
 import { useChatType } from 'entities/chat/ui';
 import { useRouter } from 'next/navigation';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { BOTS } from 'shared/constants/bots';
 
 import styles from './Sidebar.module.scss';
 import { MultiChatMenuItem } from 'features/Chat/ui';
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 490);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  return isMobile;
-}
+import { useGetMultiChats } from 'features/Chat/lib/useGetMultiChats';
+import { useMediaQuery } from '@mui/material';
+import { FrontendMultiChat } from 'features/Chat/model';
+import { MyHealth } from 'widgets/MyHealth';
+import { UserSettings } from 'widgets/UserSettings';
+import { useGetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -34,39 +27,30 @@ interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
-  const isMobile = useIsMobile();
+  const isMobile = useMediaQuery('(max-width: 490px)');
   const router = useRouter();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  const [showHealth, setShowHealth] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+
   const { chatType } = useChatType() || {};
-  const currentBot = BOTS.find((bot) => bot.name === chatType);
+  const currentBot = useMemo(() => BOTS.find((bot) => bot.name === chatType), [chatType]);
   const accentColor = currentBot?.borderColor || '#00ffb0';
 
-  const [activeItem, setActiveItem] = useState<string | null>(null);
   const [expandedSections, setExpandedSections] = useState({
     favorites: true,
     chats: true,
   });
 
-  const favorites = [
-    { id: 1, label: 'Рост мышц без вреда' },
-    { id: 2, label: 'Как получить красивое...' },
-    { id: 3, label: 'Правильное питание' },
-  ];
+  const { data: chatsData } = useGetMultiChats();
+  const activeChatId = useGetActiveChatId();
 
-  const myChats = [
-    { id: 4, label: 'Рост мышц без вреда.' },
-    { id: 5, label: 'Как получить красивое....' },
-    { id: 6, label: 'Правильное питание.' },
-  ];
+  const chatData = (
+    chatType ? chatsData?.chatsByAssistants[chatType] : chatsData?.chats
+  ) as FrontendMultiChat;
 
-  const handleClickItem = (label: string) => {
-    setActiveItem(label);
-
-    if (isMobile) {
-      setIsMobileOpen(false);
-    }
-  };
+  console.log(activeChatId, 'activeChatIdactiveChatId');
 
   const toggleSection = (section: 'favorites' | 'chats') => {
     setExpandedSections((prev) => ({
@@ -93,7 +77,9 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
     console.log(isOpen, isMobileOpen);
   }, [isMobileOpen, handleMobileToggle]);
 
-  const mobileBackdrop = isMobile && isMobileOpen && <div className={styles.backdrop} onClick={handleMobileToggle} />;
+  const mobileBackdrop = isMobile && isMobileOpen && (
+    <div className={styles.backdrop} onClick={handleMobileToggle} />
+  );
 
   return (
     <>
@@ -116,7 +102,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
               <div
                 className={styles.side_link}
                 onClick={() => {
-                  router.push(`/user-settings`);
+                  setShowHealth(true);
                 }}
               >
                 <Tp className={styles.icon} />
@@ -125,7 +111,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
               <div
                 className={styles.side_link}
                 onClick={() => {
-                  router.push(`/user-settings`);
+                  setShowSettings(true);
                 }}
               >
                 <Settings className={styles.icon} />
@@ -137,16 +123,20 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
           {!isMobile && !isOpen ? (
             <div className={styles.side_main_collapsed}>
               <div className={styles.side_link}>
-                <Tp className={styles.icon} />
+                <Tp className={styles.icon} onClick={() => setShowHealth(true)} />
               </div>
               <div className={styles.side_link}>
-                <Settings className={styles.icon} />
+                <Settings className={styles.icon} onClick={() => setShowSettings(true)} />
               </div>
             </div>
           ) : null}
 
           {!isMobile && (
-            <button className={styles.toggleBtn} style={{ top: isOpen ? 50 : 20 }} onClick={onToggle}>
+            <button
+              className={styles.toggleBtn}
+              style={{ top: isOpen ? 50 : 20 }}
+              onClick={onToggle}
+            >
               <Side />
             </button>
           )}
@@ -198,8 +188,19 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
             >
               {isOpen || isMobile ? (
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                  <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 15V1L11 5.66667L1 10.3333" stroke={accentColor} strokeMiterlimit="10" strokeLinecap="round" />
+                  <svg
+                    width="13"
+                    height="16"
+                    viewBox="0 0 13 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 15V1L11 5.66667L1 10.3333"
+                      stroke={accentColor}
+                      strokeMiterlimit="10"
+                      strokeLinecap="round"
+                    />
                   </svg>
                   <span>Избранное</span>
                 </div>
@@ -216,15 +217,14 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
             </div>
             {expandedSections.favorites && (
               <ul>
-                {favorites.map((fav) => (
+                {chatData.favoriteChats.map((chat) => (
                   <MultiChatMenuItem
-                    key={fav.id}
-                    label={fav.label}
+                    key={chat.id}
+                    {...chat}
                     accentColor={accentColor}
-                    isActive={fav.label === activeItem}
+                    isActive={chat.id === activeChatId}
                     isMobile={isMobile}
                     isOpen={isOpen}
-                    isFavorite={true}
                   />
                 ))}
               </ul>
@@ -232,7 +232,11 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
           </nav>
 
           <nav className={styles.navSection}>
-            <div className={styles.navTitle} style={{ color: accentColor }} onClick={() => toggleSection('chats')}>
+            <div
+              className={styles.navTitle}
+              style={{ color: accentColor }}
+              onClick={() => toggleSection('chats')}
+            >
               {isOpen || isMobile ? (
                 <div
                   style={{
@@ -241,8 +245,18 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
                     gap: 10,
                   }}
                 >
-                  <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 2.93548V13H1V1H4.76316L6.47368 2.93548H14Z" stroke={accentColor} strokeMiterlimit="10" />
+                  <svg
+                    width="15"
+                    height="14"
+                    viewBox="0 0 15 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 2.93548V13H1V1H4.76316L6.47368 2.93548H14Z"
+                      stroke={accentColor}
+                      strokeMiterlimit="10"
+                    />
                   </svg>
                   <span>Мои чаты</span>
                 </div>
@@ -259,16 +273,14 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
             </div>
             {expandedSections.chats && (
               <ul>
-                {myChats.map((chat) => (
+                {chatData.allChats.map((chat) => (
                   <MultiChatMenuItem
                     key={chat.id}
-                    label={chat.label}
+                    {...chat}
                     accentColor={accentColor}
-                    isActive={chat.label === activeItem}
+                    isActive={chat.id === activeChatId}
                     isMobile={isMobile}
                     isOpen={isOpen}
-                    // хз что тут ставить
-                    isFavorite={false}
                   />
                 ))}
               </ul>
@@ -278,10 +290,16 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
       </aside>
 
       {isMobile && (
-        <button className={`${styles.burgerBtn} ${isMobile && isMobileOpen ? styles.mobileOpener : ''}`} onClick={handleMobileToggle}>
+        <button
+          className={`${styles.burgerBtn} ${isMobile && isMobileOpen ? styles.mobileOpener : ''}`}
+          onClick={handleMobileToggle}
+        >
           <Burger />
         </button>
       )}
+
+      <MyHealth open={showHealth} onClose={() => setShowHealth(false)} />
+      <UserSettings open={showSettings} onClose={() => setShowSettings(false)} />
     </>
   );
 };

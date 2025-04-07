@@ -1,32 +1,29 @@
-"use client";
+'use client';
 
-import { Box, Typography } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { FC } from "react";
-import Back from "shared/assets/Back.svg?component";
-import styles from "./Tariff.module.scss";
+import { Box, Typography } from '@mui/material';
+import { FC } from 'react';
+import Back from 'shared/assets/Back.svg?component';
+import styles from './Tariff.module.scss';
 
 interface Props {
   down?: boolean;
+
+  onBack: () => void;
 }
 
-export const BackIcon: FC<Props> = ({ down }) => {
-  const router = useRouter();
-
+export const BackIcon: FC<Props> = ({ down, onBack }) => {
   return (
     <div className={styles.container}>
       <Box
         sx={{
-          display: "flex",
+          display: 'flex',
           gap: 2.5,
-          alignItems: "center",
+          alignItems: 'center',
           mb: down === true ? 0 : 10,
           mt: down === true ? 9 : 0,
-          cursor: "pointer",
+          cursor: 'pointer',
         }}
-        onClick={() => {
-          router.push("/user-settings");
-        }}
+        onClick={onBack}
       >
         <Back />
         <Typography>Назад к настройкам</Typography>

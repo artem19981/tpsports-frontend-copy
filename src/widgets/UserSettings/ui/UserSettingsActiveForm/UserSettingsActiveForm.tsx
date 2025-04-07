@@ -15,28 +15,24 @@ import {
 interface Props {
   activeMenu: UserSettingsMenuState;
   userProfile: UserProfile;
+
+  onOpenTariff: (open: boolean) => void;
 }
 
-export const UserSettingsActiveForm = memo(
-  ({ activeMenu, userProfile }: Props) => {
-    const componentByStep: Record<string, ReactNode> = {
-      [UserSettingsMenuItem.PersonalInfo]: (
-        <UserPersonalInfoForm userProfile={userProfile} />
-      ),
-      [UserSettingsMenuItem.ChangePassword]: <UserSettingsChangePasswordForm />,
-      [UserSettingsMenuItem.PricingPlan]: (
-        <UserTariffForm tariff={userProfile.tariff} />
-      ),
-    };
+export const UserSettingsActiveForm = memo(({ activeMenu, userProfile, onOpenTariff }: Props) => {
+  const componentByStep: Record<string, ReactNode> = {
+    [UserSettingsMenuItem.PersonalInfo]: <UserPersonalInfoForm userProfile={userProfile} />,
+    [UserSettingsMenuItem.ChangePassword]: <UserSettingsChangePasswordForm />,
+    [UserSettingsMenuItem.PricingPlan]: (
+      <UserTariffForm tariff={userProfile.tariff} onOpenTariff={onOpenTariff} />
+    ),
+  };
 
-    if (!activeMenu) {
-      return;
-    }
-
-    return (
-      <div className={styles.container}>{componentByStep[activeMenu]}</div>
-    );
+  if (!activeMenu) {
+    return;
   }
-);
+
+  return <div className={styles.container}>{componentByStep[activeMenu]}</div>;
+});
 
 UserSettingsActiveForm.displayName = 'UserSettingsActiveForm';

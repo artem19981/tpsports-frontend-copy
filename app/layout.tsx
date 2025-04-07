@@ -63,13 +63,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <Providers>
-        <body
-          className={classNames(
-            neumachineFont.variable,
-            gilroyFont.variable,
-            'antialiased'
-          )}
-        >
+        <body className={classNames(neumachineFont.variable, gilroyFont.variable, 'antialiased')}>
           {children}
         </body>
       </Providers>

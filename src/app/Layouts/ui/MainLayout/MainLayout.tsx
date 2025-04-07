@@ -1,22 +1,24 @@
-"use client";
+'use client';
 
-import { FC, PropsWithChildren, ReactNode, useState } from "react";
+import { FC, PropsWithChildren, ReactNode, useState } from 'react';
 
-import cn from "classnames";
-import { useChatType } from "entities/chat/ui";
+import cn from 'classnames';
+import { useChatType } from 'entities/chat/ui';
 
-import ChatAdd from "app/assets/images/aiChat/ChatAdd.svg";
-import Image from "next/image";
-import { Sidebar } from "widgets/SideBar/Sidebar";
-import { getBackgroundColorByChatType } from "../../lib/getBackgroundColorByChatType";
-import styles from "./MainLayout.module.scss";
+import ChatAdd from 'app/assets/images/aiChat/ChatAdd.svg';
+import Image from 'next/image';
+import { Sidebar } from 'widgets/SideBar/Sidebar';
+import { getBackgroundColorByChatType } from '../../lib/getBackgroundColorByChatType';
+import styles from './MainLayout.module.scss';
+import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   links?: ReactNode;
   withUserMenu?: boolean;
+  withCreateChatButton?: boolean;
 
   containerClassName?: string;
-  headerClassName?: string;
   contentClassName?: string;
   childrenClassName?: string;
 }
@@ -25,26 +27,28 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   children,
   links,
   containerClassName,
-  headerClassName,
   contentClassName,
   childrenClassName,
   withUserMenu = true,
+  withCreateChatButton = true,
 }) => {
+  const router = useRouter();
   const chatTypeContext = useChatType();
+
+  const setActiveChatId = useSetActiveChatId();
 
   const backgrounds = getBackgroundColorByChatType(chatTypeContext?.chatType);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
+  const createNewChat = () => {
+    setActiveChatId(null);
+    router.push('/ai/chat/');
+  };
+
   return (
     <div className={cn(styles.container, containerClassName)}>
-      <div
-        className={styles.leftCircle}
-        style={{ background: backgrounds?.left }}
-      />
-      <div
-        className={styles.rightCircle}
-        style={{ background: backgrounds?.right }}
-      />
+      <div className={styles.leftCircle} style={{ background: backgrounds?.left }} />
+      <div className={styles.rightCircle} style={{ background: backgrounds?.right }} />
 
       <div className={cn(styles.content, contentClassName)}>
         {/* <div className={cn(styles.header, headerClassName)}>
@@ -67,15 +71,12 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
           {withUserMenu && <UserSettingsMenu />}
         </div> */}
         {withUserMenu && (
-          <Sidebar
-            isOpen={isSidebarOpen}
-            onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-          />
+          <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen(!isSidebarOpen)} />
         )}
 
         <div className={cn(styles.children, childrenClassName)} id="children">
-          {withUserMenu && (
-            <Image src={ChatAdd} alt="ChatAdd" className={styles.chatAdd} />
+          {withUserMenu && chatTypeContext?.chatType && (
+            <Image src={ChatAdd} alt="ChatAdd" className={styles.chatAdd} onClick={createNewChat} />
           )}
           {!!links && <div className={styles.desktopLinks}>{links}</div>}
           {!!links && <div className={styles.mobileLinks}>{links}</div>}

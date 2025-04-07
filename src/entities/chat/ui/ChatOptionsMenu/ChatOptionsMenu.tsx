@@ -12,7 +12,9 @@ export const ChatOptionsMenu = ({ renderChildren, color }: Props) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
 
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
     setOpen((prevOpen) => !prevOpen);
   };
 
@@ -39,7 +41,13 @@ export const ChatOptionsMenu = ({ renderChildren, color }: Props) => {
 
   return (
     <>
-      <IconButton ref={anchorRef} onClick={handleToggle} style={{ color }} size="small" className={styles.icon}>
+      <IconButton
+        ref={anchorRef}
+        onClick={handleToggle}
+        style={{ color }}
+        size="small"
+        className={styles.icon}
+      >
         <Dots />
       </IconButton>
 
@@ -61,7 +69,9 @@ export const ChatOptionsMenu = ({ renderChildren, color }: Props) => {
         {({ TransitionProps }) => (
           <Grow {...TransitionProps}>
             <Paper className={styles.paper}>
-              <ClickAwayListener onClickAway={handleClose}>{renderChildren(setOpen)}</ClickAwayListener>
+              <ClickAwayListener onClickAway={handleClose}>
+                {renderChildren(setOpen)}
+              </ClickAwayListener>
             </Paper>
           </Grow>
         )}

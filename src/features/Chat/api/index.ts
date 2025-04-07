@@ -2,3 +2,8 @@ export { getChatMessages } from './getChatMessages';
 export { sendChatMessage } from './sendMessage';
 export { rateMessage } from './rateMessage';
 export { uploadFile } from './uploadFile';
+export { getMultiChats } from './getMultiChats';
+export { toggleFavoriteForChat } from './toggleFavoriteForChat';
+export { toggleArchiveForChat } from './toggleArchiveForChat';
+export { renameChat } from './renameChat';
+export { sendMessageToRedirecter } from './sendMessageToRedirecter';
