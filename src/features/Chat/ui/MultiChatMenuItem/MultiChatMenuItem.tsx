@@ -118,8 +118,6 @@ export const MultiChatMenuItem = ({
   };
 
   const onKeyDownLabel = (event: KeyboardEvent) => {
-    event.preventDefault();
-
     if (event.key === 'Escape') {
       setIsEditLabelMode(false);
       setLocalLabel(name);
@@ -157,7 +155,7 @@ export const MultiChatMenuItem = ({
         onTouchCancel={(e) => e.preventDefault()}
         onKeyDown={onKeyDownLabel}
         ref={inputRef}
-        className={classNames(styles.readOnly, {
+        className={classNames({
           [styles.label]: isOpen || isMobile,
           [styles.tooltip]: !isOpen && !isMobile,
           // [styles.readOnly]: !isEditLabelMode,
