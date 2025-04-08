@@ -41,7 +41,6 @@ export const MultiChatMenuItemOptions = forwardRef<HTMLUListElement, Props>(
 
     const onToggleFavorite = () => {
       toggleFavorite.mutate(chatId);
-
       onClose(false);
     };
 

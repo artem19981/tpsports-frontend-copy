@@ -48,11 +48,9 @@ export const MultiChatMenuItem = ({
   const isChatPressed = useRef(false);
 
   const handleMouseDown = (e: TouchEvent<HTMLLIElement>) => {
-    e.preventDefault();
     isChatPressed.current = false;
 
     holdTimeout.current = setTimeout(() => {
-      e.preventDefault();
       isChatPressed.current = true;
       setOpen(true);
 
@@ -65,8 +63,6 @@ export const MultiChatMenuItem = ({
   };
 
   const onMouseUp = (e: SyntheticEvent) => {
-    e.preventDefault();
-
     setTimeout(() => {
       isChatPressed.current = false;
     });
@@ -75,8 +71,6 @@ export const MultiChatMenuItem = ({
   };
 
   const onCancelPress = (e: SyntheticEvent) => {
-    e.preventDefault();
-
     holdTimeout.current && clearTimeout(holdTimeout.current);
   };
 
@@ -150,15 +144,11 @@ export const MultiChatMenuItem = ({
         value={localLabel}
         onChange={(e) => setLocalLabel(e.target.value)}
         onBlur={onSaveChatName}
-        onTouchStart={(e) => e.preventDefault()}
-        onTouchEnd={(e) => e.preventDefault()}
-        onTouchCancel={(e) => e.preventDefault()}
         onKeyDown={onKeyDownLabel}
         ref={inputRef}
         className={classNames({
           [styles.label]: isOpen || isMobile,
           [styles.tooltip]: !isOpen && !isMobile,
-          // [styles.readOnly]: !isEditLabelMode,
         })}
         readOnly={!isEditLabelMode}
         inputWrapperClassName={styles.inputWrapper}

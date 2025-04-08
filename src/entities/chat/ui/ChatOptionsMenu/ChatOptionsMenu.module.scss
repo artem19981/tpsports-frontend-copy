@@ -16,6 +16,10 @@ button.icon {
   padding: 8px 5px;
 }
 
-.hidden {
+button.hidden {
   opacity: 0;
+
+  @media screen and (max-width: 600px) {
+    visibility: hidden;
+  }
 }
