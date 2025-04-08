@@ -6,14 +6,15 @@ import cn from 'classnames';
 import { useChatType } from 'entities/chat/ui';
 
 import ChatAdd from 'app/assets/images/aiChat/ChatAdd.svg';
-import Image from 'next/image';
-import { Sidebar } from 'widgets/SideBar/Sidebar';
-import { getBackgroundColorByChatType } from '../../lib/getBackgroundColorByChatType';
-import styles from './MainLayout.module.scss';
 import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useMyHealthModal } from 'widgets/MyHealth';
+import { Sidebar } from 'widgets/SideBar/Sidebar';
 import { useSettingsModal } from 'widgets/UserSettings';
+import { getBackgroundColorByChatType } from '../../lib/getBackgroundColorByChatType';
+import { BlurCirclesBackground } from './BlurCirclesBackground';
+import styles from './MainLayout.module.scss';
 
 interface Props {
   links?: ReactNode;
@@ -58,6 +59,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
         [styles.changeLayoutPosition]: isChangeLayoutPosition,
       })}
     >
+      <BlurCirclesBackground color={backgrounds?.animate || '#05EFB6'} />
       <div className={styles.leftCircle} style={{ background: backgrounds?.left }} />
       <div className={styles.rightCircle} style={{ background: backgrounds?.right }} />
 

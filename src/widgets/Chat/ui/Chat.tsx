@@ -14,6 +14,7 @@ import { useCallback } from 'react';
 import classNames from 'classnames';
 import { NEW_USER_MESSAGE_ID } from 'entities/chat/config';
 import { useGetSelectedBot } from 'entities/chat/lib/useGetSelectedBot';
+import { useGetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 import { ChatTabs } from 'features/Chat/ui';
 import { ChatPageInput } from 'features/Chat/ui/ChatPageInput/ChatPageInput';
 import { useChatMessage } from 'features/Chat/ui/ChatPageInput/lib/useChatMessage';
@@ -23,12 +24,11 @@ import { useAiMessageWithLoading, useChat, useSetPageTitle, useShowScrollButton 
 import { useSendMessageWhenMount } from '../lib/useSendMessageWhenMount';
 import { MessageSkeletons } from './MessageSkeletons/MessageSkeletons';
 import { ScrollButton } from './ScrollButton/ScrollButton';
-import { useGetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 
-import styles from './Chat.module.scss';
+import { ChatType } from 'entities/chat/model/ChatType';
 import { ChatVariant } from 'features/Chat/model';
 import { BOTS } from 'shared/constants/bots';
-import { ChatType } from 'entities/chat/model/ChatType';
+import styles from './Chat.module.scss';
 
 export const Chat = () => {
   const chatId = useGetActiveChatId();
@@ -156,7 +156,7 @@ export const Chat = () => {
       </Stack>
 
       <div className={styles.chatInput}>
-        {messages.length === 0 && !isFetching && hasData ? (
+        {messages.length === 0 && !isFetching && !hasData ? (
           <div className={styles.chatTabs}>
             <ChatTabs onLocalTagClick={handleLocalTagClick} />
           </div>

@@ -1,0 +1,21 @@
+.backgroundAnimation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 28px;
+
+  position: 'absolute';
+  width: '100%';
+  max-width: 1320px;
+  height: calc(100dvh - 120px);
+  height: '100%';
+  overflow: 'hidden';
+  z-index: 1;
+
+  @media (max-width: 600px) {
+    transform: translate(-50%, 0%);
+    top: auto;
+    max-height: 855px !important;
+  }
+}
