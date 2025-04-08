@@ -33,7 +33,7 @@ import { ChatType } from 'entities/chat/model/ChatType';
 export const Chat = () => {
   const chatId = useGetActiveChatId();
   const chatVariant = (useChatType()?.chatType || ChatType.Trainer) as ChatVariant;
-  const selectedBot = (useGetSelectedBot(chatVariant) || BOTS[0]) as AiBot;
+  const selectedBot = (useGetSelectedBot(chatVariant, [chatVariant]) || BOTS[0]) as AiBot;
 
   useSetPageTitle(chatVariant);
 
