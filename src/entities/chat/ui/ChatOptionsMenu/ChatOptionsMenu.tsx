@@ -5,22 +5,24 @@ import styles from './ChatOptionsMenu.module.scss';
 import classNames from 'classnames';
 
 interface Props {
+  id: number;
   color: string;
   isChatPressed: React.MutableRefObject<boolean>;
   visibleOnMobile: boolean;
 
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onOpenMenu: React.Dispatch<React.SetStateAction<number | null>>;
 
   renderChildren: () => JSX.Element;
 }
 
 export const ChatOptionsMenu = ({
+  id,
   color,
   isChatPressed,
   open,
   visibleOnMobile,
-  setOpen,
+  onOpenMenu,
   renderChildren,
 }: Props) => {
   const isMobile = useMediaQuery('(max-width: 600px)');
@@ -29,7 +31,9 @@ export const ChatOptionsMenu = ({
   const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
-    setOpen((prevOpen) => !prevOpen);
+    setTimeout(() => {
+      onOpenMenu((prevId) => (prevId === id ? null : id));
+    });
   };
 
   const handleClose = (event: Event | React.SyntheticEvent) => {
@@ -40,7 +44,7 @@ export const ChatOptionsMenu = ({
       return;
     }
 
-    setOpen(false);
+    onOpenMenu(null);
   };
 
   const prevOpen = useRef(open);

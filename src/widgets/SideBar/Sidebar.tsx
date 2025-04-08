@@ -31,6 +31,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
 
   const [showHealth, setShowHealth] = useMyHealthModal();
   const [showSettings, setShowSettings] = useSettingsModal();
+  const [openedMenuId, setOpenedMenuId] = useState<number | null>(null);
 
   const { chatType } = useChatType() || {};
   const currentBot = useMemo(() => BOTS.find((bot) => bot.name === chatType), [chatType]);
@@ -218,6 +219,8 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
                     isMobile={isMobile}
                     isOpen={isOpen}
                     onClose={handleMobileToggle}
+                    onOpenMenu={setOpenedMenuId}
+                    isMenuOpened={chat.id === openedMenuId}
                   />
                 ))}
               </ul>
@@ -274,6 +277,8 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
                     isMobile={isMobile}
                     isOpen={isOpen}
                     onClose={handleMobileToggle}
+                    onOpenMenu={setOpenedMenuId}
+                    isMenuOpened={chat.id === openedMenuId}
                   />
                 ))}
               </ul>

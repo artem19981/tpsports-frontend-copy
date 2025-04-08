@@ -20,6 +20,9 @@ interface Props extends MultiChatDto {
   isMobile: boolean;
   isOpen: boolean;
 
+  isMenuOpened: boolean;
+  onOpenMenu: React.Dispatch<React.SetStateAction<number | null>>;
+
   onClose: () => void;
 }
 
@@ -31,10 +34,10 @@ export const MultiChatMenuItem = ({
   name,
   bot_name,
   is_favorite,
+  isMenuOpened,
   onClose,
+  onOpenMenu,
 }: Props) => {
-  const [open, setOpen] = useState(false);
-
   const router = useRouter();
 
   const [isEditLabelMode, setIsEditLabelMode] = useState(false);
@@ -52,7 +55,7 @@ export const MultiChatMenuItem = ({
 
     holdTimeout.current = setTimeout(() => {
       isChatPressed.current = true;
-      setOpen(true);
+      onOpenMenu(id);
 
       setTimeout(() => {
         const selection = window.getSelection();
@@ -146,7 +149,7 @@ export const MultiChatMenuItem = ({
         onBlur={onSaveChatName}
         onKeyDown={onKeyDownLabel}
         ref={inputRef}
-        className={classNames({
+        className={classNames(styles.input, {
           [styles.label]: isOpen || isMobile,
           [styles.tooltip]: !isOpen && !isMobile,
         })}
@@ -155,17 +158,18 @@ export const MultiChatMenuItem = ({
       />
 
       <ChatOptionsMenu
+        id={id}
         color={accentColor}
         visibleOnMobile={isActive}
         isChatPressed={isChatPressed}
-        open={open}
-        setOpen={setOpen}
+        open={isMenuOpened}
+        onOpenMenu={onOpenMenu}
         renderChildren={() => (
           <MultiChatMenuItemOptions
             chatId={id}
             isFavorite={is_favorite}
             isActive={isActive}
-            onClose={() => setOpen(false)}
+            onClose={() => onOpenMenu(null)}
             onStartRename={onStartRename}
           />
         )}
