@@ -114,6 +114,13 @@ export const MultiChatMenuItem = ({
     setIsEditLabelMode(false);
   };
 
+  const onTouchMove = () => {
+    if (holdTimeout.current) {
+      clearTimeout(holdTimeout.current);
+      holdTimeout.current = null;
+    }
+  };
+
   const onKeyDownLabel = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       setIsEditLabelMode(false);
@@ -135,6 +142,7 @@ export const MultiChatMenuItem = ({
       onTouchStart={handleMouseDown}
       onTouchEnd={onMouseUp}
       onTouchCancel={onCancelPress}
+      onTouchMove={onTouchMove}
       onClick={onSelectChat}
       style={{
         borderBottom: isOpen || isMobile ? '1px solid rgba(255, 255, 255, 0.1)' : '',
