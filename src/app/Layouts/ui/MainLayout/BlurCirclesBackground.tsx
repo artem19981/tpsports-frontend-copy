@@ -170,13 +170,8 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
       style={{
         position: 'absolute',
         width: '100%',
-        maxWidth: 1320,
-        maxHeight: 780,
-        height: '100%',
         overflow: 'hidden',
         zIndex: 1,
-        // top: 0,
-        // left: 0,
       }}
     />
   );
