@@ -4,13 +4,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 28px;
+  max-width: min(1320px, 95%);
 
-  position: 'absolute';
-  width: '100%';
-  max-width: 1320px;
   height: calc(100dvh - 120px);
-  height: '100%';
-  overflow: 'hidden';
+  overflow: hidden;
   z-index: 1;
 
   @media (max-width: 600px) {
