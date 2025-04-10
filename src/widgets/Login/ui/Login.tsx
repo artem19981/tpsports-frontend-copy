@@ -15,7 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Loader } from 'shared/ui';
 
 import styles from './Login.module.css';
-import { TelegramLogin2 } from './TelegramButtonForAuth2';
+import { TelegramLoginButton } from './TelegramLoginButton';
 
 export const Login = () => {
   const router = useRouter();
@@ -52,7 +52,7 @@ export const Login = () => {
               Войти
             </Button>
 
-            <TelegramLogin2 />
+            <TelegramLoginButton />
 
             <div className={styles.footerContent}>
               <p className="greyP14" onClick={goToRecover}>
