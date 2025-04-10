@@ -4,6 +4,7 @@ export interface AiBot {
   translation: string;
   color: string;
   borderColor: string;
+  background: string;
   animation: any;
   questions: AiBotQuestion[];
   shadowColor: string;

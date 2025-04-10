@@ -14,6 +14,7 @@ export const BOTS: AiBot[] = [
     translation: 'Спорт',
     color: '#fff',
     borderColor: 'rgb(174, 189, 12)',
+    background: '#242412',
     animation: coachAnimationJson,
     questions: [
       {
@@ -42,10 +43,11 @@ export const BOTS: AiBot[] = [
   {
     name: ChatType.Doctor,
     welcomeText:
-      'Я Спортивный Доктор и моя задача - сделать так, чтобы твоё тело работало как часы. Твоё здоровье - мой приоритет!',
+      'Твоё тело - мой приоритет ! Оптимизирую здоровье, предотвращу сбои, заряжу энергией на 200%. Моя задача - сделать так, чтобы твоё тело работало как часы.',
     translation: 'Здоровье',
     color: '#000000',
     borderColor: 'rgb(255, 249, 247)',
+    background: '#242424',
     animation: medicAnimationJson,
     questions: [
       {
@@ -74,10 +76,11 @@ export const BOTS: AiBot[] = [
   {
     name: ChatType.Nutritionolog,
     welcomeText:
-      'Я Спортивный Нутрициолог. Помогу тебе наладить питание, восполнить дефициты и составлю рекомендации для достижения твоих целей.',
+      'Питание - твоё супероружие ! Помогу тебе наладить питание, восполнить дефициты и составлю рекомендации для достижения твоих целей !',
     translation: 'Питание',
     color: '#fff',
     borderColor: 'rgb(1, 115, 255)',
+    background: '#111B26',
     animation: nutritionologAnimationJson,
     questions: [
       {
@@ -106,10 +109,11 @@ export const BOTS: AiBot[] = [
   {
     name: ChatType.Psychologist,
     welcomeText:
-      'Я Спортивный Психолог. Меняя мысли и осознавая чувства, ты придёшь к победе в спорте, к победе в жизни.',
+      'Я твой лучший друг и компаньон ! Меняя мысли и осознавая чувства, ты придёшь к победе в спорте, к победе в жизни.',
     translation: 'Сознание',
     color: '#fff',
     borderColor: 'rgb(237, 74, 6)',
+    background: '#39241B',
     animation: psychologistAnimationJson,
     questions: [
       {

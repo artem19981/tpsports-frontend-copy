@@ -7,6 +7,7 @@ import { useChatType } from 'entities/chat/ui';
 import closeSrc from '@/app/assets/images/common/close.png';
 
 import ChatAdd from 'app/assets/images/aiChat/ChatAdd.svg';
+import Home from 'app/assets/images/aiChat/Home.svg';
 import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -85,7 +86,22 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
 
         <div className={cn(styles.children, childrenClassName)} id="children">
           {withUserMenu && chatTypeContext?.chatType && (
-            <Image src={ChatAdd} alt="ChatAdd" className={styles.chatAdd} onClick={createNewChat} />
+            <div className={styles.iconContainer}>
+              <Image
+                src={ChatAdd}
+                alt="ChatAdd"
+                className={styles.chatAdd}
+                onClick={createNewChat}
+              />
+              <Image
+                src={Home}
+                alt="Home"
+                className={styles.Home}
+                onClick={() => {
+                  router.push('/ai');
+                }}
+              />
+            </div>
           )}
           {!!links && <div className={styles.desktopLinks}>{links}</div>}
           {!!links && <div className={styles.mobileLinks}>{links}</div>}

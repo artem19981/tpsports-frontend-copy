@@ -21,15 +21,17 @@
   }
 }
 
-.chatAdd {
+.iconContainer {
   position: absolute;
-  top: 40px;
-  right: 40px;
+  display: flex;
+  gap: 18px;
+  top: 47px;
+  right: 47px;
   cursor: pointer;
 
   @media (max-width: 600px) {
-    top: 30px;
-    right: 27px;
+    top: 34px;
+    right: 40px;
   }
 }
 
@@ -117,7 +119,7 @@
 
   @media screen and (max-width: 600px) {
     display: block;
-    margin-top: 34px;
+    margin-top: 24px;
   }
 }
 

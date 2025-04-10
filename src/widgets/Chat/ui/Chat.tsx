@@ -1,6 +1,6 @@
 'use client';
 
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import {
   AnimatedChatLogo,
   ChatAiMessage,
@@ -34,6 +34,9 @@ export const Chat = () => {
   const chatId = useGetActiveChatId();
   const chatVariant = (useChatType()?.chatType || ChatType.Trainer) as ChatVariant;
   const selectedBot = (useGetSelectedBot(chatVariant, [chatVariant]) || BOTS[0]) as AiBot;
+  const { chatType } = useChatType() || {};
+  const welcomeText = BOTS.find((bot) => bot.name === chatType)?.welcomeText || '#000';
+  console.log(welcomeText);
 
   useSetPageTitle(chatVariant);
 
@@ -86,7 +89,7 @@ export const Chat = () => {
 
   return (
     <Stack className={styles.container}>
-      {messages.length === 0 && !isFetching && hasData ? (
+      {messages.length === 0 && !isFetching && !hasData ? (
         <div className={styles.animateLogo}>
           <AnimatedChatLogo />
         </div>
@@ -156,6 +159,11 @@ export const Chat = () => {
       </Stack>
 
       <div className={styles.chatInput}>
+        <div>
+          <Typography variant="body1" className={styles.welcomeText}>
+            {welcomeText}
+          </Typography>
+        </div>
         {messages.length === 0 && !isFetching && !hasData ? (
           <div className={styles.chatTabs}>
             <ChatTabs onLocalTagClick={handleLocalTagClick} />

@@ -12,12 +12,12 @@
 
 .animateLogo {
   position: absolute;
-  top: 250px;
-  left: 45%;
+  top: 33%;
+  left: calc(50% - 56px);
   z-index: -7;
 
   @media (max-width: 600px) {
-    top: calc(50vh - 38px);
+    top: 30dvh;
     left: calc(50vw - 38px);
   }
 }
@@ -45,6 +45,12 @@
       padding: 0 20px;
     }
   }
+}
+
+.welcomeText {
+  text-align: center;
+  margin-bottom: 31px !important;
+  font-family: var(--gilroy), sans-serif !important;
 }
 
 .chatInput {
