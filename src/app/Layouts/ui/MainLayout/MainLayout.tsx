@@ -4,6 +4,7 @@ import { FC, PropsWithChildren, ReactNode, useState } from 'react';
 
 import cn from 'classnames';
 import { useChatType } from 'entities/chat/ui';
+import closeSrc from '@/app/assets/images/common/close.png';
 
 import ChatAdd from 'app/assets/images/aiChat/ChatAdd.svg';
 import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
@@ -15,6 +16,7 @@ import { useSettingsModal } from 'widgets/UserSettings';
 import { getBackgroundColorByChatType } from '../../lib/getBackgroundColorByChatType';
 import { BlurCirclesBackground } from './BlurCirclesBackground';
 import styles from './MainLayout.module.scss';
+import { IconButton } from '@mui/material';
 
 interface Props {
   links?: ReactNode;
@@ -25,11 +27,14 @@ interface Props {
   containerClassName?: string;
   contentClassName?: string;
   childrenClassName?: string;
+
+  onCrossClick?: () => void;
 }
 
 export const MainLayout: FC<PropsWithChildren<Props>> = ({
   children,
   links,
+  onCrossClick,
   containerClassName,
   contentClassName,
   childrenClassName,
@@ -68,27 +73,14 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
           [styles.changeLayoutPosition]: isChangeLayoutPosition,
         })}
       >
-        {/* <div className={cn(styles.header, headerClassName)}>
-          <div className={styles.logoWrapper}>
-            <Link
-              href="/ai"
-              onClick={() => chatTypeContext?.setChatType?.(undefined)}
-              style={{ display: "flex" }}
-            >
-              <Image
-                src={chatTypeContext?.chatType ? whiteLogo : logoImg}
-                alt="logo"
-                className={styles.logo}
-                height={28}
-                width={52}
-              />
-            </Link>
-          </div>
-
-          {withUserMenu && <UserSettingsMenu />}
-        </div> */}
         {withUserMenu && (
           <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen(!isSidebarOpen)} />
+        )}
+
+        {onCrossClick && (
+          <IconButton size="large" onClick={onCrossClick} className={styles.closeBtn}>
+            <Image src={closeSrc} alt="" width={18} height={18} />
+          </IconButton>
         )}
 
         <div className={cn(styles.children, childrenClassName)} id="children">
@@ -97,6 +89,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
           )}
           {!!links && <div className={styles.desktopLinks}>{links}</div>}
           {!!links && <div className={styles.mobileLinks}>{links}</div>}
+
           {children}
         </div>
       </div>

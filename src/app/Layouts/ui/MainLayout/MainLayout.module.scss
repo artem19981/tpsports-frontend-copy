@@ -59,6 +59,8 @@
     height: 100%;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+
+    height: calc(100dvh - 30px);
   }
 }
 
@@ -79,9 +81,10 @@
   justify-content: center !important;
 
   @media (max-width: 600px) {
-    max-height: 855px;
-    height: 98dvh;
-    justify-content: space-between !important;
+    // @todo: я не понял для чего это))
+    // max-height: 855px;
+    // height: calc(100dvh - 20px);
+    // justify-content: space-between !important;
   }
 }
 
@@ -159,5 +162,20 @@
     height: 400px;
 
     bottom: 0%;
+  }
+}
+
+button.closeBtn {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  cursor: pointer;
+  z-index: 100;
+
+  padding: 8px;
+
+  @media screen and (max-width: 600px) {
+    top: 15px;
+    right: 15px;
   }
 }

@@ -6,16 +6,17 @@ import { useForm } from 'react-hook-form';
 import { RegistrationForm } from 'features/Auth/ui/RegistrationForm/RegistrationForm';
 import { loginSchema } from 'features/Auth/model';
 import { useRegistrationUser } from 'features/Auth/lib';
-import { LoginPayload, RegistrationPayload } from 'features/Auth/model';
+import { LoginPayload } from 'features/Auth/model';
 import { useRouter } from 'next/navigation';
 import { ActionResult, ActionStatus } from 'shared/ui/ActionResult';
 import { Button } from 'shared/ui/Button/Button';
 
-import styles from './Registration.module.css';
+import styles from './Registration.module.scss';
 import { AuthContainer } from '@/src/entities/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Stack } from '@mui/material';
 import { Loader } from 'shared/ui';
+import { TelegramAuthForm } from 'features/Auth';
 
 export const Registration = () => {
   const router = useRouter();
@@ -51,8 +52,10 @@ export const Registration = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <AuthContainer
+        className={styles.form}
+        contentClassName={styles.content}
         form={<RegistrationForm control={control} />}
         afterForm={
           <div className={styles.footer}>
@@ -61,10 +64,15 @@ export const Registration = () => {
             </Button>
 
             <div className={styles.footerContent}>
-              <p>
-                Уже есть аккаунт? <span onClick={goToLogin}>Войти</span>
+              <p className={styles.footerText}>
+                Уже есть аккаунт?{' '}
+                <span onClick={goToLogin} className={styles.recover}>
+                  Войти
+                </span>
               </p>
             </div>
+
+            <TelegramAuthForm />
 
             {isPending && <Loader />}
           </div>
@@ -74,8 +82,7 @@ export const Registration = () => {
       <div className={styles.afterForm}>
         <p className={styles.agreement}>
           Нажимая на кнопку Создать аккаунт, я соглашаюсь с{' '}
-          <span>Политикой конфиденциальности</span> и с{' '}
-          <span>Пользовательским соглашением.</span>
+          <span>Политикой конфиденциальности</span> и с <span>Пользовательским соглашением.</span>
         </p>
       </div>
     </form>

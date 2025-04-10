@@ -3,7 +3,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { LoginForm } from 'features/Auth';
+import { LoginForm, TelegramAuthForm } from 'features/Auth';
 import { LoginFormSchema, loginSchema } from 'features/Auth/model';
 import { useLoginUser } from 'features/Auth/lib';
 import { useRouter } from 'next/navigation';
@@ -14,8 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Loader } from 'shared/ui';
 
-import styles from './Login.module.css';
-import { TelegramLoginButton } from './TelegramLoginButton';
+import styles from './Login.module.scss';
 
 export const Login = () => {
   const router = useRouter();
@@ -43,7 +42,11 @@ export const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      style={{ width: '100%', overflow: 'auto' }}
+      className="hide-scroll"
+    >
       <AuthContainer
         form={<LoginForm control={control} />}
         afterForm={
@@ -52,16 +55,19 @@ export const Login = () => {
               Войти
             </Button>
 
-            <TelegramLoginButton />
-
             <div className={styles.footerContent}>
-              <p className="greyP14" onClick={goToRecover}>
+              <p className={styles.recover} onClick={goToRecover}>
                 Забыли пароль?
               </p>
-              <p className="greyP14" onClick={goToRegister}>
-                &nbsp;| Создать аккаунт
+
+              <p className={styles.recoverDivider}>&nbsp;|</p>
+
+              <p className={styles.recover} onClick={goToRegister}>
+                Создать аккаунт
               </p>
             </div>
+
+            <TelegramAuthForm />
 
             {isPending && <Loader />}
           </div>

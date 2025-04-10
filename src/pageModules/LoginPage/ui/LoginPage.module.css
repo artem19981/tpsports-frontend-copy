@@ -9,6 +9,10 @@ div.layout {
   @media screen and (max-height: 660px) {
     height: unset;
   }
+
+  @media screen and (max-width: 660px) {
+    padding-bottom: 0;
+  }
 }
 
 div.children {
