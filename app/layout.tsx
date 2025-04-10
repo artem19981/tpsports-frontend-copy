@@ -69,7 +69,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <head>
-        <Script src="https://telegram.org/js/telegram-web-app.js?56" strategy="beforeInteractive" />
+        <Script src="https://telegram.org/js/telegram-web-app.js?56" strategy="afterInteractive" />
       </head>
       <Providers initialChatType={chatType as ChatType}>
         <body className={classNames(neumachineFont.variable, gilroyFont.variable, 'antialiased')}>
