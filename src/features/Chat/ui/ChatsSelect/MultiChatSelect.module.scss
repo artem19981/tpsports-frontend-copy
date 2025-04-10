@@ -1,76 +1,92 @@
 .selectContainer {
   position: relative;
-  width: 87px;
-  font-family: "Inter", sans-serif;
-}
-
-.selectLabel {
-  font-size: 12px;
-  color: #999;
-  margin-bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  transition: width 0.3s ease;
+  &.open {
+    width: auto;
+  }
 }
 
 .selectedValue {
-  display: inline-flex;
+  display: flex;
+  gap: 10px;
   align-items: center;
-  justify-content: center;
-  padding: 4px 16px;
-  border: 1px solid #ccc;
+  padding: 11px 16px;
   border-radius: 30px;
+  border: none;
   cursor: pointer;
-  background-color: #fff;
-  color: #000;
-  transition: background-color 0.3s;
+  color: #fff;
   font-size: 12px;
-  width: 87px;
-
-  &:hover {
-    background-color: #f2f2f2;
-  }
+  white-space: nowrap;
+  transition: background-color 0.3s;
+  font-family: var(--gilroy), sans-serif !important;
 }
 
 .dropdownList {
   position: absolute;
-  top: 0px;
-  left: 0;
-  width: 100%;
-  max-height: 0;
-  overflow: hidden;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  transition:
-    max-height 0.3s ease,
-    opacity 0.3s ease;
-  opacity: 0;
+  border-radius: 40px;
   z-index: 999;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+
+  transform: scaleX(0);
+  padding: 12px 16px;
+
+  top: 0;
+  transform-origin: left center;
+  display: flex;
+  gap: 26px;
+  flex-direction: row;
 }
 
-.open {
-  max-height: 300px;
+.open.dropdownList {
   opacity: 1;
+  pointer-events: auto;
+  transform: scaleX(1);
 }
 
 .dropdownItem {
-  text-align: center;
-  padding: 4px 8px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
   font-size: 12px;
-  color: #000;
+  color: #ffffff80;
   cursor: pointer;
+  white-space: nowrap;
   transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #eee;
-  }
+  font-family: var(--gilroy), sans-serif !important;
 }
 
-.dropdownTitle {
-  text-align: center;
-  padding: 4px 0px;
-  font-size: 12px;
-  color: #00000033;
-  border-bottom: 1px solid #e8e8e8;
-  width: 65px;
-  margin: 0 auto;
+.activeItem {
+  color: #fff !important;
+}
+
+.itemIndicator {
+  box-shadow: 0px 0px 25px 0px;
+  width: 16px;
+  height: 16px;
+  border-radius: 100px;
+  display: flex;
+}
+
+@media (max-width: 600px) {
+  .selectContainer {
+    &.open {
+      width: 92vw;
+    }
+  }
+  .open.dropdownList {
+    left: -100%;
+    z-index: 1000000000000000;
+  }
+  .dropdownList {
+    width: 92vw;
+    justify-content: space-between;
+    left: 0 !important;
+  }
 }

@@ -27,11 +27,12 @@ export async function AiPage() {
     >
       <Stack gap={3.5} alignItems={'center'} className={styles.container}>
         <Typography variant="h1" sx={{ fontSize: 45, textAlign: 'center' }}>
-          Привет, я твой <Image src={Logo} alt="logo" className={styles.logo} /> Ассистент.
+          Привет, здесь твоя команда <Image src={Logo} alt="logo" className={styles.logo} />{' '}
+          Экспертов.
         </Typography>
         <Typography variant="body2" sx={{ textAlign: 'center' }} className={styles.suptitle}>
-          Ты можешь выбрать Ассистента или написать мне, и я отправлю тебя к нужному Ассистенту:
-          Тренеру, Доктору, Нутрициологу или Психологу и отвечу на твой вопрос
+          Мы обеспечим тебя комплексным подходом к достижению целей. Твой успех - наша общая задача.
+          Готов к изменениям ? Поехали !
         </Typography>
       </Stack>
 
