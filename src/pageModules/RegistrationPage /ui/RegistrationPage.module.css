@@ -3,13 +3,16 @@ div.header {
 }
 
 div.layout {
-  min-height: 100vh;
-  height: auto;
-  padding: 0px 0;
+  height: 100%;
+  padding: 20px 0;
+
+  @media screen and (max-width: 660px) {
+    padding-bottom: 0;
+  }
 }
 
 div.content {
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 20px;
 
   @media screen and (max-width: 600px) {

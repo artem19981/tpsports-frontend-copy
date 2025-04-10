@@ -10,7 +10,7 @@ import { ru } from 'date-fns/locale/ru';
 
 const darkTheme = createTheme({
   typography: {
-    fontFamily: 'var(--NeueMachina), sans-serif', // Укажите свой шрифт
+    fontFamily: 'var(--NeueMachina), sans-serif',
   },
   palette: {
     mode: 'dark',
@@ -26,9 +26,7 @@ export const MuiProvider: FC<Props> = ({ children }) => {
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ru}>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <AppRouterCacheProvider options={{ key: 'css' }}>
-          {children}
-        </AppRouterCacheProvider>
+        <AppRouterCacheProvider options={{ key: 'css' }}>{children}</AppRouterCacheProvider>
       </ThemeProvider>
     </LocalizationProvider>
   );

@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+button.button {
+  padding: 7px 0;
+
+  gap: 8px;
+}
+
+.divider {
+  font-family: var(--gilroy), sans-serif;
+
+  &::after {
+    border-top-color: #8b8b8b !important;
+  }
+
+  &::before {
+    border-top-color: #8b8b8b !important;
+  }
+}

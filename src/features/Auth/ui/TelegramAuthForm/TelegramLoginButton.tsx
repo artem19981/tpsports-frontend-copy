@@ -3,6 +3,8 @@
 import { confirmTelegramAuth } from 'features/Auth/api';
 import { telegramAuth } from 'features/Auth/api';
 import { Button } from 'shared/ui';
+import Telegram from './assets/telegram.svg?component';
+import styles from './TelegramAuthForm.module.scss';
 
 export const TelegramLoginButton = () => {
   const handleTelegramLogin = async () => {
@@ -13,7 +15,7 @@ export const TelegramLoginButton = () => {
       console.log(window?.Telegram, 'window.Telegram');
     }
 
-    if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+    if (typeof window !== 'undefined' && window.Telegram?.WebApp?.initData) {
       userData = window.Telegram.WebApp.initData;
     } else {
       userData = await telegramAuth(botId.toString(), {
@@ -21,8 +23,19 @@ export const TelegramLoginButton = () => {
       });
     }
 
+    console.log(userData, 'userData');
+
     await confirmTelegramAuth(userData);
   };
 
-  return <Button onClick={handleTelegramLogin}>Войти через Telegram</Button>;
+  return (
+    <Button
+      className={styles.button}
+      onClick={handleTelegramLogin}
+      startIcon={<Telegram width={24} height={24} />}
+      variant="transparent"
+    >
+      Войти через Telegram
+    </Button>
+  );
 };

@@ -1,0 +1,36 @@
+button.button {
+  background-color: linear-gradient(rgb(6, 244, 96) 0%, rgb(1, 255, 202) 100%) 0% 0% no-repeat
+    padding-box padding-box transparent;
+}
+
+.footer {
+  margin-top: 15px;
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.footerContent p {
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.recover {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+.recoverDivider {
+  margin-right: 5px;
+}

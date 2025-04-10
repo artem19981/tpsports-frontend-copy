@@ -2,19 +2,21 @@
   font-family: var(--NeueMachina), sans-serif;
   font-size: 30px;
   line-height: 32px;
-  margin-bottom: 15px;
-  font-weight: 400;
+  letter-spacing: -5.3%;
+  text-align: center;
 
-  padding: 0 20px;
+  margin-bottom: 15px;
 }
 
 .subtitle {
-  font-family: var(--gilroy), sans-serif;
-  font-weight: 400;
   font-size: 15px;
   line-height: 20px;
   letter-spacing: 0%;
   text-align: center;
 
-  padding: 0 19px;
+  margin-bottom: 30px;
+}
+
+.inputWrapper {
+  margin-bottom: 30px;
 }
