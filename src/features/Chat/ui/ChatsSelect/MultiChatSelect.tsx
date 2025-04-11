@@ -89,7 +89,7 @@ export const MultiChatSelect: React.FC<Props> = ({ isUserAuthorized, onChange })
           className={styles.itemIndicator}
           style={{
             backgroundColor: selectedBot?.borderColor || '#00FD44',
-            boxShadow: `0px 0px 25px 0px ${selectedBot?.borderColor || '#00FD44'}`,
+            ['--glow-color' as any]: selectedBot?.borderColor || '#00FD44',
           }}
         />
         {selectedBot ? selectedBot.translation : 'Ассистенты'}
@@ -115,8 +115,8 @@ export const MultiChatSelect: React.FC<Props> = ({ isUserAuthorized, onChange })
                 <span
                   className={styles.itemIndicator}
                   style={{
-                    backgroundColor: botBorderColor,
-                    boxShadow: `0px 0px 25px 0px ${botBorderColor}`,
+                    backgroundColor: selectedBot?.borderColor || '#00FD44',
+                    ['--glow-color' as any]: selectedBot?.borderColor || '#00FD44',
                   }}
                 />
               )}

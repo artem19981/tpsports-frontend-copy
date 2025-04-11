@@ -1,13 +1,7 @@
-import { ToggleButton } from "shared/ui";
-import styles from "../StrengthTrainingForm.module.scss";
+import { ToggleButton } from 'shared/ui';
+import styles from '../StrengthTrainingForm.module.scss';
 
-export function CategoriesSwipe({
-  isActive,
-  value,
-  onClick,
-  borderColor,
-  height,
-}: any) {
+export function CategoriesSwipe({ isActive, value, onClick, borderColor, height }: any) {
   return (
     <ToggleButton
       isActive={isActive}
@@ -17,9 +11,9 @@ export function CategoriesSwipe({
       style={{
         borderColor: borderColor,
         height: height,
-        width: height ? "auto" : "",
-        padding: height ? "0 14px 0 12px" : "",
-        maxWidth: height ? "182px" : "",
+        width: height ? 'auto' : '',
+        padding: height ? '0 14px 0 12px' : '',
+        maxWidth: height ? '182px' : '',
       }}
     />
   );

@@ -159,11 +159,15 @@ export const Chat = () => {
       </Stack>
 
       <div className={styles.chatInput}>
-        <div>
-          <Typography variant="body1" className={styles.welcomeText}>
-            {welcomeText}
-          </Typography>
-        </div>
+        {messages.length === 0 && !isFetching && !hasData ? (
+          <div>
+            <Typography variant="body1" className={styles.welcomeText}>
+              {welcomeText}
+            </Typography>
+          </div>
+        ) : (
+          <></>
+        )}
         {messages.length === 0 && !isFetching && !hasData ? (
           <div className={styles.chatTabs}>
             <ChatTabs onLocalTagClick={handleLocalTagClick} />

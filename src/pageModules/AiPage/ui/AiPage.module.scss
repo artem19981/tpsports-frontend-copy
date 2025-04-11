@@ -11,7 +11,7 @@
 }
 
 .layout {
-  padding: 60px 0;
+  // padding: 60px 0;
 
   @media screen and (max-width: 600px) {
     padding: 40px 0 0 0;
@@ -22,8 +22,8 @@
 }
 
 .content {
-  width: 1320px;
-  height: calc(100dvh - 120px);
+  width: calc(100vw - 10vh);
+  height: calc(100dvh - 10dvh);
 
   @media screen and (max-width: 600px) {
     width: 100%;

@@ -44,9 +44,8 @@
   backdrop-filter: blur(28px);
   background: rgba(255, 255, 255, 0.0341);
 
-  width: 100%;
-  max-width: min(1320px, 95%);
-  height: calc(100dvh - 120px);
+  width: calc(100vw - 10vh);
+  height: calc(100dvh - 10dvh);
   z-index: 1;
 
   &.changeLayoutPosition {

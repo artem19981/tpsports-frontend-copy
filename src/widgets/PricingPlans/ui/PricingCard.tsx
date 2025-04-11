@@ -1,15 +1,9 @@
-"use client";
+'use client';
 
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Stack,
-  Typography,
-} from "@mui/material";
-import Border from "shared/assets/Border.svg?component";
-import { Button } from "shared/ui";
-import styles from "./PricingPlans.module.scss";
+import { Card, CardActions, CardContent, Stack, Typography } from '@mui/material';
+import Border from 'shared/assets/Border.svg?component';
+import { Button } from 'shared/ui';
+import styles from './PricingPlans.module.scss';
 
 export interface PricingCardProps {
   title: string;
@@ -20,7 +14,7 @@ export interface PricingCardProps {
   features: string[];
   buttonText: string;
   trial?: { text: string; color: string; background: string };
-  buttonColor?: "lightgray" | "white";
+  buttonColor?: 'lightgray' | 'white';
   onSubscribe?: () => void;
   highlightConfig?: {
     color: string;
@@ -46,7 +40,7 @@ export const PricingCard = ({
     const parts = text.split(/(\*\*.*?\*\*)/g);
 
     return parts.map((part, index) => {
-      if (part.startsWith("**") && part.endsWith("**")) {
+      if (part.startsWith('**') && part.endsWith('**')) {
         const highlightedText = part.slice(2, -2);
         return (
           <span key={index} style={{ color: highlightConfig.color }}>
@@ -73,16 +67,11 @@ export const PricingCard = ({
           variant="h6"
           fontSize={22}
           className={styles.title}
-          sx={{ textAlign: "center", color: "#01FC54", lineHeight: "100%" }}
+          sx={{ textAlign: 'center', color: '#01FC54', lineHeight: '100%' }}
         >
           {title}
         </Typography>
-        <Typography
-          variant="h5"
-          fontSize={23}
-          className={styles.price}
-          sx={{ marginTop: 2.5 }}
-        >
+        <Typography variant="h5" fontSize={23} className={styles.price} sx={{ marginTop: 2.5 }}>
           {supTitle ? supTitle : price}
         </Typography>
         {billing && price !== 0 && (
@@ -95,11 +84,7 @@ export const PricingCard = ({
             {billing}
           </Typography>
         )}
-        <Typography
-          variant="body2"
-          className={styles.description}
-          sx={{ marginTop: 2.2 }}
-        >
+        <Typography variant="body2" className={styles.description} sx={{ marginTop: 2.2 }}>
           {description}
         </Typography>
         <Stack className={styles.features}>
@@ -120,6 +105,10 @@ export const PricingCard = ({
           fullWidth
           className={styles.subscribeButton}
           onClick={onSubscribe}
+          style={{
+            cursor: buttonText === 'Мой текущий тариф' ? 'default' : '',
+            pointerEvents: buttonText === 'Мой текущий тариф' ? 'none' : 'auto',
+          }}
         >
           {buttonText}
         </Button>
