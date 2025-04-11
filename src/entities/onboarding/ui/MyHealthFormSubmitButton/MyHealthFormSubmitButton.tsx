@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 export const MyHealthFormSubmitButton = ({
   visible,
-  label = 'сохранить',
+  label = 'Сохранить',
   ...props
 }: ButtonProps & { visible: boolean; label?: string }) => {
   const [_visible, setVisible] = React.useState(visible);
@@ -27,9 +27,7 @@ export const MyHealthFormSubmitButton = ({
   }
 
   return (
-    <div
-      className={classNames(styles.container, { [styles.invisible]: !visible })}
-    >
+    <div className={classNames(styles.container, { [styles.invisible]: !visible })}>
       <Button type="submit" className={styles.button} {...props}>
         {label}
       </Button>

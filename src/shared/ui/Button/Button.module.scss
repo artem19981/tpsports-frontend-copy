@@ -1,12 +1,11 @@
 button.button {
-  background: linear-gradient(rgb(6, 244, 96) 0%, rgb(1, 255, 202) 100%) 0% 0% no-repeat padding-box
-    padding-box transparent;
+  background: linear-gradient(90deg, #01fc50 0%, #04efb0 100%);
+
   border-radius: 25px;
   padding: 8px 0;
   font-family: var(--gilroy), sans-serif;
   text-transform: initial;
   font-size: 16px;
-  text-transform: uppercase;
 
   &:disabled {
     background: #ffffff33;

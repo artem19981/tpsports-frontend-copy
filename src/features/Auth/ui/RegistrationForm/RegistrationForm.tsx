@@ -14,7 +14,7 @@ export function RegistrationForm({ control }: Props) {
     <div>
       <AuthHeaders
         title="Создать аккаунт"
-        subtitle="Твоя персональная команда интеллектуальных ассистентов ждет тебя!"
+        subtitle="Твоя персональная команда интеллектуальных экспертов ждёт тебя!"
       />
       <div style={{ marginTop: 30 }}>
         <ControlledInput
