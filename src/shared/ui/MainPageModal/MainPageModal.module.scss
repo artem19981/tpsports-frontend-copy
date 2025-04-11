@@ -16,8 +16,8 @@ div.content {
   flex-direction: column;
   overflow: auto;
 
-  width: 1320px;
-  height: calc(100dvh - 120px);
+  width: calc(100vw - 10dvh);
+  height: calc(100dvh - 10dvh);
   background: linear-gradient(
     108.85deg,
     rgba(48, 48, 48, 0.4) 0.8%,

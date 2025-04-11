@@ -62,16 +62,62 @@
   font-family: var(--gilroy), sans-serif !important;
 }
 
+.dropdownItem:hover {
+  color: #fff;
+}
+
 .activeItem {
   color: #fff !important;
 }
 
 .itemIndicator {
-  box-shadow: 0px 0px 25px 0px;
   width: 16px;
   height: 16px;
   border-radius: 100px;
   display: flex;
+  background-color: var(--glow-color);
+  --glow-alpha: 0.8;
+  --glow-shadow: 0 0 25px 0
+    color-mix(in srgb, var(--glow-color) calc(var(--glow-alpha) * 100%), transparent);
+  box-shadow: var(--glow-shadow);
+  animation: shadowPulse 3s infinite cubic-bezier(0.5, 0.5, 0.2, 1);
+  will-change: box-shadow;
+}
+
+@keyframes shadowPulse {
+  100% {
+    --glow-alpha: 1;
+  }
+  90% {
+    --glow-alpha: 0.9;
+  }
+  80% {
+    --glow-alpha: 0.8;
+  }
+  70% {
+    --glow-alpha: 0.7;
+  }
+  60% {
+    --glow-alpha: 0.6;
+  }
+  50% {
+    --glow-alpha: 0.5;
+  }
+  40% {
+    --glow-alpha: 0.6;
+  }
+  30% {
+    --glow-alpha: 0.7;
+  }
+  20% {
+    --glow-alpha: 0.8;
+  }
+  20% {
+    --glow-alpha: 0.9;
+  }
+  0% {
+    --glow-alpha: 1;
+  }
 }
 
 @media (max-width: 600px) {

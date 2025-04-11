@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { memo } from 'react';
 
+import { useSetOptimisticChatMessage } from 'entities/chat/lib';
 import { useChatType } from 'entities/chat/ui';
 import { CategoriesSwipe } from 'features/InitialOnboard/ui/StrengthTrainingForm/components/CategoriesSwipe';
 import { useGetAllTags } from 'features/Tags/lib/useGetAllTabs';
@@ -11,8 +12,6 @@ import { BOTS } from 'shared/constants/bots';
 import { Swiper } from 'shared/ui';
 import { SwiperSlide } from 'swiper/react';
 import styles from './ChatTabs.module.scss';
-import { useSetOptimisticChatMessage } from 'entities/chat/lib';
-import { ChatType } from 'entities/chat/model/ChatType';
 
 interface Tag {
   id: string;

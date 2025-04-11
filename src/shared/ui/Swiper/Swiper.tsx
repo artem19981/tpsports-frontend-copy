@@ -1,15 +1,15 @@
 'use client';
 
-import React, { ReactNode, useState, useRef, useEffect } from 'react';
-import { Swiper as _Swiper, SwiperRef } from 'swiper/react';
+import { Skeleton, useMediaQuery } from '@mui/material';
+import classNames from 'classnames';
+import Image from 'next/image';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
-import { useMediaQuery, Skeleton } from '@mui/material';
-import styles from './Swiper.module.scss';
-import Image from 'next/image';
-import chevron from './assets/leftChevron.png';
+import { Swiper as _Swiper } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper/types';
-import classNames from 'classnames';
+import chevron from './assets/leftChevron.png';
+import styles from './Swiper.module.scss';
 
 interface SwiperProps {
   children: ReactNode;
@@ -18,11 +18,7 @@ interface SwiperProps {
   containerClassName?: string;
 }
 
-export function Swiper({
-  children,
-  withArrows = true,
-  containerClassName,
-}: SwiperProps) {
+export function Swiper({ children, withArrows = true, containerClassName }: SwiperProps) {
   const isMobile = useMediaQuery('(max-width: 500px)');
   const [isReady, setIsReady] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);

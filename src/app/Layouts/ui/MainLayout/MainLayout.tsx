@@ -2,10 +2,11 @@
 
 import { FC, PropsWithChildren, ReactNode, useState } from 'react';
 
+import closeSrc from '@/app/assets/images/common/close.png';
 import cn from 'classnames';
 import { useChatType } from 'entities/chat/ui';
-import closeSrc from '@/app/assets/images/common/close.png';
 
+import { IconButton } from '@mui/material';
 import ChatAdd from 'app/assets/images/aiChat/ChatAdd.svg';
 import Home from 'app/assets/images/aiChat/Home.svg';
 import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
@@ -17,7 +18,6 @@ import { useSettingsModal } from 'widgets/UserSettings';
 import { getBackgroundColorByChatType } from '../../lib/getBackgroundColorByChatType';
 import { BlurCirclesBackground } from './BlurCirclesBackground';
 import styles from './MainLayout.module.scss';
-import { IconButton } from '@mui/material';
 
 interface Props {
   links?: ReactNode;
@@ -65,15 +65,16 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
         [styles.changeLayoutPosition]: isChangeLayoutPosition,
       })}
     >
-      <BlurCirclesBackground color={backgrounds?.animate || '#05EFB6'} />
-      <div className={styles.leftCircle} style={{ background: backgrounds?.left }} />
-      <div className={styles.rightCircle} style={{ background: backgrounds?.right }} />
+      {/* <div className={styles.leftCircle} style={{ background: backgrounds?.left }} /> */}
+      {/* <div className={styles.rightCircle} style={{ background: backgrounds?.right }} /> */}
 
       <div
         className={cn(styles.content, contentClassName, {
           [styles.changeLayoutPosition]: isChangeLayoutPosition,
         })}
       >
+        <BlurCirclesBackground color={backgrounds?.animate || 'rgba(5, 239, 182, 0.4)'} />
+
         {withUserMenu && (
           <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen(!isSidebarOpen)} />
         )}

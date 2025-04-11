@@ -10,15 +10,15 @@ interface BlurCirclesBackgroundProps {
   sizeChangeSpeed?: number;
   movementSpeed?: number;
   blurAmount?: number;
-  color?: string;
+  color?: string | string[];
 }
 
 export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
   circleCount = 4,
-  minSizeFactor = 0.5,
-  maxSizeFactor = 1.5,
-  sizeChangeSpeed = 0.8,
-  movementSpeed = 2.0,
+  minSizeFactor = 2,
+  maxSizeFactor = 4.09,
+  sizeChangeSpeed = 0.5,
+  movementSpeed = 0.5,
   blurAmount = 60,
   color = '#05EFB6',
 }) => {
@@ -26,7 +26,6 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
   const animationRef = useRef<number>();
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-  // Обновляем размеры при изменении размеров окна
   useEffect(() => {
     const updateDimensions = () => {
       if (containerRef.current) {
@@ -56,14 +55,17 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
       size: number;
       minSize: number;
       maxSize: number;
-      sizeDelta: number;
       element: HTMLDivElement;
+      phase: number;
+      speedFactor: number;
     }> = [];
 
-    // Helper function for random numbers
     const random = (min: number, max: number) => Math.random() * (max - min) + min;
+    const randomSign = () => (Math.random() > 0.5 ? 1 : -1);
 
-    // Create circles
+    const colors = Array.isArray(color) ? color : [color];
+    const colorCount = colors.length;
+
     for (let i = 0; i < circleCount; i++) {
       const size = random(Math.min(60, width * 0.15), Math.min(200, width * 0.3));
       const element = document.createElement('div');
@@ -75,19 +77,24 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
       element.style.transform = 'translate(-50%, -50%)';
       element.style.transition =
         'transform 0.3s ease-out, width 0.3s ease-out, height 0.3s ease-out';
-      element.style.background = color;
+      element.style.background = colors[i % colorCount];
       element.style.willChange = 'transform, width, height';
 
+      // Добавляем больше вариативности в параметры движения
+      const speedFactor = random(0.7, 1.3); // Разные множители скорости
+      const phase = random(0, Math.PI * 2); // Полностью случайные фазы
+
       const circle = {
-        x: random(size / 2, width - size / 2),
-        y: random(size / 2, height - size / 2),
-        vx: random(-movementSpeed, movementSpeed),
-        vy: random(-movementSpeed, movementSpeed),
-        size: size,
+        x: random(size, width - size),
+        y: random(size, height - size),
+        vx: random(0.5, 1) * movementSpeed * randomSign() * speedFactor,
+        vy: random(0.5, 1) * movementSpeed * randomSign() * speedFactor,
+        size: size * minSizeFactor,
         minSize: size * minSizeFactor,
         maxSize: size * maxSizeFactor,
-        sizeDelta: random(0.1, 0.5) * sizeChangeSpeed,
         element: element,
+        phase: phase,
+        speedFactor: speedFactor,
       };
 
       element.style.width = `${circle.size}px`;
@@ -99,37 +106,43 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
       circles.push(circle);
     }
 
-    // Animation loop
-    const animate = () => {
+    let lastTime = 0;
+    const animate = (time: number) => {
+      if (!lastTime) lastTime = time;
+      const deltaTime = Math.min(100, time - lastTime); // Ограничиваем максимальное время между кадрами
+      lastTime = time;
+
       circles.forEach((circle) => {
-        // Calculate next position
-        const nextX = circle.x + circle.vx;
-        const nextY = circle.y + circle.vy;
+        // Более сложное изменение направления при отражении
+        const nextX = circle.x + circle.vx * (deltaTime / 16);
+        const nextY = circle.y + circle.vy * (deltaTime / 16);
         const radius = circle.size / 2;
 
-        // Check boundaries with full circle size
         if (nextX - radius < 0 || nextX + radius > width) {
-          circle.vx *= -1;
+          // Добавляем небольшую случайность при отражении
+          circle.vx *= -1 * random(0.9, 1.1);
           circle.x = Math.max(radius, Math.min(width - radius, nextX));
+          // Небольшое изменение вертикальной скорости при отражении от горизонтальных границ
+          circle.vy *= random(0.95, 1.05);
         } else {
           circle.x = nextX;
         }
 
         if (nextY - radius < 0 || nextY + radius > height) {
-          circle.vy *= -1;
+          // Аналогично для вертикального отражения
+          circle.vy *= -1 * random(0.9, 1.1);
           circle.y = Math.max(radius, Math.min(height - radius, nextY));
+          // Небольшое изменение горизонтальной скорости при отражении от вертикальных границ
+          circle.vx *= random(0.95, 1.05);
         } else {
           circle.y = nextY;
         }
 
-        // Update size
-        circle.size += circle.sizeDelta;
-        if (circle.size > circle.maxSize || circle.size < circle.minSize) {
-          circle.sizeDelta *= -1;
-          circle.size = Math.max(circle.minSize, Math.min(circle.maxSize, circle.size));
-        }
+        // Анимация размера с индивидуальной скоростью
+        const timeFactor = time * 0.001 * sizeChangeSpeed * circle.speedFactor;
+        const cycle = Math.sin(timeFactor + circle.phase);
+        circle.size = circle.minSize + ((circle.maxSize - circle.minSize) * (cycle + 1)) / 2;
 
-        // Apply changes to DOM element
         circle.element.style.left = `${circle.x}px`;
         circle.element.style.top = `${circle.y}px`;
         circle.element.style.width = `${circle.size}px`;
@@ -141,7 +154,6 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
 
     animationRef.current = requestAnimationFrame(animate);
 
-    // Cleanup
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
@@ -169,9 +181,7 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
       className={styles.backgroundAnimation}
       style={{
         position: 'absolute',
-        width: '100%',
         overflow: 'hidden',
-        zIndex: 1,
       }}
     />
   );
