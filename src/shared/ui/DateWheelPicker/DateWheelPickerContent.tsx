@@ -34,20 +34,20 @@ export const DateWheelPickerContent: FC<DateWheelPickerProps> = ({
   const months = generateMonths();
 
   const [selectedYearIndex, setSelectedYearIndex] = useState(
-    years.findIndex((y) => y.value === defaultYear)
+    years.findIndex((y) => y.value === defaultYear),
   );
   const [selectedMonthIndex, setSelectedMonthIndex] = useState(
-    months.findIndex((m) => m.value === defaultMonth)
+    months.findIndex((m) => m.value === defaultMonth),
   );
   const [days, setDays] = useState(generateDays(defaultYear, defaultMonth));
   const [selectedDayIndex, setSelectedDayIndex] = useState(
-    days.findIndex((d) => d.value === defaultDay)
+    days.findIndex((d) => d.value === defaultDay),
   );
 
   useEffect(() => {
     const newDays = generateDays(
       years[selectedYearIndex].value as number,
-      months[selectedMonthIndex].value as number
+      months[selectedMonthIndex].value as number,
     );
     setDays(newDays);
 
@@ -95,9 +95,9 @@ export const DateWheelPickerContent: FC<DateWheelPickerProps> = ({
 
       <DialogActions className={styles.actions}>
         <Button className={styles.cancel} onClick={onClose}>
-          отмена
+          Отмена
         </Button>
-        <Button onClick={handleSubmit}>далее</Button>
+        <Button onClick={handleSubmit}>Далее</Button>
       </DialogActions>
     </>
   );

@@ -20,11 +20,15 @@ interface Props {
 }
 
 export const UserSettingsActiveForm = memo(({ activeMenu, userProfile, onOpenTariff }: Props) => {
+  if (!userProfile) {
+    return null;
+  }
+
   const componentByStep: Record<string, ReactNode> = {
     [UserSettingsMenuItem.PersonalInfo]: <UserPersonalInfoForm userProfile={userProfile} />,
     [UserSettingsMenuItem.ChangePassword]: <UserSettingsChangePasswordForm />,
     [UserSettingsMenuItem.PricingPlan]: (
-      <UserTariffForm tariff={userProfile.tariff} onOpenTariff={onOpenTariff} />
+      <UserTariffForm tariff={userProfile?.tariff} onOpenTariff={onOpenTariff} />
     ),
   };
 

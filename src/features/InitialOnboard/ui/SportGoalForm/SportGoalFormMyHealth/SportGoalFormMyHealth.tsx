@@ -13,10 +13,7 @@ import {
 
 import styles from '../SportGoalForm.module.scss';
 import { buttons } from '../config';
-import {
-  MyHealthFormSubmitButton,
-  OnboardingOtherModal,
-} from 'entities/onboarding/ui';
+import { MyHealthFormSubmitButton, OnboardingOtherModal } from 'entities/onboarding/ui';
 import classNames from 'classnames';
 
 interface Props {
@@ -42,10 +39,7 @@ export const SportGoalFormMyHealth = ({ userProfile, onSuccess }: Props) => {
   });
 
   return (
-    <form
-      className={styles.myHealthContainer}
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className={styles.myHealthContainer} onSubmit={handleSubmit(onSubmit)}>
       <WithAbsoluteScrollBar>
         <div className={styles.content}>
           <p className={styles.title}>Цели</p>
@@ -75,7 +69,7 @@ export const SportGoalFormMyHealth = ({ userProfile, onSuccess }: Props) => {
         type="submit"
         disabled={isPending}
         visible={formState.isDirty}
-        label="ИЗМЕНИТЬ ЦЕЛИ"
+        label="Изменить цели"
       />
 
       {isPending && <Loader />}

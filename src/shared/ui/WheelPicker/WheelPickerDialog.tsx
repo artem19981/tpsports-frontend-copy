@@ -2,12 +2,7 @@
 
 import React, { ReactNode } from 'react';
 
-import {
-  Dialog as _Dialog,
-  DialogActions,
-  DialogContent,
-  DialogProps,
-} from '@mui/material';
+import { Dialog as _Dialog, DialogActions, DialogContent, DialogProps } from '@mui/material';
 import styles from './WheelPicker.module.scss';
 import classNames from 'classnames';
 import { Button } from '../Button/Button';
@@ -42,10 +37,10 @@ export const WheelPickerDialog = ({
       <DialogActions className={styles.actions}>
         {withCancelButton && (
           <Button className={styles.cancel} onClick={onClose}>
-            отмена
+            Отмена
           </Button>
         )}
-        <Button onClick={onSubmit}>далее</Button>
+        <Button onClick={onSubmit}>Далее</Button>
       </DialogActions>
     );
 

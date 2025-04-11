@@ -13,7 +13,7 @@ declare global {
   interface TelegramWebApp {
     initData: string;
     initDataUnsafe: {
-      user?: TelegramUser;
+      user: TelegramUser;
       chat?: any;
       [key: string]: any;
     };

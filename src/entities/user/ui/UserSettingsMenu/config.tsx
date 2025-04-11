@@ -8,17 +8,17 @@ import { UserSettingsMenuItem } from './types';
 export const userSettingsMenuItems = [
   {
     title: 'Личная информация',
-    icon: <PersonalInfo width={24} height={24} />,
+    icon: <PersonalInfo width={23} height={23} />,
     value: UserSettingsMenuItem.PersonalInfo,
   },
   {
     title: 'Изменить пароль',
-    icon: <ChangePassword width={24} height={24} />,
+    icon: <ChangePassword width={25} height={24} />,
     value: UserSettingsMenuItem.ChangePassword,
   },
   {
     title: 'Мой тариф',
-    icon: <PricingPlan width={22} height={22} />,
+    icon: <PricingPlan width={21} height={21} />,
     value: UserSettingsMenuItem.PricingPlan,
   },
   {
