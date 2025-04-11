@@ -5,8 +5,10 @@ import { telegramAuth } from 'features/Auth/api';
 import { Button, useSnackbar } from 'shared/ui';
 import Telegram from './assets/telegram.svg?component';
 import styles from './TelegramAuthForm.module.scss';
+import { useRouter } from 'next/navigation';
 
 export const TelegramLoginButton = () => {
+  const router = useRouter();
   const snackbar = useSnackbar();
 
   const handleTelegramLogin = async () => {
@@ -27,10 +29,12 @@ export const TelegramLoginButton = () => {
 
     console.log(userData, 'userData');
 
-    try {
-      await confirmTelegramAuth(userData);
-    } catch {
+    const data = await confirmTelegramAuth(userData);
+
+    if (typeof data === 'string') {
       snackbar('Не удалось авторизоваться, попробуйте позже', 'error');
+    } else {
+      router.replace('/ai');
     }
   };
 
