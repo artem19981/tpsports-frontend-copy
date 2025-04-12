@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const authRoutes = ['/ai/chat', '/initial-onboard'];
+const authRoutes = ['/ai', '/ai/chat', '/initial-onboard'];
 const noAuthRoutes = ['/login', '/registration', '/recover-password'];
 
 export async function middleware(request: NextRequest) {

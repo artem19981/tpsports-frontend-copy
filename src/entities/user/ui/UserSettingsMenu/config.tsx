@@ -12,7 +12,7 @@ export const userSettingsMenuItems = [
     value: UserSettingsMenuItem.PersonalInfo,
   },
   {
-    title: 'Изменить пароль',
+    title: 'Безопасность',
     icon: <ChangePassword width={25} height={24} />,
     value: UserSettingsMenuItem.ChangePassword,
   },

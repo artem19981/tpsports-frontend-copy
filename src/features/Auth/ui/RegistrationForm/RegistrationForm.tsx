@@ -2,11 +2,10 @@ import { Control } from 'react-hook-form';
 
 import { AuthHeaders } from 'entities/auth/AuthHeaders';
 import { ControlledInput } from 'shared/ui';
-
-import { LoginFormSchema } from '../../model';
+import { RegisterSchema } from 'features/Auth/model/schemas/registerSchema';
 
 interface Props {
-  control: Control<LoginFormSchema>;
+  control: Control<RegisterSchema>;
 }
 
 export function RegistrationForm({ control }: Props) {
@@ -32,6 +31,14 @@ export function RegistrationForm({ control }: Props) {
           control={control}
           name="password"
           autoComplete="new-password"
+        />
+      </div>
+      <div style={{ marginTop: 30 }}>
+        <ControlledInput
+          name="confirmPassword"
+          type="password"
+          control={control}
+          label="Подтверждение пароля"
         />
       </div>
     </div>

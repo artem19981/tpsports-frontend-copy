@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 
 export const withTokenInterceptor = async <T extends object>(
   fn: (accessToken: string) => Promise<T>,
-  checkAuthErrors: boolean = true
+  checkAuthErrors: boolean = true,
 ) => {
   try {
     const accessToken = cookies().get('access_token');

@@ -19,7 +19,11 @@ export const UserTariffForm = ({ tariff, onOpenTariff }: Props) => {
       <p className={styles.text}>
         Вы подписаны на тариф <span className={styles.bold}>{tariff.name}</span>
       </p>
-      <Button variant="transparent" className={styles.button} onClick={() => onOpenTariff(true)}>
+      <Button
+        variant="lightTransparent"
+        className={styles.button}
+        onClick={() => onOpenTariff(true)}
+      >
         Изменить Тариф
       </Button>
       {/* <Button

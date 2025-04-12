@@ -17,7 +17,7 @@ export const getUserData = cache(async () => {
   const { data } = await withTokenInterceptor((token: string) =>
     axiosInstance<UserDto>('/users/me', {
       headers: { Authorization: `Bearer ${token}` },
-    })
+    }),
   );
 
   return data;

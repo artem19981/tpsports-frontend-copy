@@ -1,12 +1,12 @@
-"use server";
+'use server';
 
-import { axiosInstance, withTokenInterceptor } from "shared/api";
+import { axiosInstance, withTokenInterceptor } from 'shared/api';
 
 export const getAllTags = async () => {
   const { data } = await withTokenInterceptor((token: string) =>
-    axiosInstance.get("/tags", {
+    axiosInstance.get('/tags', {
       headers: { Authorization: `Bearer ${token}` },
-    })
+    }),
   );
   return data;
 };

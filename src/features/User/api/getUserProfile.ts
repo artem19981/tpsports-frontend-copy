@@ -9,7 +9,7 @@ export const getUserProfile = async () => {
   const { data } = await withTokenInterceptor((token: string) =>
     axiosInstance<UserProfile>('/profile', {
       headers: { Authorization: `Bearer ${token}` },
-    })
+    }),
   );
 
   return formatUserProfile(data);
