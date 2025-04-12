@@ -8,5 +8,5 @@ export const getAllTags = async () => {
       headers: { Authorization: `Bearer ${token}` },
     }),
   );
-  return data;
+  return data.tags;
 };

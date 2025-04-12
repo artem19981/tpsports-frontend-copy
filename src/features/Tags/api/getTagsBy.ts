@@ -8,5 +8,5 @@ export const getTagsBy = async (bot_name: any) => {
       headers: { Authorization: `Bearer ${token}` },
     }),
   );
-  return data;
+  return data.tags;
 };

@@ -16,7 +16,7 @@ export const withTokenInterceptor = async <T extends object>(
 
     return await fn(accessToken.value);
   } catch (e: any) {
-    console.log(e.status, 'withTokenInterceptor error');
+    console.log(e, 'withTokenInterceptor error');
 
     if ((e.status === 401 || e.status === 403) && checkAuthErrors) {
       redirect('/logout');
