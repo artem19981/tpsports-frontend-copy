@@ -1,3 +1,5 @@
+'use server';
+
 import { axiosInstance } from 'shared/api';
 
 import { LoginDto } from '../model';

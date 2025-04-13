@@ -3,7 +3,7 @@
 import { assistantByChatVariant } from 'entities/chat/config';
 import { useSetOptimisticChatMessage } from 'entities/chat/lib';
 import { ChatMessageDto, ChatVariant } from 'features/Chat/model';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import { Button } from 'shared/ui';
 import styles from './RedirectToAnotherChatButton.module.scss';
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const RedirectToAnotherChatButton = ({ newChat, message }: Props) => {
-  const router = useRouter();
+  const pathname = usePathname();
 
   const setActiveChatId = useSetActiveChatId();
   const setOptimisticChatMessage = useSetOptimisticChatMessage();
@@ -29,7 +29,8 @@ export const RedirectToAnotherChatButton = ({ newChat, message }: Props) => {
       bot_name: newChat,
     });
 
-    router.push('/ai/chat/');
+    const url = new URL(pathname, window.location.origin);
+    window.history.replaceState({}, document.title, url.toString());
   };
 
   return (
