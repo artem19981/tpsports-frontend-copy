@@ -8,3 +8,4 @@ export { changePassword } from './changePassword';
 export { loginAfterConfirmRegistration } from './loginAfterConfirmRegistration';
 export { telegramAuth } from './authByTelegram';
 export { confirmTelegramAuth } from './confirmTelegramAuth';
+export { authByTelegramInWebApp } from './authByTelegramInWebApp';

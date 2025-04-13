@@ -27,6 +27,7 @@ div.content {
   border-radius: 28px;
   backdrop-filter: blur(100px);
   box-shadow: 0px -14px 23px 0px #181818;
+  outline: none;
 
   @media screen and (max-width: 1400px) {
     width: calc(100vw - 80px);
