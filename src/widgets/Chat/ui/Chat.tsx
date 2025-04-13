@@ -36,7 +36,6 @@ export const Chat = () => {
   const selectedBot = (useGetSelectedBot(chatVariant, [chatVariant]) || BOTS[0]) as AiBot;
   const { chatType } = useChatType() || {};
   const welcomeText = BOTS.find((bot) => bot.name === chatType)?.welcomeText || '#000';
-  console.log(welcomeText);
 
   useSetPageTitle(chatVariant);
 

@@ -5,5 +5,6 @@ export const useGetAllTags = () => {
   return useQuery({
     queryKey: ['tabs'],
     queryFn: () => getAllTags(),
+    retry: 1,
   });
 };

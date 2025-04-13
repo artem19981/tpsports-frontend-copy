@@ -7,6 +7,12 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: Request) {
   const payload = await request.json();
 
+  console.log('📤 Request:', {
+    url: '/api/assistant',
+    method: 'get',
+    data: payload,
+  });
+
   const accessToken = cookies().get('access_token');
 
   if (!accessToken) {
@@ -36,9 +42,6 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error('Error:', error);
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

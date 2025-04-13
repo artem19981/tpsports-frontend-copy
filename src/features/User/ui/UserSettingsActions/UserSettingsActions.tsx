@@ -11,6 +11,7 @@ import { logoutUser as onLogout, logoutUserFromAllDevices } from 'features/Auth/
 
 import { revalidatePath } from 'next/cache';
 import { useQueryClient } from '@tanstack/react-query';
+import { ACTIVE_CHAT_ID_LOCAL_STORAGE_KEY } from 'features/Chat/config/activeChatIdLocalStorageKey';
 
 interface Props {
   withLoader?: boolean;
@@ -23,6 +24,7 @@ export const UserSettingsActions = ({ withLoader = true }: Props) => {
   const logoutFromAllDevices = useLogoutUser(logoutUserFromAllDevices, afterLogout);
 
   function afterLogout() {
+    localStorage.removeItem(ACTIVE_CHAT_ID_LOCAL_STORAGE_KEY);
     queryClient.clear();
     router.push('/ai');
     revalidatePath('/');

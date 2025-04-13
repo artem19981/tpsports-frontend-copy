@@ -1,4 +1,5 @@
 'use server';
+import { CHAT_TYPE_COOKIE_KEY } from 'entities/chat/config';
 
 import { cookies } from 'next/headers';
 
@@ -13,4 +14,6 @@ export const setAccessToken = async (token: string) => {
     sameSite: 'lax',
     expires: date,
   });
+
+  cookies().delete(CHAT_TYPE_COOKIE_KEY);
 };

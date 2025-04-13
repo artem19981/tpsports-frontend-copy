@@ -24,7 +24,7 @@ export const TelegramLoginButton = () => {
       const { auth_date, hash, user } = window.Telegram.WebApp.initDataUnsafe;
 
       userData = {
-        auth_date,
+        auth_date: +auth_date,
         hash,
         first_name: user.first_name,
         ...(user.last_name && { last_name: user.last_name }),

@@ -9,8 +9,9 @@ import { AnimatedLogo } from 'shared/ui';
 import ReactMarkdown from 'react-markdown';
 
 import styles from './ChatAiMessage.module.scss';
-import { usePrintMessage } from './lib/usePrintMessage';
 import { AiMessageLoader } from './AiMessageLoader/AiMessageLoader';
+import { usePrintMessageV2 } from './lib/usePrintMessageV2';
+import { NEW_GPT_MESSAGE_ID } from 'entities/chat/config';
 
 export interface ChatAiMessageActionsProps {
   message_id: string;
@@ -48,7 +49,7 @@ export const ChatAiMessage = memo(
     renderActions,
     onEndPrint,
   }: Props) => {
-    const displayedText = usePrintMessage({
+    const displayedText = usePrintMessageV2({
       withAnimation,
       messageText,
       isGPTMessageStreaming,
@@ -72,6 +73,7 @@ export const ChatAiMessage = memo(
         </Stack>
 
         {!isGPTMessageStreaming &&
+          !messageId.startsWith(NEW_GPT_MESSAGE_ID) &&
           renderActions({
             text: messageText,
             rate,
