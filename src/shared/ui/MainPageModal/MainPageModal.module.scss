@@ -42,6 +42,38 @@ div.content {
   }
 }
 
+div.content::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  border-radius: 29px;
+  background: linear-gradient(
+    108.88deg,
+    #404040 0.82%,
+    rgba(48, 48, 48, 0) 35.45%,
+    rgba(48, 48, 48, 0) 67.48%,
+    #4a4a4a 99.77%
+  );
+  z-index: -1;
+  clip-path: inset(0 round 28px);
+  padding: 1px;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+
+  @media screen and (max-width: 600px) {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    clip-path: inset(0 round 28px 28px 0 0);
+  }
+}
+
 button.closeBtn {
   position: absolute;
   right: 24px;
