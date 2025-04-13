@@ -3,10 +3,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Stack } from '@mui/material';
+import { Stack, useMediaQuery } from '@mui/material';
+import BorderArrow from 'shared/assets/borderArrow.svg?component';
 
 import { ChangePasswordSchema, changePasswordSchema } from 'entities/user';
-import { ControlledInput, Loader, useSnackbar } from 'shared/ui';
+import { ControlledInput, IconButton, Loader, useSnackbar } from 'shared/ui';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { updateUserPassword } from 'features/User/api';
@@ -23,7 +24,12 @@ const defaultValues = {
   confirmPassword: '',
 };
 
-export const UserSettingsChangePasswordForm = () => {
+interface Props {
+  onClose(): void;
+}
+
+export const UserSettingsChangePasswordForm = ({ onClose }: Props) => {
+  const isMobile = useMediaQuery('(max-width: 650px)');
   const showSnackbar = useSnackbar();
 
   const { handleSubmit, reset, watch, control } = useForm({
@@ -57,9 +63,15 @@ export const UserSettingsChangePasswordForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
-      <Stack paddingInline={2.5} className={styles.content}>
-        <p className={styles.title}>Изменить пароль</p>
+      {!isMobile && (
+        <Stack direction="row" alignItems="center" className={styles.iconWrapper}>
+          <IconButton onClick={onClose}>
+            <BorderArrow />
+          </IconButton>
+        </Stack>
+      )}
 
+      <Stack paddingInline={2.5} className={styles.content}>
         <Stack direction="column" gap={3.75} className={styles.content}>
           <ControlledInput
             name="old_password"

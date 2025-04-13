@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getChatMessages } from '../api';
-import { ChatDto } from '../model';
+import { ChatDto, ChatVariant } from '../model';
 import { NEW_CHAT_ID } from 'entities/chat/config';
 import { QueryKeys } from 'shared/constants/query-keys';
 import { useChatType } from 'entities/chat/ui';
@@ -12,7 +12,13 @@ export const useGetMessages = (chatId: number | null) => {
   return useQuery<ChatDto, Error>({
     queryKey: [QueryKeys.Chat, chatId || NEW_CHAT_ID],
     queryFn: async () => {
-      if (!chatId) [];
+      if (!chatId) {
+        return {
+          dialogue_id: 'string',
+          messages: [],
+          bot: chatType as ChatVariant,
+        };
+      }
 
       const data = await getChatMessages({
         dialogue_id: chatId!,

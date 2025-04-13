@@ -1,11 +1,4 @@
-import {
-  ClipboardEvent,
-  DragEvent,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { ClipboardEvent, DragEvent, useCallback, useMemo, useRef, useState } from 'react';
 import { useSnackbar } from 'shared/ui';
 import { validateUploadedFiles } from './validateUploadedFiles';
 
@@ -31,21 +24,19 @@ export const useUploadFiles = () => {
     uploadFileLikeDrop(event.dataTransfer.files);
   };
 
-  const onAttachFiles = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const selectedFile = event.target.files;
+  const onAttachFiles = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files;
 
-      if (selectedFile) {
-        setFiles((prev) => [...prev, ...Array.from(selectedFile)]);
-      }
-    },
-    []
-  );
+    if (selectedFile) {
+      setFiles((prev) => [...prev, ...Array.from(selectedFile)]);
+    }
+
+    event.target.value = '';
+  }, []);
 
   const onDeleteFile = useCallback(
-    (index: number) =>
-      setFiles((prev) => prev.filter((_, idx) => idx !== index)),
-    []
+    (index: number) => setFiles((prev) => prev.filter((_, idx) => idx !== index)),
+    [],
   );
 
   const onPaste = (e: ClipboardEvent<HTMLTextAreaElement>) => {
@@ -71,10 +62,7 @@ export const useUploadFiles = () => {
     }
 
     if (pastedFiles.length > validFiles.length) {
-      showSnackbar(
-        'Некоторые файлы не соответствуют разрешённым форматам',
-        'info'
-      );
+      showSnackbar('Некоторые файлы не соответствуют разрешённым форматам', 'info');
     }
 
     if (validFiles.length > 0) {

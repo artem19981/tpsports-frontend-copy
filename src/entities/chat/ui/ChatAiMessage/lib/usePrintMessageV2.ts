@@ -1,12 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
-const MIN_VALUE = 1;
-
-const THRESHOLDS = {
-  10: MIN_VALUE,
-  13: MIN_VALUE + 1,
-  16: MIN_VALUE + 2,
-};
+const MIN_CHARS_PER_FRAME = 1;
+const MAX_CHARS_PER_FRAME = 30;
 
 interface Props {
   withAnimation: boolean;
@@ -15,7 +10,7 @@ interface Props {
   onEndPrint: () => void;
 }
 
-export const usePrintMessage = ({
+export const usePrintMessageV2 = ({
   withAnimation,
   messageText,
   isGPTMessageStreaming,
@@ -50,28 +45,24 @@ export const usePrintMessage = ({
 
     const printNextChar = () => {
       const now = performance.now();
-      const timeSinceLastFrame = now - lastFrameTimeRef.current;
 
-      let charsPerFrame = MIN_VALUE;
-      for (const [threshold, chars] of Object.entries(THRESHOLDS)) {
-        if (timeSinceLastFrame <= Number(threshold)) {
-          charsPerFrame = chars;
-          break;
-        }
-      }
+      const totalLength = messageRef.current.length;
+      const remainingChars = totalLength - currentIndex;
 
-      const isMessageLoaded = messageRef.current.length !== currentIndex;
+      // Чем больше осталось, тем больше печатаем за кадр
+      // Нормализуем значение в диапазоне от MIN до MAX
+      let charsPerFrame = Math.ceil((remainingChars / totalLength) * MAX_CHARS_PER_FRAME);
+      charsPerFrame = Math.max(MIN_CHARS_PER_FRAME, Math.min(charsPerFrame, MAX_CHARS_PER_FRAME));
 
-      if (isMessageLoaded) {
+      if (remainingChars > 0) {
         currentIndex += charsPerFrame;
-        currentIndex = Math.min(currentIndex, messageRef.current.length);
-
+        currentIndex = Math.min(currentIndex, totalLength);
         setDisplayedText(messageRef.current.slice(0, currentIndex));
       }
 
       lastFrameTimeRef.current = now;
 
-      if (!isGPTMessageStreamingRef.current) {
+      if (currentIndex >= totalLength && !isGPTMessageStreamingRef.current) {
         cancelAnimationFrame(frameId);
         onEndPrint();
         return;

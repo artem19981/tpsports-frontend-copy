@@ -17,6 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Stack } from '@mui/material';
 import { Loader } from 'shared/ui';
 import { TelegramAuthForm } from 'features/Auth';
+import { registerSchema } from 'features/Auth/model/schemas/registerSchema';
 
 export const Registration = () => {
   const router = useRouter();
@@ -27,12 +28,16 @@ export const Registration = () => {
     defaultValues: {
       email: '',
       password: '',
+      confirmPassword: '',
     },
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(registerSchema),
   });
 
   const onSubmit = (form: LoginPayload) => {
-    mutate(form);
+    mutate({
+      email: form.email,
+      password: form.password,
+    });
   };
 
   const goToLogin = () => {

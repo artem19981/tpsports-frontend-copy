@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 
 export const withTokenInterceptor = async <T extends object>(
   fn: (accessToken: string) => Promise<T>,
-  checkAuthErrors: boolean = true
+  checkAuthErrors: boolean = true,
 ) => {
   try {
     const accessToken = cookies().get('access_token');
@@ -16,8 +16,6 @@ export const withTokenInterceptor = async <T extends object>(
 
     return await fn(accessToken.value);
   } catch (e: any) {
-    console.log(e.status, 'withTokenInterceptor error');
-
     if ((e.status === 401 || e.status === 403) && checkAuthErrors) {
       redirect('/logout');
     }

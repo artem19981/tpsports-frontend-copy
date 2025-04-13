@@ -47,7 +47,10 @@ export const useChatMessage = (
     });
   };
 
-  const sendMessage = async (payload: Omit<SendMessageDto, 'bot_name' | 'dialogue_id'>) => {
+  const sendMessage = async (
+    payload: Omit<SendMessageDto, 'bot_name' | 'dialogue_id'>,
+    botName?: string,
+  ) => {
     let intervalId: NodeJS.Timeout | null = null;
 
     try {
@@ -68,7 +71,7 @@ export const useChatMessage = (
       });
 
       const { reader, decoder } = await sendChatMessage({
-        bot_name: chatVariant,
+        bot_name: botName || chatVariant,
         ...(chatId && { dialogue_id: chatId }),
         ...payload,
       });

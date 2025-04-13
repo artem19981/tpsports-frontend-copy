@@ -1,5 +1,5 @@
 export * from './UserSettingsMenu/UserSettingsMenu';
-export * from './UserSettingsChangePasswordForm/UserSettingsChangePasswordForm';
 export * from './UserSettingsActions/UserSettingsActions';
 export * from './UserPersonalInfoForm';
 export * from './UserTariffForm/UserTariffForm';
+export * from './UserSecurity/UserSecurity';

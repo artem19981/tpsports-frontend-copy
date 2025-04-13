@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { MouseEventHandler } from "react";
+import { MouseEventHandler } from 'react';
 
-import { ButtonProps as _ButtonProps } from "@mui/material";
-import MuiButton from "@mui/material/Button";
+import { ButtonProps as _ButtonProps } from '@mui/material';
+import MuiButton from '@mui/material/Button';
 
-import cn from "classnames";
-import { useRouter } from "next/navigation";
+import cn from 'classnames';
+import { useRouter } from 'next/navigation';
 
-import styles from "./Button.module.scss";
+import styles from './Button.module.scss';
 
-export interface ButtonProps extends Omit<_ButtonProps, "variant"> {
-  variant?: "green" | "white" | "transparent" | "gray" | "lightgray";
+export interface ButtonProps extends Omit<_ButtonProps, 'variant'> {
+  variant?: 'green' | 'white' | 'transparent' | 'gray' | 'lightgray' | 'lightTransparent';
 }
 
 export const Button = ({ href, variant, ...props }: ButtonProps) => {
@@ -33,12 +33,7 @@ export const Button = ({ href, variant, ...props }: ButtonProps) => {
       variant="contained"
       {...props}
       onClick={onClick}
-      className={cn(styles.button, props.className, {
-        [styles.white]: variant === "white",
-        [styles.transparent]: variant === "transparent",
-        [styles.gray]: variant === "gray",
-        [styles.lightgray]: variant === "lightgray",
-      })}
+      className={cn(styles.button, props.className, styles[variant!])}
     />
   );
 };

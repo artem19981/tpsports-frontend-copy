@@ -41,7 +41,7 @@ export const useSendMessageWhenMount = ({
       queueMicrotask(() => {
         const { bot_name, ...other } = data;
 
-        sendMessage(other);
+        sendMessage(other, bot_name);
         chatTypeContext?.setChatType(bot_name as ChatType);
         queryClient.setQueryData(['chatMessage'], null);
       });

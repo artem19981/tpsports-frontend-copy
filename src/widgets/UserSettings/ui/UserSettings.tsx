@@ -63,7 +63,9 @@ export const UserSettings = ({ open, onClose }: Props) => {
             <UserSettingsMenu onClick={onSelectMenuItem} activeValue={activeMenu} />
           </div>
 
-          {isMobile && activeMenu !== UserSettingsMenuItem.Exit ? (
+          {isMobile &&
+          activeMenu !== UserSettingsMenuItem.Exit &&
+          activeMenu !== UserSettingsMenuItem.ChangePassword ? (
             <FullScreenDialog
               open={!!activeMenu}
               className={styles.fullScreenDialog}
@@ -73,6 +75,7 @@ export const UserSettings = ({ open, onClose }: Props) => {
                 activeMenu={activeMenu}
                 userProfile={data!}
                 onOpenTariff={setIsShowChangeTariff}
+                setActiveMenu={setActiveMenu}
               />
             </FullScreenDialog>
           ) : (
@@ -80,6 +83,7 @@ export const UserSettings = ({ open, onClose }: Props) => {
               activeMenu={activeMenu}
               userProfile={data!}
               onOpenTariff={setIsShowChangeTariff}
+              setActiveMenu={setActiveMenu}
             />
           )}
 

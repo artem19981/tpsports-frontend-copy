@@ -64,12 +64,8 @@ export const useChat = (chatId: number | null) => {
       setActiveChatId(chat.dialogue_id);
 
       setTimeout(() => {
-        refetch().then(() => {
-          queueMicrotask(() => {
-            setShowSkeletons(true);
-          });
-        });
-      });
+        setShowSkeletons(true);
+      }, 1000);
 
       const url = new URL(pathname, window.location.origin);
       url.searchParams.set(CHAT_ID_QUERY_PARAM, chat.dialogue_id.toString());

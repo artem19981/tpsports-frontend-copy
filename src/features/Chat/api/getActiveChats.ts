@@ -8,7 +8,7 @@ export const getActiveChats = cache(async () => {
   const { data } = await withTokenInterceptor((token: string) =>
     axiosInstance<ActiveChatsDto>('/active_chats', {
       headers: { Authorization: `Bearer ${token}` },
-    })
+    }),
   );
 
   return data;
