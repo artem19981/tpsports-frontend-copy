@@ -28,7 +28,7 @@ export function PageContent({ userData }: PageContentProps) {
           maxWidth: '792px',
         }}
       >
-        <Stack mt={7} gap={4} paddingInline={1} mb={3}>
+        <Stack mt={{ xs: 0, md: 7 }} gap={4} paddingInline={1} mb={3}>
           {/* <AnimatedChatLogo /> */}
           <AiPageChatInput disabled={!userData} />
           {/* <ChatTabs /> */}

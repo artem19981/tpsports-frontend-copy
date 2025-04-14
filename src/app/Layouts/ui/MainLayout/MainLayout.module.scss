@@ -115,6 +115,7 @@
   justify-content: center !important;
 
   @media (max-width: 600px) {
+    justify-content: space-between !important;
     // @todo: я не понял для чего это))
     // max-height: 855px;
     // height: calc(100dvh - 20px);
