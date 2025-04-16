@@ -8,21 +8,29 @@ import styles from './UserSecurity.module.scss';
 import { UserSettingsChangePasswordForm } from './UserSettingsChangePasswordForm/UserSettingsChangePasswordForm';
 import { useMediaQuery } from '@mui/material';
 import { FullScreenDialog } from 'shared/ui';
+import { UserProfile } from 'features/User/model';
+import { UserSecurityAddEmail } from './UserSecurityAddEmail/UserSecurityAddEmail';
 
 interface Props {
+  userProfile: UserProfile;
   setActiveMenu: React.Dispatch<React.SetStateAction<any>>;
 }
 
-export const UserSecurity = ({ setActiveMenu }: Props) => {
+export const UserSecurity = ({ userProfile, setActiveMenu }: Props) => {
   const isMobile = useMediaQuery('(max-width: 650px)');
 
   const [view, setView] = useState<string>(UserSecurityView.Main);
 
   const Content = (
     <div className={styles.container}>
-      {view === UserSecurityView.Main && <UserSecurityMain setView={setView} />}
+      {view === UserSecurityView.Main && (
+        <UserSecurityMain userProfile={userProfile} setView={setView} />
+      )}
       {view === UserSecurityView.ChangePassword && (
         <UserSettingsChangePasswordForm onClose={() => setView(UserSecurityView.Main)} />
+      )}
+      {view === UserSecurityView.AddEmail && (
+        <UserSecurityAddEmail onClose={() => setView(UserSecurityView.Main)} />
       )}
     </div>
   );
@@ -36,6 +44,9 @@ export const UserSecurity = ({ setActiveMenu }: Props) => {
       case UserSecurityView.Main:
         return setActiveMenu(undefined);
       case UserSecurityView.ChangePassword: {
+        setView(UserSecurityView.Main);
+      }
+      case UserSecurityView.AddEmail: {
         setView(UserSecurityView.Main);
       }
     }

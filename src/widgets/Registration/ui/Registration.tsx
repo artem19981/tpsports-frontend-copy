@@ -4,8 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 import { RegistrationForm } from 'features/Auth/ui/RegistrationForm/RegistrationForm';
-import { loginSchema } from 'features/Auth/model';
-import { useRegistrationUser } from 'features/Auth/lib';
+import { useRegistrationUser, useResendEmailConfirmation } from 'features/Auth/lib';
 import { LoginPayload } from 'features/Auth/model';
 import { useRouter } from 'next/navigation';
 import { ActionResult, ActionStatus } from 'shared/ui/ActionResult';
@@ -15,7 +14,7 @@ import styles from './Registration.module.scss';
 import { AuthContainer } from '@/src/entities/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Stack } from '@mui/material';
-import { Loader } from 'shared/ui';
+import { Loader, TimerButton } from 'shared/ui';
 import { TelegramAuthForm } from 'features/Auth';
 import { registerSchema } from 'features/Auth/model/schemas/registerSchema';
 
@@ -23,8 +22,10 @@ export const Registration = () => {
   const router = useRouter();
 
   const { isPending, mutate, isSuccess } = useRegistrationUser();
+  const { mutate: resendEmailConfirmation, isPending: isResendingEmail } =
+    useResendEmailConfirmation();
 
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, watch, control } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -44,13 +45,22 @@ export const Registration = () => {
     router.push('/login');
   };
 
+  const email = watch('email');
+
   if (isSuccess) {
     return (
       <Stack className={styles.successBlock}>
         <ActionResult
           title="Вы успешно зарегестрировались"
-          subtitle="Для входа проверьте и подтвердите свою электронную почту"
+          subtitle="Для входа проверьте и подтвердите свою электронную почту. Проверьте также папку «Спам», если письмо не пришло."
           status={ActionStatus.Success}
+          action={
+            <TimerButton
+              text="Отправить повторно"
+              intervalText="Отправить повторно через "
+              onClick={() => resendEmailConfirmation(email)}
+            />
+          }
         />
       </Stack>
     );

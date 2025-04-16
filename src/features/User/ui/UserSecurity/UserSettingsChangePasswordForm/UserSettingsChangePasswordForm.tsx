@@ -17,6 +17,7 @@ import { UpdateUserPasswordPayload } from 'features/User/model/UpdateUserPasswor
 import { AxiosError } from 'axios';
 import { MyHealthFormSubmitButton } from 'entities/onboarding/ui';
 import styles from './UserSettingsChangePasswordForm.module.scss';
+import { GoBackIcon } from '../GoBackIcon/GoBackIcon';
 
 const defaultValues = {
   new_password: '',
@@ -63,15 +64,9 @@ export const UserSettingsChangePasswordForm = ({ onClose }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
-      {!isMobile && (
-        <Stack direction="row" alignItems="center" className={styles.iconWrapper}>
-          <IconButton onClick={onClose}>
-            <BorderArrow />
-          </IconButton>
-        </Stack>
-      )}
-
       <Stack paddingInline={2.5} className={styles.content}>
+        {!isMobile && <GoBackIcon onClose={onClose} />}
+
         <Stack direction="column" gap={3.75} className={styles.content}>
           <ControlledInput
             name="old_password"

@@ -9,3 +9,7 @@ export { loginAfterConfirmRegistration } from './loginAfterConfirmRegistration';
 export { telegramAuth } from './authByTelegram';
 export { confirmTelegramAuth } from './confirmTelegramAuth';
 export { authByTelegramInWebApp } from './authByTelegramInWebApp';
+export { linkTelegramAccount } from './linkTelegramAccount';
+export { linkEmailAddress } from './linkEmailAddress';
+export { resendEmailConfirmation } from './resendEmailConfirmation';
+export { linkTelegramAccountInMiniApp } from './linkTelegramAccountInMiniApp';

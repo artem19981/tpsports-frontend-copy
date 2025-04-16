@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const authRoutes = ['/ai', '/ai/chat', '/initial-onboard'];
-const noAuthRoutes = ['/login', '/registration', '/recover-password'];
+const noAuthRoutes = ['/login', '/recover-password'];
 
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get('access_token')?.value;

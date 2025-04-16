@@ -29,15 +29,7 @@ export const MyHealthTrainingForm = ({ userProfile, onSuccess }: Props) => {
 
   const defaultValues = useMemo(() => getDefaultValues(userProfile), []);
 
-  const {
-    handleSubmit,
-    watch,
-    setValue,
-    getValues,
-    reset,
-    register,
-    formState,
-  } = useForm({
+  const { handleSubmit, watch, setValue, getValues, reset, register, formState } = useForm({
     defaultValues,
     resolver: yupResolver(myHealthSportAndActivitySchema),
   });
@@ -57,13 +49,12 @@ export const MyHealthTrainingForm = ({ userProfile, onSuccess }: Props) => {
     console.log(
       {
         favorite_training_types: form.favorite_training_types || null,
-        favorite_training_types_other:
-          form.favorite_training_types_other || null,
+        favorite_training_types_other: form.favorite_training_types_other || null,
         training_location: form.training_location || null,
         equipment: form.equipment || null,
         injuries_or_restrictions: form.injuries_or_restrictions || null,
       },
-      'form'
+      'form',
     );
 
     mutate({
@@ -83,16 +74,16 @@ export const MyHealthTrainingForm = ({ userProfile, onSuccess }: Props) => {
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <WithAbsoluteScrollBar>
-        <p className={styles.title}>Спорт</p>
+        <div className={styles.sport}>
+          <p className={styles.title}>Спорт</p>
 
-        <StrengthTrainingFormFields
-          userProfile={userProfile}
-          favoriteTrainingTypes={form.favorite_training_types || ''}
-          favoriteTrainingTypesOther={form.favorite_training_types_other || ''}
-          setValue={setValue}
-          categoriesClassName={styles.categories}
-          modalClassName={styles.modal}
-        />
+          <StrengthTrainingFormFields
+            userProfile={userProfile}
+            favoriteTrainingTypes={form.favorite_training_types || ''}
+            favoriteTrainingTypesOther={form.favorite_training_types_other || ''}
+            setValue={setValue}
+          />
+        </div>
 
         <Divider className={styles.divider} />
 
@@ -103,11 +94,7 @@ export const MyHealthTrainingForm = ({ userProfile, onSuccess }: Props) => {
         />
       </WithAbsoluteScrollBar>
 
-      <MyHealthFormSubmitButton
-        type="submit"
-        disabled={isPending}
-        visible={formState.isDirty}
-      />
+      <MyHealthFormSubmitButton type="submit" disabled={isPending} visible={formState.isDirty} />
 
       {isPending && <Loader />}
     </form>

@@ -25,4 +25,5 @@ export interface ChatMessageDto {
   timestamp: string;
   rate: 'like' | 'dislike' | 'not rated';
   files: string[];
+  files_ids: string[];
 }

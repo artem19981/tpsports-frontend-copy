@@ -10,17 +10,21 @@ import { AuthContainer } from '@/src/entities/auth';
 import { resetPassword } from 'features/Auth/api';
 import { Stack } from '@mui/material';
 import { ActionResult, ActionStatus } from 'shared/ui/ActionResult';
-import { Loader, useSnackbar } from 'shared/ui';
+import { Loader, TimerButton, useSnackbar } from 'shared/ui';
 import { useMutation } from '@tanstack/react-query';
 
 export const RecoverPassword = () => {
   const [email, setEmail] = useState('');
+  const [isShowSuccess, setIsShowSuccess] = useState(false);
   const sendSnackbar = useSnackbar();
 
-  const { mutate, data, isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: resetPassword,
     onError: (e) => {
       sendSnackbar('Не удалось сбросить пароль, попробуйте позже', 'error');
+    },
+    onSuccess: () => {
+      setIsShowSuccess(true);
     },
   });
 
@@ -29,13 +33,20 @@ export const RecoverPassword = () => {
     mutate(email);
   };
 
-  if (data) {
+  if (isShowSuccess) {
     return (
       <Stack className={styles.successBlock}>
         <ActionResult
           title="Инструкции по сбросу пароля отправлены"
-          subtitle="Проверьте свою электоронную почту"
+          subtitle="Для сброса пароля проверьте и подтвердите свою электронную почту. Проверьте также папку «Спам», если письмо не пришло."
           status={ActionStatus.Success}
+          action={
+            <TimerButton
+              text="Отправить повторно"
+              intervalText="Отправить повторно через "
+              onClick={() => mutate(email)}
+            />
+          }
         />
       </Stack>
     );

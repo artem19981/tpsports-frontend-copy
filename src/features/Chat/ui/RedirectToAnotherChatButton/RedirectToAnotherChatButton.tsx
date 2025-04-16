@@ -25,7 +25,7 @@ export const RedirectToAnotherChatButton = ({ newChat, message }: Props) => {
     setActiveChatId(null);
     setOptimisticChatMessage({
       content: message.content[0].text.value,
-      files: message.files,
+      files: message.files_ids,
       bot_name: newChat,
     });
 

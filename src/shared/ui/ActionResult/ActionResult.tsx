@@ -20,8 +20,8 @@ interface Props {
 
 export const ActionResult = memo(({ title, status, subtitle, action }: Props) => {
   return (
-    <Stack alignItems="center" width={'100%'} maxWidth="400px" position="relative" padding={2}>
-      <Typography className={styles.title} color="#858585">
+    <Stack alignItems="center" width={'100%'} maxWidth="380px" position="relative" padding={2}>
+      <Typography className={styles.title} color="#E1E1E1">
         {title}
       </Typography>
 

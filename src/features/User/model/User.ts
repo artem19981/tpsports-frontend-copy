@@ -29,6 +29,8 @@ export enum UserTariffDto {
 export interface UserTariff {
   id: string;
   email: string;
+  email_confirmed: boolean;
+  telegram_id: null | string;
 
   tariff: UserTariffDto | null;
   tariff_type: 'month' | 'year' | null;

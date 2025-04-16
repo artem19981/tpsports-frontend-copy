@@ -29,3 +29,18 @@ button.button {
 hr.divider {
   margin: 50px 0;
 }
+
+.input {
+  color: rgb(219, 219, 219, 0.4);
+}
+
+.emailNotConfirmed {
+  font-family: var(--gilroy), sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 0%;
+
+  margin-top: 15px;
+  padding: 0 20px;
+}

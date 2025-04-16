@@ -14,6 +14,14 @@ button.button {
   }
 }
 
+button.green {
+  &:disabled {
+    background: rgba(217, 217, 217, 0.102);
+    border: 1px solid rgb(255, 255, 255, 0.5);
+    color: #ffffff;
+  }
+}
+
 button.white {
   background: #ffffff;
   color: #000000;

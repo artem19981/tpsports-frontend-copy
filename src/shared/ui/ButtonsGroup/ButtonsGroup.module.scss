@@ -13,6 +13,10 @@ button.button {
     background: #ffffff33;
     color: #ffffff4d;
   }
+
+  &:hover {
+    border-color: #76ff96;
+  }
 }
 
 button.active {

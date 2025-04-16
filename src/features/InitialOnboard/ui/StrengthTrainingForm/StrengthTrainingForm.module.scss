@@ -36,8 +36,13 @@
 
 .label {
   margin-bottom: 30px;
+  padding-left: 20px;
 
   justify-content: center;
+
+  & > p {
+    text-align: center;
+  }
 }
 
 .secondLabel {
@@ -51,9 +56,6 @@ hr.divider {
   display: block;
   width: 100%;
   margin: 70px 0;
-}
-
-.category {
 }
 
 button.buttonGroup {
@@ -70,7 +72,7 @@ button.buttonGroup {
 }
 
 button.button {
-  margin-top: 40px;
+  margin-top: 10px;
 }
 
 div.buttonsGroup {

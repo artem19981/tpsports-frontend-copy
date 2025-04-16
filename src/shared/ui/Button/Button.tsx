@@ -14,7 +14,7 @@ export interface ButtonProps extends Omit<_ButtonProps, 'variant'> {
   variant?: 'green' | 'white' | 'transparent' | 'gray' | 'lightgray' | 'lightTransparent';
 }
 
-export const Button = ({ href, variant, ...props }: ButtonProps) => {
+export const Button = ({ href, variant = 'green', ...props }: ButtonProps) => {
   const router = useRouter();
 
   const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {

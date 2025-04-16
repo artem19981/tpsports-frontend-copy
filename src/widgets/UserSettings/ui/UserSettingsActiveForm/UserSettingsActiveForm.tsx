@@ -24,7 +24,9 @@ export const UserSettingsActiveForm = memo(
 
     const componentByStep: Record<string, ReactNode> = {
       [UserSettingsMenuItem.PersonalInfo]: <UserPersonalInfoForm userProfile={userProfile} />,
-      [UserSettingsMenuItem.ChangePassword]: <UserSecurity setActiveMenu={setActiveMenu} />,
+      [UserSettingsMenuItem.ChangePassword]: (
+        <UserSecurity userProfile={userProfile} setActiveMenu={setActiveMenu} />
+      ),
       [UserSettingsMenuItem.PricingPlan]: (
         <UserTariffForm tariff={userProfile?.tariff} onOpenTariff={onOpenTariff} />
       ),

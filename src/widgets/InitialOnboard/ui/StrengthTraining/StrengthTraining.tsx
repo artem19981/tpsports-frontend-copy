@@ -19,16 +19,12 @@ export const StrengthTraining = ({ userProfile }: Props) => {
       title="Спорт"
       step={InitialOnboardStep.StrengthTraining}
       containerClassName={styles.container}
+      childrenClassName={styles.children}
       contentClassName={styles.content}
-      childrenClassName={styles.content}
     >
       <StrengthTrainingFormInitialOnboarding
         userProfile={userProfile}
-        onSuccess={() =>
-          router.push(
-            '/initial-onboard?step=' + InitialOnboardStep.TrainingInfo
-          )
-        }
+        onSuccess={() => router.push('/initial-onboard?step=' + InitialOnboardStep.TrainingInfo)}
       />
     </OnboardingLayout>
   );

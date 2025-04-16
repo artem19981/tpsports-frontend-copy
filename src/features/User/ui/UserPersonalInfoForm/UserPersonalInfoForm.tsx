@@ -10,6 +10,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useUserPersonalInfoForm } from './lib';
 import { MyHealthFormSubmitButton } from 'entities/onboarding/ui';
 import styles from './UserPersonalInfoForm.module.scss';
+import { QueryKeys } from 'shared/constants/query-keys';
 
 interface Props {
   userProfile: UserProfile;
@@ -19,21 +20,14 @@ export const UserPersonalInfoForm = ({ userProfile }: Props) => {
   const showSnackbar = useSnackbar();
   const queryClient = useQueryClient();
 
-  const {
-    handleSubmit,
-    onSubmit,
-    control,
-    birthDate,
-    setValue,
-    isPending,
-    isDirty,
-  } = useUserPersonalInfoForm({
-    userProfile,
-    onSuccess: () => {
-      showSnackbar('Данные успешно обновлены', 'success');
-      queryClient.invalidateQueries({ queryKey: ['user-profile'] });
-    },
-  });
+  const { handleSubmit, onSubmit, control, birthDate, setValue, isPending, isDirty } =
+    useUserPersonalInfoForm({
+      userProfile,
+      onSuccess: () => {
+        showSnackbar('Данные успешно обновлены', 'success');
+        queryClient.invalidateQueries({ queryKey: [QueryKeys.UserProfile] });
+      },
+    });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
@@ -52,11 +46,7 @@ export const UserPersonalInfoForm = ({ userProfile }: Props) => {
 
       {isPending && <Loader />}
 
-      <MyHealthFormSubmitButton
-        type="submit"
-        disabled={isPending}
-        visible={isDirty}
-      />
+      <MyHealthFormSubmitButton type="submit" disabled={isPending} visible={isDirty} />
     </form>
   );
 };

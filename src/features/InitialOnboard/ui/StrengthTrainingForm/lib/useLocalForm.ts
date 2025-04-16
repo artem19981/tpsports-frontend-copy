@@ -1,8 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  strengthTrainingSchema,
-  StrengthTrainingSchema,
-} from 'features/InitialOnboard/schemas';
+import { strengthTrainingSchema, StrengthTrainingSchema } from 'features/InitialOnboard/schemas';
 import { UserProfile } from 'features/User/model';
 import { useForm } from 'react-hook-form';
 import { useSnackbar } from 'shared/ui';
@@ -20,16 +17,12 @@ interface Props {
 export const useLocalForm = ({ userProfile, onSuccess }: Props) => {
   const showSnackbar = useSnackbar();
 
-  const defaultValues = useMemo(
-    () => getStrengthTrainingFormDefaultValues(userProfile),
-    []
-  );
+  const defaultValues = useMemo(() => getStrengthTrainingFormDefaultValues(userProfile), []);
 
-  const { handleSubmit, setValue, watch, reset, getValues, formState } =
-    useForm({
-      defaultValues,
-      resolver: yupResolver(strengthTrainingSchema),
-    });
+  const { handleSubmit, setValue, watch, reset, getValues, formState } = useForm({
+    defaultValues,
+    resolver: yupResolver(strengthTrainingSchema),
+  });
 
   const { mutate, isPending } = useUpdateUserSettings({
     onSuccess: () => {
@@ -53,8 +46,7 @@ export const useLocalForm = ({ userProfile, onSuccess }: Props) => {
       mutate({
         ...userProfile,
         favorite_training_types: form.favorite_training_types || null,
-        favorite_training_types_other:
-          form.favorite_training_types_other || null,
+        favorite_training_types_other: form.favorite_training_types_other || null,
       });
     } else {
       onSuccess();

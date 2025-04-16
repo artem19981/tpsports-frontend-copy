@@ -70,4 +70,4 @@ export const wheels = Object.keys(strengthTrainingGroup).map((key) => ({
   value: key,
 }));
 
-export const swiperCategories = Object.keys(strengthTrainingGroup);
+export const allCategories = Object.keys(strengthTrainingGroup);

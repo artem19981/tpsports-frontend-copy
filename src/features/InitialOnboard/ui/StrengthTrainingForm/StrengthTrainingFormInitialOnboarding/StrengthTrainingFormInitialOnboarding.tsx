@@ -15,10 +15,7 @@ interface Props {
   onSuccess: () => void;
 }
 
-export const StrengthTrainingFormInitialOnboarding = ({
-  userProfile,
-  onSuccess,
-}: Props) => {
+export const StrengthTrainingFormInitialOnboarding = ({ userProfile, onSuccess }: Props) => {
   const {
     handleSubmit,
     onSubmit,
@@ -35,7 +32,6 @@ export const StrengthTrainingFormInitialOnboarding = ({
         favoriteTrainingTypesOther={favoriteTrainingTypesOther}
         setValue={setValue}
         userProfile={userProfile}
-        categoriesClassName={styles.categories}
       />
 
       <div className={styles.footer}>
