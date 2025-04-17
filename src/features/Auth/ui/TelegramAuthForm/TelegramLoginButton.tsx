@@ -6,6 +6,7 @@ import Telegram from '@/app/assets/images/common/telegram.svg?component';
 import styles from './TelegramAuthForm.module.scss';
 import { useRouter } from 'next/navigation';
 import { getTelegramAccountData } from 'features/Auth/lib';
+import { isTelegramWebApp } from 'shared/lib/isTelegramWebApp';
 
 export const TelegramLoginButton = () => {
   const router = useRouter();
@@ -14,7 +15,7 @@ export const TelegramLoginButton = () => {
   const handleTelegramLogin = async () => {
     const tgAccountData = await getTelegramAccountData();
 
-    const isWebApp = typeof window !== 'undefined' && window.Telegram?.WebApp?.initDataUnsafe;
+    const isWebApp = isTelegramWebApp();
 
     const data = isWebApp
       ? await authByTelegramInWebApp(tgAccountData)
