@@ -17,32 +17,17 @@ interface Props {
 }
 
 export const WomenHealthInitialOnboardingForm = (props: Props) => {
-  const {
-    onSubmit,
-    handleSubmit,
-    control,
-    isShowAllFields,
-    isPending,
-    isSuccess,
-  } = useLocalForm(props);
+  const { onSubmit, handleSubmit, control, isShowAllFields, isPending, isSuccess } =
+    useLocalForm(props);
 
   return (
-    <form
-      style={{ width: '100%', position: 'relative' }}
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <WomenHealthFields control={control} isShowAllFields={isShowAllFields} />
 
       <div className={styles.footer}>
-        <CancelOnboardButton
-          nextPage={InitialOnboardStep.OrgansAssessmentPrepare}
-        />
+        <CancelOnboardButton nextPage={InitialOnboardStep.OrgansAssessmentPrepare} />
 
-        <Button
-          type="submit"
-          className={styles.button}
-          disabled={isPending || isSuccess}
-        >
+        <Button type="submit" className={styles.button} disabled={isPending || isSuccess}>
           Далее
         </Button>
       </div>

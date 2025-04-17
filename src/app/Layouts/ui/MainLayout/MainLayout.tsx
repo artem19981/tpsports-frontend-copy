@@ -16,7 +16,7 @@ import { useMyHealthModal } from 'widgets/MyHealth';
 import { Sidebar } from 'widgets/SideBar/Sidebar';
 import { useSettingsModal } from 'widgets/UserSettings';
 import { getBackgroundColorByChatType } from '../../lib/getBackgroundColorByChatType';
-import { BlurCirclesBackground } from './BlurCirclesBackground';
+import { BlurCirclesBackground } from 'shared/ui';
 import styles from './MainLayout.module.scss';
 
 interface Props {
@@ -65,9 +65,6 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
         [styles.changeLayoutPosition]: isChangeLayoutPosition,
       })}
     >
-      {/* <div className={styles.leftCircle} style={{ background: backgrounds?.left }} /> */}
-      {/* <div className={styles.rightCircle} style={{ background: backgrounds?.right }} /> */}
-
       <div
         className={cn(styles.content, contentClassName, {
           [styles.changeLayoutPosition]: isChangeLayoutPosition,

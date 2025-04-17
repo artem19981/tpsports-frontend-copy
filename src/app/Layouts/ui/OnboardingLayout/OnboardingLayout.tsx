@@ -6,14 +6,13 @@ import { OnboardProgressBar } from 'features/InitialOnboard';
 import { InitialOnboardStep } from 'features/InitialOnboard/model';
 
 import styles from './OnboardingLayout.module.scss';
+import { BlurCirclesBackground } from 'shared/ui';
 
 interface Props {
   step: InitialOnboardStep;
   isWomen?: boolean;
 
   withHeader?: boolean;
-  footer?: React.ReactNode;
-  content?: React.ReactNode;
 
   title?: ReactNode;
   containerClassName?: string;
@@ -27,10 +26,8 @@ export const OnboardingLayout = memo(
     step,
     isWomen,
     withHeader = true,
-    footer,
     children,
     title,
-    content,
     containerClassName,
     childrenClassName,
     contentClassName,
@@ -38,32 +35,24 @@ export const OnboardingLayout = memo(
   }: PropsWithChildren<Props>) => {
     return (
       <div className={cn(styles.container, containerClassName)}>
-        <div className={styles.leftCircle} />
-        <div className={styles.rightCircle} />
-
         <div className={cn(styles.content, contentClassName)}>
-          {content}
-          <div className={styles.scrollableBlock}>
-            <div className={cn(styles.children, childrenClassName)}>
-              {withHeader && (
-                <div className={cn(styles.header, headerClassName)}>
-                  <OnboardProgressBar step={step} isWomen={isWomen} />
+          <BlurCirclesBackground color={'rgba(5, 239, 182, 0.4)'} />
 
-                  {title && (
-                    <Typography className={styles.title}>{title}</Typography>
-                  )}
-                </div>
-              )}
+          <div className={cn(styles.children, childrenClassName)} id="children">
+            {withHeader && (
+              <div className={cn(styles.header, headerClassName)}>
+                <OnboardProgressBar step={step} isWomen={isWomen} />
 
-              {children}
-            </div>
+                {title && <Typography className={styles.title}>{title}</Typography>}
+              </div>
+            )}
 
-            {footer}
+            {children}
           </div>
         </div>
       </div>
     );
-  }
+  },
 );
 
 OnboardingLayout.displayName = 'OnboardingLayout';

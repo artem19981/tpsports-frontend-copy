@@ -1,10 +1,4 @@
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogProps,
-  DialogTitle,
-} from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogProps, DialogTitle } from '@mui/material';
 import React, { useState } from 'react';
 import { Button, IconButton, TextArea } from 'shared/ui';
 import BorderArrow from 'shared/assets/borderArrow.svg?component';
@@ -32,10 +26,7 @@ export const OnboardingOtherModal = ({
   const [value, setValue] = useState(defaultValue);
 
   return (
-    <Dialog
-      {...props}
-      classes={{ paper: classNames(styles.dialog, className) }}
-    >
+    <Dialog {...props} classes={{ paper: classNames(styles.dialog, className) }}>
       <DialogTitle className={styles.header}>
         <IconButton onClick={props.onClose}>
           <BorderArrow />

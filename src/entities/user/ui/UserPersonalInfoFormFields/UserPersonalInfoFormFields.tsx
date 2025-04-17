@@ -3,11 +3,7 @@
 import React from 'react';
 import { Control, UseFormSetValue } from 'react-hook-form';
 
-import {
-  ControlledInput,
-  ControlledToggleButtons,
-  PhoneNumberInput,
-} from 'shared/ui';
+import { ControlledInput, ControlledToggleButtons, PhoneNumberInput } from 'shared/ui';
 
 import { DateWheelPicker } from 'shared/ui/DateWheelPicker';
 import { UserSettingsSchema } from '../../schemas';
@@ -31,7 +27,7 @@ export const UserPersonalInfoFormFields = ({
   setValue,
 }: Props) => {
   return (
-    <Stack spacing={3.8}>
+    <Stack spacing={3.75} flex={1}>
       <ControlledInput
         inputWrapperClassName={inputWrapperClassName}
         label="Имя"
@@ -47,9 +43,7 @@ export const UserPersonalInfoFormFields = ({
 
       <DateWheelPicker
         value={birthDate}
-        onChange={(value) =>
-          setValue('birth_date', value, { shouldDirty: true })
-        }
+        onChange={(value) => setValue('birth_date', value, { shouldDirty: true })}
         inputClassName={inputWrapperClassName}
         modalClassName={modalClassName}
       />

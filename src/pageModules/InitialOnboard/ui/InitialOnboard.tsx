@@ -29,19 +29,11 @@ export const InitialOnboard = ({ step, userProfile }: Props) => {
 
   const componentByStep: Record<InitialOnboardStep, ReactNode> = {
     [InitialOnboardStep.Initial]: <InitialStep userProfile={userProfile} />,
-    [InitialOnboardStep.PersonalInfo]: (
-      <PersonalInformation userProfile={userProfile} />
-    ),
-    [InitialOnboardStep.BodyMeasurement]: (
-      <BodyMeasurements userProfile={userProfile} />
-    ),
+    [InitialOnboardStep.PersonalInfo]: <PersonalInformation userProfile={userProfile} />,
+    [InitialOnboardStep.BodyMeasurement]: <BodyMeasurements userProfile={userProfile} />,
     [InitialOnboardStep.Sport]: <SportAndActivity userProfile={userProfile} />,
-    [InitialOnboardStep.StrengthTraining]: (
-      <StrengthTraining userProfile={userProfile} />
-    ),
-    [InitialOnboardStep.TrainingInfo]: (
-      <TrainingInfo userProfile={userProfile} />
-    ),
+    [InitialOnboardStep.StrengthTraining]: <StrengthTraining userProfile={userProfile} />,
+    [InitialOnboardStep.TrainingInfo]: <TrainingInfo userProfile={userProfile} />,
     [InitialOnboardStep.SportGoal]: <SportGoal userProfile={userProfile} />,
     [InitialOnboardStep.Lifestyle]: <Lifestyle userProfile={userProfile} />,
     [InitialOnboardStep.Food]: <Food userProfile={userProfile} />,
@@ -49,9 +41,7 @@ export const InitialOnboard = ({ step, userProfile }: Props) => {
     [InitialOnboardStep.OrgansAssessmentPrepare]: (
       <OrgansAssessmentPrepare userProfile={userProfile} />
     ),
-    [InitialOnboardStep.OrgansAssessment]: (
-      <OrgansAssessment userProfile={userProfile} />
-    ),
+    [InitialOnboardStep.OrgansAssessment]: <OrgansAssessment userProfile={userProfile} />,
     [InitialOnboardStep.Final]: <Final />,
   };
 

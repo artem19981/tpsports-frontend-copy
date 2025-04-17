@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import infoSrc from "@/app/assets/images/common/info.png";
-import Tooltip from "@mui/material/Tooltip";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Image from "next/image";
-import React, { useState } from "react";
-import styles from "./ResponsiveTooltip.module.scss";
+import infoSrc from '@/app/assets/images/common/info.png';
+import Tooltip from '@mui/material/Tooltip';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Image from 'next/image';
+import React, { useState } from 'react';
+import styles from './ResponsiveTooltip.module.scss';
+import classNames from 'classnames';
 
 export function ResponsiveTooltip({
   title,
@@ -16,7 +17,7 @@ export function ResponsiveTooltip({
   className?: string;
   right?: boolean;
 }) {
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -33,18 +34,21 @@ export function ResponsiveTooltip({
       onClose={handleClose}
       onOpen={isMobile ? undefined : handleOpen}
       leaveTouchDelay={10000}
-      placement={right ? "right" : "top"}
+      placement={right ? 'right' : 'top'}
       arrow
-      classes={{ tooltip: `${right ? styles.right : styles.tooltip}` }}
+      classes={{
+        tooltip: classNames(styles.tooltip, {
+          [styles.right]: right,
+        }),
+      }}
     >
       <span
         onClick={handleClick}
         onMouseEnter={isMobile ? undefined : handleOpen}
         onMouseLeave={isMobile ? undefined : handleClose}
-        style={{ cursor: "pointer", display: "inline-block" }}
-        className={className}
+        className={classNames(styles.image, className)}
       >
-        <Image src={infoSrc} width={14} height={14} alt="info" />
+        <Image src={infoSrc} width={16} height={16} alt="info" />
       </span>
     </Tooltip>
   );

@@ -23,18 +23,16 @@ import styles from './input.module.scss';
 import classNames from 'classnames';
 import { Label } from '../Label';
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   label?: string;
+  labelTooltip?: ReactNode;
 
   labelClassName?: string;
   containerClassName?: string;
   inputWrapperClassName?: string;
 
-  formatValue?: (
-    value: string | number | readonly string[] | undefined
-  ) => string;
+  formatValue?: (value: string | number | readonly string[] | undefined) => string;
   renderAfterInput?: (ref: RefObject<HTMLInputElement>) => ReactNode;
 }
 
@@ -43,6 +41,7 @@ const InputComponent = forwardRef<HTMLInputElement, InputProps>(
     {
       errorMessage,
       label,
+      labelTooltip,
       labelClassName,
       containerClassName,
       inputWrapperClassName,
@@ -51,7 +50,7 @@ const InputComponent = forwardRef<HTMLInputElement, InputProps>(
       onClick,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [showFormattedValue, setShowFormattedValue] = useState(!!formatValue);
     const [showPassword, setShowPassword] = useState(false);
@@ -76,14 +75,12 @@ const InputComponent = forwardRef<HTMLInputElement, InputProps>(
     };
 
     return (
-      <div
-        className={cn(styles.container, containerClassName)}
-        onClick={onClick}
-      >
+      <div className={cn(styles.container, containerClassName)} onClick={onClick}>
         {label && (
           <Label
             asLabel
             htmlFor={id}
+            tooltip={labelTooltip}
             className={cn(styles.label, labelClassName)}
           >
             {label}
@@ -100,13 +97,7 @@ const InputComponent = forwardRef<HTMLInputElement, InputProps>(
               <input
                 id={id}
                 {...props}
-                type={
-                  isPasswordInput
-                    ? showPassword
-                      ? 'text'
-                      : 'password'
-                    : props.type
-                }
+                type={isPasswordInput ? (showPassword ? 'text' : 'password') : props.type}
                 onBlur={onBlur}
                 className={cn(styles.input, props.className)}
                 ref={refs}
@@ -115,10 +106,7 @@ const InputComponent = forwardRef<HTMLInputElement, InputProps>(
             )}
 
             {isPasswordInput && (
-              <IconButton
-                className={styles.icon}
-                onClick={() => setShowPassword(!showPassword)}
-              >
+              <IconButton className={styles.icon} onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <EyeOff /> : <Eye />}
               </IconButton>
             )}
@@ -127,12 +115,10 @@ const InputComponent = forwardRef<HTMLInputElement, InputProps>(
           {renderAfterInput?.(innerRef)}
         </div>
 
-        {errorMessage && (
-          <ErrorMessage message={errorMessage} className={styles.error} />
-        )}
+        {errorMessage && <ErrorMessage message={errorMessage} className={styles.error} />}
       </div>
     );
-  }
+  },
 );
 
 export const Input = memo(InputComponent);

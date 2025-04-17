@@ -19,17 +19,12 @@ export const PersonalInformationForm = (userProfile: UserProfile) => {
     useUserPersonalInfoForm({
       userProfile,
       onSuccess: () => {
-        router.push(
-          '/initial-onboard?step=' + InitialOnboardStep.BodyMeasurement
-        );
+        router.push('/initial-onboard?step=' + InitialOnboardStep.BodyMeasurement);
       },
     });
 
   return (
-    <form
-      style={{ width: '100%', position: 'relative' }}
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <UserPersonalInfoFormFields
         control={control}
         birthDate={birthDate}

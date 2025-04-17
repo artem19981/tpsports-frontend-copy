@@ -99,7 +99,7 @@ export const StrengthTrainingFormFields = ({
           onClose={() => setShowModal(false)}
           onSubmit={onSubmitOther}
           title="Другие"
-          label="Опишите виды спорта и физической активности"
+          label="Укажите другие виды спорта и физической активности, которыми занимаетесь"
           defaultValue={favoriteTrainingTypesOther || ''}
         />
       )}

@@ -50,13 +50,12 @@ export const StepsWheelPicker = ({
     setShowDialog(false);
   };
 
-  const { selectedIndexes, onSelectItem, handleSubmit, resetSelectedIndexes } =
-    useWheelPicker({
-      wheels,
-      defaultSelectedValues,
-      onSubmit,
-      onClose,
-    });
+  const { selectedIndexes, onSelectItem, handleSubmit, resetSelectedIndexes } = useWheelPicker({
+    wheels,
+    defaultSelectedValues,
+    onSubmit,
+    onClose,
+  });
 
   useEffect(() => {
     const isSteps = getIsSteps(inputValue);
@@ -95,7 +94,7 @@ export const StepsWheelPicker = ({
       <Input
         onClick={() => setShowDialog(true)}
         className={localStyles.stepsInput}
-        value={formatNumber(inputValue)}
+        value={formatNumber(inputValue, ' ')}
         readOnly
       />
 
@@ -105,7 +104,7 @@ export const StepsWheelPicker = ({
           onClose={handleClose}
           title="Средняя дистанция, которую вы преодолеваете за день"
           onSubmit={handleSubmit}
-          className={className}
+          className={localStyles.dialog}
         >
           <div className={localStyles.toggleButtonsContainer}>
             <ToggleButtons

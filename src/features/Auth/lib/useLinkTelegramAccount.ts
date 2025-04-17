@@ -1,10 +1,11 @@
 'use client';
 
-import { MutationFunction, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { linkTelegramAccount, linkTelegramAccountInMiniApp } from '../api';
 import { useSnackbar } from 'shared/ui';
 import { handleServerError } from 'shared/api';
 import { QueryKeys } from 'shared/constants/query-keys';
+import { isTelegramWebApp } from 'shared/lib/isTelegramWebApp';
 
 export const useLinkTelegramAccount = () => {
   const snackbar = useSnackbar();
@@ -12,7 +13,7 @@ export const useLinkTelegramAccount = () => {
 
   return useMutation({
     mutationFn: async (data: any) => {
-      const isWebApp = typeof window !== 'undefined' && window.Telegram?.WebApp?.initDataUnsafe;
+      const isWebApp = isTelegramWebApp();
 
       return handleServerError(
         isWebApp ? linkTelegramAccountInMiniApp(data) : linkTelegramAccount(data),

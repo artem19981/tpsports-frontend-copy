@@ -18,10 +18,7 @@ interface Props {
   onSuccess: () => void;
 }
 
-export const SportAndActivityHealthForm = ({
-  userProfile,
-  onSuccess,
-}: Props) => {
+export const SportAndActivityHealthForm = ({ userProfile, onSuccess }: Props) => {
   const {
     handleSubmit,
     onSubmit,
@@ -49,19 +46,16 @@ export const SportAndActivityHealthForm = ({
               tooltip={
                 <>
                   <p>
-                    <strong>Начинающий</strong>: Вы только начинаете или
-                    занимаетесь нерегулярно, пока осваиваете базовые упражнения
-                    и технику.
+                    <strong>Начинающий</strong>: Вы только начинаете или занимаетесь нерегулярно,
+                    пока осваиваете базовые упражнения и технику.
                   </p>
                   <p>
-                    <strong>Средний</strong>: Вы тренируетесь 2–4 раза в неделю,
-                    уверенно справляетесь с упражнениями средней сложности и уже
-                    имеете опыт.
+                    <strong>Средний</strong>: Вы тренируетесь 2–4 раза в неделю, уверенно
+                    справляетесь с упражнениями средней сложности и уже имеете опыт.
                   </p>
                   <p>
-                    <strong>Продвинутый</strong>: Вы занимаетесь 5+ раз в
-                    неделю, выполняете высокоинтенсивные тренировки и стремитесь
-                    к конкретным результатам.
+                    <strong>Продвинутый</strong>: Вы занимаетесь 5+ раз в неделю, выполняете
+                    высокоинтенсивные тренировки и стремитесь к конкретным результатам.
                   </p>
                 </>
               }
@@ -71,9 +65,7 @@ export const SportAndActivityHealthForm = ({
               max={fitnessLevelOptions.length - 1}
               step={1}
               valueLabelFormat={(value) =>
-                isFitnessLevelDefined
-                  ? fitnessLevelOptions[value]
-                  : 'Не указано'
+                isFitnessLevelDefined ? fitnessLevelOptions[value] : 'Не указано'
               }
               containerClassName={styles.input}
               valueLabelClassName={classNames({
@@ -99,29 +91,18 @@ export const SportAndActivityHealthForm = ({
                 setValue('steps', +data[0].value, { shouldDirty: true });
               }}
               inputValue={steps}
-              className={styles.stepsPicker}
             />
 
             <p className={styles.stepsText}>
               {isSteps
                 ? pluralize(steps, 'шаг', 'шага', 'шагов', false)
-                : pluralize(
-                    steps,
-                    'километр',
-                    'километра',
-                    'километров',
-                    false
-                  )}
+                : pluralize(steps, 'километр', 'километра', 'километров', false)}
             </p>
           </div>
         </div>
       </WithAbsoluteScrollBar>
 
-      <MyHealthFormSubmitButton
-        type="submit"
-        disabled={isPending}
-        visible={isDirty}
-      />
+      <MyHealthFormSubmitButton type="submit" disabled={isPending} visible={isDirty} />
 
       {isPending && <Loader />}
     </form>

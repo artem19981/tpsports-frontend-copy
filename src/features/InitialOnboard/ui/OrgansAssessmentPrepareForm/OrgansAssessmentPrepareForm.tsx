@@ -28,31 +28,19 @@ export const OrgansAssessmentPrepareForm = ({ userProfile }: Props) => {
 
   return (
     <div className={styles.container}>
-      <Image
-        className={styles.image}
-        src={muscleSrc}
-        width={350}
-        height={89}
-        alt="muscle"
-      />
+      <Image className={styles.image} src={muscleSrc} width={350} height={89} alt="muscle" />
 
-      <p className={styles.lastStep}>Последний шаг!</p>
-
-      <h2 className={styles.title}>Оцените состояние своего организма</h2>
+      <h2 className={styles.title}>Последний шаг !</h2>
 
       <p className={styles.description}>
-        Это поможет ИИ-Экспертам учитывать ваши особенности и подбирать
-        максимально точные рекомендации.
+        Каждый ваш ответ делает рекомендации от ИИ Экспертов ещё точнее, а отчёт полезнее.
       </p>
 
       <Button onClick={onSubmit} className={styles.button}>
         Далее
       </Button>
 
-      <CancelOnboardButton
-        label="Заполнить позже"
-        nextPage={InitialOnboardStep.Final}
-      />
+      <CancelOnboardButton label="Заполнить позже" nextPage={InitialOnboardStep.Final} />
     </div>
   );
 };

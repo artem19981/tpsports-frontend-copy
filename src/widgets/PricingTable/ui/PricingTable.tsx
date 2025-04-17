@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Paper,
@@ -8,14 +8,15 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
-import React, { ReactNode, useState } from "react";
-import CheckIcon from "shared/assets/CheckIcon.svg?component";
-import CloseIcon from "shared/assets/CloseIcon.svg?component";
+} from '@mui/material';
+import React, { ReactNode, useState } from 'react';
+import CheckIcon from 'shared/assets/CheckIcon.svg?component';
+import CloseIcon from 'shared/assets/CloseIcon.svg?component';
 
-import { Button } from "shared/ui";
-import { ResponsiveTooltip } from "shared/ui/ResponsiveTooltip";
-import styles from "./PricingTable.module.scss";
+import { Button } from 'shared/ui';
+import { ResponsiveTooltip } from 'shared/ui/ResponsiveTooltip';
+import styles from './PricingTable.module.scss';
+import classNames from 'classnames';
 
 interface PricingRow {
   feature: string;
@@ -29,20 +30,18 @@ interface PricingRow {
 
 const rows: PricingRow[] = [
   {
-    feature: "Запросы",
-    info: "",
-    basic: "300 запросов",
-    standard: "750 запросов",
-    pro: "Неограниченно 🚀",
-    sportsClub: "Неограниченно 🚀",
+    feature: 'Запросы',
+    info: '',
+    basic: '300 запросов',
+    standard: '750 запросов',
+    pro: 'Неограниченно 🚀',
+    sportsClub: 'Неограниченно 🚀',
   },
   {
-    feature: "Тестовый период",
-    item: (
-      <p>Для новых пользователей. Срок действия 14 дней после регистрации.</p>
-    ),
-    info: "",
-    basic: "10 запросов",
+    feature: 'Тестовый период',
+    item: <p>Для новых пользователей. Срок действия 14 дней после регистрации.</p>,
+    info: '',
+    basic: '10 запросов',
     standard: (
       <div className={styles.icon}>
         <CloseIcon />
@@ -60,24 +59,24 @@ const rows: PricingRow[] = [
     ),
   },
   {
-    feature: "Персонализация",
-    info: "",
-    basic: "Базовая",
-    standard: "Расширенная",
-    pro: "Глубокая 🔥",
-    sportsClub: "Глубокая командная 🔥",
+    feature: 'Персонализация',
+    info: '',
+    basic: 'Базовая',
+    standard: 'Расширенная',
+    pro: 'Глубокая 🔥',
+    sportsClub: 'Глубокая командная 🔥',
   },
   {
-    feature: "Прикрепление файлов",
-    info: "",
-    basic: "3 / месяц",
-    standard: "10 / месяц",
-    pro: "Неограниченно 🚀",
-    sportsClub: "Неограниченно 🚀",
+    feature: 'Прикрепление файлов',
+    info: '',
+    basic: '3 / месяц',
+    standard: '10 / месяц',
+    pro: 'Неограниченно 🚀',
+    sportsClub: 'Неограниченно 🚀',
   },
   {
-    feature: "Уведомления и напоминания",
-    info: "",
+    feature: 'Уведомления и напоминания',
+    info: '',
     basic: (
       <div className={styles.icon}>
         <CloseIcon />
@@ -100,16 +99,16 @@ const rows: PricingRow[] = [
     ),
   },
   {
-    feature: "Покупка дополнительных запросов",
-    info: "",
-    basic: "10 запросов / 300 ₽",
-    standard: "10 запросов / 300 ₽",
-    pro: "Безлимит",
-    sportsClub: "Безлимит",
+    feature: 'Покупка дополнительных запросов',
+    info: '',
+    basic: '10 запросов / 300 ₽',
+    standard: '10 запросов / 300 ₽',
+    pro: 'Безлимит',
+    sportsClub: 'Безлимит',
   },
   {
-    feature: "Экспорт данных",
-    info: "",
+    feature: 'Экспорт данных',
+    info: '',
     basic: (
       <div className={styles.icon}>
         <CloseIcon />
@@ -132,8 +131,8 @@ const rows: PricingRow[] = [
     ),
   },
   {
-    feature: "Защита данных",
-    info: "",
+    feature: 'Защита данных',
+    info: '',
     basic: (
       <div className={styles.icon}>
         <CheckIcon />
@@ -156,37 +155,29 @@ const rows: PricingRow[] = [
     ),
   },
   {
-    feature: "Техническая поддержка",
-    info: "",
-    basic: "E-mail",
-    standard: "E-mail, Telegram, 24/7",
-    pro: "Приоритетная",
-    sportsClub: "Выделенная команда",
+    feature: 'Техническая поддержка',
+    info: '',
+    basic: 'E-mail',
+    standard: 'E-mail, Telegram, 24/7',
+    pro: 'Приоритетная',
+    sportsClub: 'Выделенная команда',
   },
   {
     feature: `Инструменты`,
     item: (
       <>
         <p>Chat Completion - Создание диалогов и ответов на запросы.</p>
-        <p>
-          Advanced NLP - Расширенный анализ текста для улучшения рекомендаций.
-        </p>
-        <p>
-          Data Analysis - Анализ данных, например, прикреплённых документов.
-        </p>
-        <p>
-          Code Interpretation - Возможность обработки сложных данных и
-          выполнения вычислений.
-        </p>
+        <p>Advanced NLP - Расширенный анализ текста для улучшения рекомендаций.</p>
+        <p>Data Analysis - Анализ данных, например, прикреплённых документов.</p>
+        <p>Code Interpretation - Возможность обработки сложных данных и выполнения вычислений.</p>
         <p>Custom Integration - Индивидуальная интеграция.</p>
       </>
     ),
-    info: "",
-    basic: "Chat Completion, Advanced NLP, Data Analysis",
-    standard: "Chat Completion, Advanced NLP, Data Analysis",
-    pro: "Advanced NLP, Data Analysis, Code Interpretation",
-    sportsClub:
-      "Advanced NLP, Data Analysis, Code Interpretation, Custom Integration",
+    info: '',
+    basic: 'Chat Completion, Advanced NLP, Data Analysis',
+    standard: 'Chat Completion, Advanced NLP, Data Analysis',
+    pro: 'Advanced NLP, Data Analysis, Code Interpretation',
+    sportsClub: 'Advanced NLP, Data Analysis, Code Interpretation, Custom Integration',
   },
 ];
 
@@ -204,24 +195,21 @@ const PricingTable: React.FC = () => {
         className={`${styles.table__container} ${isVisible ? styles.visible : styles.hidden}`}
         sx={{
           background:
-            "linear-gradient(108.85deg, rgba(48, 48, 48, 0.4) 0.8%, rgba(48, 48, 48, 0.4) 76%, rgba(65, 65, 65, 0.4) 99.1%)",
+            'linear-gradient(108.85deg, rgba(48, 48, 48, 0.4) 0.8%, rgba(48, 48, 48, 0.4) 76%, rgba(65, 65, 65, 0.4) 99.1%)',
           borderRadius: 2,
-          overflowX: "scroll",
+          overflowX: 'scroll',
           mt: 10,
           width: 1200,
-          transition: "opacity 0.5s, height 1s, visibility 0.5s",
+          transition: 'opacity 0.5s, height 1s, visibility 0.5s',
           opacity: isVisible ? 1 : 0,
-          height: isVisible ? "auto" : 0,
-          visibility: isVisible ? "visible" : "hidden",
+          height: isVisible ? 'auto' : 0,
+          visibility: isVisible ? 'visible' : 'hidden',
         }}
       >
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell
-                className={styles.table__cell}
-                sx={{ color: "#FFFFFF66" }}
-              >
+              <TableCell className={styles.table__cell} sx={{ color: '#FFFFFF66' }}>
                 Функция
               </TableCell>
               {/* <TableCell className={styles.table__cell}>
@@ -229,25 +217,25 @@ const PricingTable: React.FC = () => {
             </TableCell> */}
               <TableCell
                 className={`${styles.table__cell} ${styles.table__title}`}
-                sx={{ color: "#01FD4D" }}
+                sx={{ color: '#01FD4D' }}
               >
                 Basic
               </TableCell>
               <TableCell
                 className={`${styles.table__cell} ${styles.table__title}`}
-                sx={{ color: "#01FD4D" }}
+                sx={{ color: '#01FD4D' }}
               >
                 Standard
               </TableCell>
               <TableCell
                 className={`${styles.table__cell} ${styles.table__title}`}
-                sx={{ color: "#01FD4D" }}
+                sx={{ color: '#01FD4D' }}
               >
                 Pro&nbsp;
               </TableCell>
               <TableCell
                 className={`${styles.table__cell} ${styles.table__title}`}
-                sx={{ color: "#01FD4D" }}
+                sx={{ color: '#01FD4D' }}
               >
                 Sports Club&nbsp;
               </TableCell>
@@ -259,32 +247,32 @@ const PricingTable: React.FC = () => {
               <TableRow key={idx}>
                 <TableCell
                   sx={{
-                    textAlign: "left!important",
-                    width: "auto!important",
+                    textAlign: 'left!important',
+                    width: 'auto!important',
                   }}
-                  className={`${styles.table__row}`}
+                  className={styles.table__row}
                 >
-                  {row.feature}
-                  {row.item ? (
-                    <ResponsiveTooltip
-                      title={row.item as any}
-                      className={styles.tooltip}
-                      right={true}
-                    />
-                  ) : (
-                    <></>
-                  )}
+                  <div className={styles.table__row__content}>
+                    {row.feature}
+                    {row.item ? (
+                      <ResponsiveTooltip
+                        title={row.item as any}
+                        className={styles.tooltip}
+                        right={true}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                  </div>
                 </TableCell>
                 <TableCell size="small" className={styles.table__row}>
                   {row.basic}
                 </TableCell>
-                <TableCell className={styles.table__row}>
-                  {row.standard}
-                </TableCell>
+                <TableCell className={styles.table__row}>{row.standard}</TableCell>
                 <TableCell className={styles.table__row}>{row.pro}</TableCell>
                 <TableCell
                   className={styles.table__row}
-                  sx={{ color: "#fff", borderBottom: "1px solid #444" }}
+                  sx={{ color: '#fff', borderBottom: '1px solid #444' }}
                 >
                   {row.sportsClub}
                 </TableCell>
@@ -297,13 +285,11 @@ const PricingTable: React.FC = () => {
       <div className={styles.button__container}>
         <Button
           color="success"
-          variant={"white"}
+          variant={'white'}
           onClick={toggleVisibility}
-          sx={{ width: "280px", margin: "40px auto 0 auto" }}
+          sx={{ width: '280px', margin: '40px auto 0 auto' }}
         >
-          {isVisible
-            ? "Скрыть Сравнение тарифов"
-            : "Показать Сравнение тарифов"}
+          {isVisible ? 'Скрыть Сравнение тарифов' : 'Показать Сравнение тарифов'}
         </Button>
       </div>
     </div>

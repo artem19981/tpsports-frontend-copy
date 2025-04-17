@@ -6,9 +6,7 @@ import { useEffect, useState } from 'react';
  */
 
 export function useChangedFields(dirtyFields: Record<string, any>) {
-  const [changedFields, setChangedFields] = useState<Record<string, boolean>>(
-    {}
-  );
+  const [changedFields, setChangedFields] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     setChangedFields((prev) => {

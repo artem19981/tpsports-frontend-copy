@@ -1,3 +1,4 @@
+import { isTelegramWebApp } from 'shared/lib/isTelegramWebApp';
 import { telegramAuth } from '../api';
 
 export const getTelegramAccountData = async () => {
@@ -7,11 +8,12 @@ export const getTelegramAccountData = async () => {
     console.log(window?.Telegram, 'window.Telegram');
   }
 
-  if (typeof window !== 'undefined' && window.Telegram?.WebApp?.initDataUnsafe?.user) {
-    const { auth_date, hash, user } = window.Telegram.WebApp.initDataUnsafe;
+  console.log(window.Telegram?.WebApp?.initDataUnsafe?.user, 'window.Telegram');
+  if (typeof window !== 'undefined' && isTelegramWebApp()) {
+    const { auth_date, hash, user } = window.Telegram!.WebApp.initDataUnsafe;
 
     return {
-      init_data: window.Telegram.WebApp.initData,
+      init_data: window.Telegram!.WebApp.initData,
       auth_date: +auth_date,
       hash,
       first_name: user.first_name,

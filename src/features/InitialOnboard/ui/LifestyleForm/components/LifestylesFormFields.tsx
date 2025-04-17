@@ -41,15 +41,12 @@ export const LifestylesFormFields = ({
       <SleepWheelPicker
         form={form}
         setValue={setValue}
-        modalClassName={modalClassName}
+        modalClassName={classNames(styles.dialog, modalClassName)}
       />
 
       <div className={styles.sleepDurationContainer}>
         <p className={styles.sleepDuration}>
-          {calculateSleepDuration(
-            form.sleep_schedule_down!,
-            form.sleep_schedule_wakeUp!
-          )}
+          {calculateSleepDuration(form.sleep_schedule_down!, form.sleep_schedule_wakeUp!)}
         </p>
         <p className={styles.sleepDurationLabel}>Часов сна</p>
 
@@ -62,19 +59,16 @@ export const LifestylesFormFields = ({
         tooltip={
           <>
             <p>
-              <strong>0-3</strong> Частые пробуждения, бессонница, ощущение
-              усталости после сна.
+              <strong>0-3</strong> Частые пробуждения, бессонница, ощущение усталости после сна.
             </p>
             <p>
-              <strong>4-6</strong> Сон прерывистый, не всегда чувствую себя
-              отдохнувшим.
+              <strong>4-6</strong> Сон прерывистый, не всегда чувствую себя отдохнувшим.
             </p>
             <p>
               <strong>7-8</strong> Сплю спокойно, просыпаюсь бодрым.
             </p>
             <p>
-              <strong>9-10</strong> Глубокий, восстанавливающий сон, полное
-              ощущение отдыха.
+              <strong>9-10</strong> Глубокий, восстанавливающий сон, полное ощущение отдыха.
             </p>
           </>
         }
@@ -84,9 +78,7 @@ export const LifestylesFormFields = ({
         max={10}
         step={1}
         valueLabelFormat={(value) =>
-          isSleepQualityDefined
-            ? pluralize(value, 'балл', 'балла', 'баллов')
-            : 'Не указано'
+          isSleepQualityDefined ? pluralize(value, 'балл', 'балла', 'баллов') : 'Не указано'
         }
         valueLabelClassName={classNames({
           [styles.notDefinedLabel]: !isSleepQualityDefined,

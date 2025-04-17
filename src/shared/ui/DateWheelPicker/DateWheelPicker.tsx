@@ -16,10 +16,7 @@ interface Props {
 }
 
 export const DateWheelPicker = forwardRef<HTMLInputElement, Props>(
-  (
-    { value = '', inputClassName, modalClassName, renderAfterInput, onChange },
-    ref
-  ) => {
+  ({ value = '', inputClassName, modalClassName, renderAfterInput, onChange }, ref) => {
     const [showDialog, setShowDialog] = useState(false);
 
     const onClose = () => {
@@ -32,10 +29,7 @@ export const DateWheelPicker = forwardRef<HTMLInputElement, Props>(
       <>
         <Input
           label="Дата рождения"
-          inputWrapperClassName={classNames(
-            styles.inputWrapper,
-            inputClassName
-          )}
+          inputWrapperClassName={classNames(styles.inputWrapper, inputClassName)}
           ref={ref}
           value={value}
           onClick={() => setShowDialog(true)}
@@ -48,7 +42,7 @@ export const DateWheelPicker = forwardRef<HTMLInputElement, Props>(
           onClose={onClose}
           title="Дата рождения"
           footer={null}
-          className={modalClassName}
+          className={classNames(styles.dialog, modalClassName)}
         >
           <DateWheelPickerContent
             onClose={onClose}
@@ -60,7 +54,7 @@ export const DateWheelPicker = forwardRef<HTMLInputElement, Props>(
         </WheelPickerDialog>
       </>
     );
-  }
+  },
 );
 
 DateWheelPicker.displayName = 'DateWheelPicker';

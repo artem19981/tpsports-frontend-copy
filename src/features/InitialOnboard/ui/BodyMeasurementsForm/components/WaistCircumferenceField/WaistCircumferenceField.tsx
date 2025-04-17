@@ -17,11 +17,15 @@ export const WaistCircumferenceField = ({ control, className }: Props) => {
         control={control}
         name="waist_circumference"
         label="Обхват талии"
+        labelTooltip={
+          <>
+            Если под рукой нет ленты, оберните нитку вокруг талии, а затем измерьте длину нитки с
+            помощью линейки. Так вы легко узнаете свой обхват талии !
+          </>
+        }
         containerClassName={styles.waistInput}
         labelClassName={styles.waistInputLabel}
-        formatValue={(value) =>
-          value !== '' ? formatMeasurement(value as number, 'см') : ''
-        }
+        formatValue={(value) => (value !== '' ? formatMeasurement(value as number, 'см') : '')}
         autoFocus
         maxLength={3}
       />

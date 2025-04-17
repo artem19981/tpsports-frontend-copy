@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities; */
 
+body {
+  scrollbar-width: none !important;
+  scrollbar-color: transparent transparent !important;
+
+  &::-webkit-scrollbar {
+    display: none;
+    scroll-behavior: smooth;
+    width: 0;
+  }
+}
+
 :root {
   --background: #000;
   --foreground: #fff;

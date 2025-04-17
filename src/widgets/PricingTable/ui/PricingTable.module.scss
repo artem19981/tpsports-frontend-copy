@@ -33,6 +33,12 @@
   font-family: var(--gilroy), sans-serif !important;
   display: flex;
   justify-content: center;
+
+  & .table__row__content {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
 }
 
 div.tooltip {

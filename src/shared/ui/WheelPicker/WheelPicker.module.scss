@@ -8,14 +8,19 @@
   margin-bottom: 30px;
 }
 
+div.dialogContainer {
+  background: hsla(0, 0%, 1%, 0.02);
+  backdrop-filter: blur(50px);
+}
+
 div.dialog {
   display: flex;
   flex-direction: column;
   overflow: auto;
   width: 100%;
-  max-width: 1200px;
   align-items: center;
-  background-color: #103328;
+  background: #30303080;
+  box-shadow: 0px 0px 17.5px 0px #00000066;
   border-radius: 25px;
   opacity: 1;
   --Paper-overlay: none !important;
@@ -24,6 +29,9 @@ div.dialog {
     max-width: 360px;
     margin-inline: 15px;
   }
+}
+
+.children {
 }
 
 div.content {

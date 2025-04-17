@@ -49,11 +49,13 @@ export const WheelPickerDialog = ({
       {...dialogProps}
       open={open}
       onClose={onClose}
-      classes={{ paper: classNames(styles.dialog, className) }}
+      classes={{ paper: classNames(styles.dialog, className), container: styles.dialogContainer }}
     >
       <DialogContent className={classNames(styles.content, contentClassName)}>
-        <p className={styles.title}>{title}</p>
-        {dialogProps.children}
+        <div className={styles.children}>
+          <p className={styles.title}>{title}</p>
+          {dialogProps.children}
+        </div>
       </DialogContent>
       {Footer}
     </_Dialog>

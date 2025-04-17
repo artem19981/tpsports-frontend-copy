@@ -44,6 +44,10 @@ hr.divider {
     max-width: none;
     padding: 0 35px;
   }
+
+  & > p {
+    text-align: center;
+  }
 }
 
 .radio {
