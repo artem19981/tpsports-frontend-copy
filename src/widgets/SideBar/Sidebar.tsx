@@ -4,18 +4,19 @@ import ChevronDown from '@/app/assets/images/aiChat/arrow-down.svg?component';
 import Burger from '@/app/assets/images/aiChat/burger.svg?component';
 import Settings from '@/app/assets/images/aiChat/settings.svg?component';
 import Side from '@/app/assets/images/aiChat/side.svg?component';
-import Tp from '@/app/assets/images/aiChat/tp.svg?component';
 import cn from 'classnames';
 import { useChatType } from 'entities/chat/ui';
+import { getUserInitials } from 'features/User/ui/UserSettingsMenu/lib/getUserInitials';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { BOTS } from 'shared/constants/bots';
 
-import { useMediaQuery } from '@mui/material';
+import { IconButton, useMediaQuery } from '@mui/material';
 import { useGetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 import { useGetMultiChats } from 'features/Chat/lib/useGetMultiChats';
 import { FrontendMultiChat } from 'features/Chat/model';
 import { MultiChatMenuItem } from 'features/Chat/ui';
+import { useGetUserProfile } from 'features/User/lib';
 import { MyHealth, useMyHealthModal } from 'widgets/MyHealth';
 import { UserSettings, useSettingsModal } from 'widgets/UserSettings';
 import styles from './Sidebar.module.scss';
@@ -36,6 +37,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const { chatType } = useChatType() || {};
   const currentBot = useMemo(() => BOTS.find((bot) => bot.name === chatType), [chatType]);
   const accentColor = currentBot?.borderColor || '#00ffb0';
+  const getProfile = useGetUserProfile();
 
   const [expandedSections, setExpandedSections] = useState({
     favorites: true,
@@ -99,7 +101,9 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
                   setShowHealth(true);
                 }}
               >
-                <Tp className={styles.icon} />
+                <IconButton className={styles.userInitials} size="small">
+                  <p>{getUserInitials(getProfile?.data)}</p>
+                </IconButton>
                 <span className={styles.link_text}>Моё Здоровье</span>
               </div>
               <div
@@ -117,7 +121,13 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
           {!isMobile && !isOpen ? (
             <div className={styles.side_main_collapsed}>
               <div className={styles.side_link}>
-                <Tp className={styles.icon} onClick={() => setShowHealth(true)} />
+                <IconButton
+                  className={styles.userInitials}
+                  size="small"
+                  onClick={() => setShowHealth(true)}
+                >
+                  <p>{getUserInitials(getProfile?.data)}</p>
+                </IconButton>
               </div>
               <div className={styles.side_link}>
                 <Settings className={styles.icon} onClick={() => setShowSettings(true)} />
@@ -128,7 +138,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
           {!isMobile && (
             <button
               className={styles.toggleBtn}
-              style={{ top: isOpen ? 50 : 20 }}
+              style={{ top: isOpen ? 50 : 50 }}
               onClick={onToggle}
             >
               <Side />
@@ -143,7 +153,9 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onToggle }) => {
                   setShowHealth(true);
                 }}
               >
-                <Tp className={styles.icon} />
+                <IconButton className={styles.userInitials} size="small">
+                  <p>{getUserInitials(getProfile?.data)}</p>
+                </IconButton>
                 <span className={styles.link_text}>Моё Здоровье</span>
               </div>
               <div

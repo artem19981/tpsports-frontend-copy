@@ -16,10 +16,10 @@ interface BlurCirclesBackgroundProps {
 export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
   circleCount = 4,
   minSizeFactor = 2,
-  maxSizeFactor = 4.09,
-  sizeChangeSpeed = 0.5,
-  movementSpeed = 0.5,
-  blurAmount = 60,
+  maxSizeFactor = 3.09,
+  sizeChangeSpeed = 0.3,
+  movementSpeed = 0.3,
+  blurAmount = 90,
   color = '#05EFB6',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,6 +58,7 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
       element: HTMLDivElement;
       phase: number;
       speedFactor: number;
+      angle: number;
     }> = [];
 
     const random = (min: number, max: number) => Math.random() * (max - min) + min;
@@ -66,10 +67,28 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
     const colors = Array.isArray(color) ? color : [color];
     const colorCount = colors.length;
 
-    for (let i = 0; i < circleCount; i++) {
-      const size = random(Math.min(60, width * 0.15), Math.min(200, width * 0.3));
-      const element = document.createElement('div');
+    // Функция для проверки пересечений с другими кругами
+    const hasCollision = (x: number, y: number, size: number, circles: any[]) => {
+      return circles.some((c) => {
+        const distance = Math.sqrt(Math.pow(x - c.x, 2) + Math.pow(y - c.y, 2));
+        return distance < (size / 2 + c.size / 2) * 1.5; // Добавляем запас
+      });
+    };
 
+    for (let i = 0; i < circleCount; i++) {
+      const maxAttempts = 100;
+      let attempts = 0;
+      let x, y, size;
+
+      // Пытаемся найти позицию без пересечений
+      do {
+        size = random(Math.min(60, width * 0.15), Math.min(200, width * 0.3));
+        x = random(size, width - size);
+        y = random(size, height - size);
+        attempts++;
+      } while (attempts < maxAttempts && hasCollision(x, y, size, circles));
+
+      const element = document.createElement('div');
       element.style.position = 'absolute';
       element.style.borderRadius = '50%';
       element.style.filter = `blur(${blurAmount}px)`;
@@ -80,21 +99,26 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
       element.style.background = colors[i % colorCount];
       element.style.willChange = 'transform, width, height';
 
-      // Добавляем больше вариативности в параметры движения
-      const speedFactor = random(0.7, 1.3); // Разные множители скорости
-      const phase = random(0, Math.PI * 2); // Полностью случайные фазы
+      // todo
+      // линейность для всех кругов
+      // постоянство движения и изменения размера
+      // ощущение подвижности
+      const speedFactor = random(0.7, 1.3);
+      const phase = random(0, Math.PI * 2);
+      const angle = random(0, Math.PI * 2); // Направление движения
 
       const circle = {
-        x: random(size, width - size),
-        y: random(size, height - size),
-        vx: random(0.5, 1) * movementSpeed * randomSign() * speedFactor,
-        vy: random(0.5, 1) * movementSpeed * randomSign() * speedFactor,
+        x,
+        y,
+        vx: Math.cos(angle) * movementSpeed * speedFactor,
+        vy: Math.sin(angle) * movementSpeed * speedFactor,
         size: size * minSizeFactor,
         minSize: size * minSizeFactor,
         maxSize: size * maxSizeFactor,
-        element: element,
-        phase: phase,
-        speedFactor: speedFactor,
+        element,
+        phase,
+        speedFactor,
+        angle,
       };
 
       element.style.width = `${circle.size}px`;
@@ -109,36 +133,40 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
     let lastTime = 0;
     const animate = (time: number) => {
       if (!lastTime) lastTime = time;
-      const deltaTime = Math.min(100, time - lastTime); // Ограничиваем максимальное время между кадрами
+      const deltaTime = Math.min(100, time - lastTime);
       lastTime = time;
 
       circles.forEach((circle) => {
-        // Более сложное изменение направления при отражении
+        // Плавное изменение направления
+        if (Math.random() < 0.005) {
+          circle.angle += random(-0.5, 0.5);
+          circle.vx = Math.cos(circle.angle) * movementSpeed * circle.speedFactor;
+          circle.vy = Math.sin(circle.angle) * movementSpeed * circle.speedFactor;
+        }
+
         const nextX = circle.x + circle.vx * (deltaTime / 16);
         const nextY = circle.y + circle.vy * (deltaTime / 16);
         const radius = circle.size / 2;
 
         if (nextX - radius < 0 || nextX + radius > width) {
-          // Добавляем небольшую случайность при отражении
-          circle.vx *= -1 * random(0.9, 1.1);
+          circle.angle = Math.PI - circle.angle;
+          circle.vx = Math.cos(circle.angle) * movementSpeed * circle.speedFactor;
+          circle.vy = Math.sin(circle.angle) * movementSpeed * circle.speedFactor;
           circle.x = Math.max(radius, Math.min(width - radius, nextX));
-          // Небольшое изменение вертикальной скорости при отражении от горизонтальных границ
-          circle.vy *= random(0.95, 1.05);
         } else {
           circle.x = nextX;
         }
 
         if (nextY - radius < 0 || nextY + radius > height) {
-          // Аналогично для вертикального отражения
-          circle.vy *= -1 * random(0.9, 1.1);
+          circle.angle = -circle.angle;
+          circle.vx = Math.cos(circle.angle) * movementSpeed * circle.speedFactor;
+          circle.vy = Math.sin(circle.angle) * movementSpeed * circle.speedFactor;
           circle.y = Math.max(radius, Math.min(height - radius, nextY));
-          // Небольшое изменение горизонтальной скорости при отражении от вертикальных границ
-          circle.vx *= random(0.95, 1.05);
         } else {
           circle.y = nextY;
         }
 
-        // Анимация размера с индивидуальной скоростью
+        // Анимация размера
         const timeFactor = time * 0.001 * sizeChangeSpeed * circle.speedFactor;
         const cycle = Math.sin(timeFactor + circle.phase);
         circle.size = circle.minSize + ((circle.maxSize - circle.minSize) * (cycle + 1)) / 2;
@@ -181,7 +209,10 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
       className={styles.backgroundAnimation}
       style={{
         position: 'absolute',
+        // width: '100%',
+        // height: '100%',
         overflow: 'hidden',
+        zIndex: -5,
       }}
     />
   );

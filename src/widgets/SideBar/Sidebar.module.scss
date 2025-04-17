@@ -64,6 +64,7 @@
   flex-direction: column;
   gap: 13px;
   width: 100%;
+  margin-top: 35px;
 }
 
 .side_link {
@@ -82,7 +83,7 @@
 .link_text {
   font-size: 16px;
   font-weight: 500;
-  color: rgba(147, 147, 147, 1);
+  color: #bcbcbb;
   font-family: var(--gilroy), sans-serif !important;
 }
 
@@ -102,7 +103,7 @@
   justify-content: center;
   transition: color 0.2s;
   position: absolute;
-  right: 20px;
+  right: 17px;
   top: 50px;
 
   &:hover {
@@ -245,7 +246,7 @@
   font-size: 14px;
   line-height: 1.2;
   white-space: nowrap;
-  color: rgba(147, 147, 147, 1);
+  color: #bcbcbb;
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: var(--gilroy), sans-serif !important;
@@ -316,4 +317,27 @@
     border-bottom: 5px solid transparent;
     border-right: 5px solid #333;
   }
+}
+
+.userInitials p {
+  font-family: var(--gilroy), sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.4px;
+  text-align: center;
+  color: #fff;
+
+  margin-top: 2px;
+}
+
+button.userInitials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // background-color: #383838;
+  border: 1px solid #8e8e8e;
+
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
 }
