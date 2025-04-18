@@ -31,6 +31,7 @@ export interface UserTariff {
   email: string;
   email_confirmed: boolean;
   telegram_id: null | string;
+  telegram_username: null | string;
 
   tariff: UserTariffDto | null;
   tariff_type: 'month' | 'year' | null;

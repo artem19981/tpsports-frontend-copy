@@ -19,6 +19,8 @@ export const StrengthTraining = ({ userProfile }: Props) => {
       title="Спорт"
       step={InitialOnboardStep.StrengthTraining}
       childrenClassName={styles.children}
+      contentClassName={styles.content}
+      containerClassName={styles.container}
     >
       <StrengthTrainingFormInitialOnboarding
         userProfile={userProfile}

@@ -4,14 +4,12 @@
   flex-direction: column;
   width: 100%;
   flex: 1;
-  overflow: auto;
 }
 
 .wrapper {
   max-width: 400px;
   width: 100%;
   flex: 1;
-  overflow-y: overlay;
 
   &::-webkit-scrollbar {
     display: none;

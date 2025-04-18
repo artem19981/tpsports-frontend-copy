@@ -30,6 +30,8 @@ export const UserSecurityMain = ({ userProfile, setView }: Props) => {
   const isEmailConfirmed = userProfile.tariff.email_confirmed;
   const email = userProfile.email;
 
+  const telegramLabel = userProfile?.tariff?.telegram_username || userProfile?.tariff?.telegram_id;
+
   return (
     <div>
       <div className={styles.content}>
@@ -83,7 +85,7 @@ export const UserSecurityMain = ({ userProfile, setView }: Props) => {
               type="text"
               readOnly
               className={styles.input}
-              value={userProfile.tariff.telegram_id!}
+              value={telegramLabel!}
             />
 
             <Button
@@ -102,14 +104,14 @@ export const UserSecurityMain = ({ userProfile, setView }: Props) => {
 
       {email && (
         <div className={styles.content}>
-          {userProfile.tariff.telegram_id ? (
+          {telegramLabel ? (
             <Input
               label="Имя пользователя Telegram"
               name="telegram"
               type="text"
               readOnly
               className={styles.input}
-              value={userProfile.tariff.telegram_id}
+              value={telegramLabel}
             />
           ) : (
             <Button

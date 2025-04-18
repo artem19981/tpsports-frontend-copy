@@ -6,7 +6,7 @@ import { OnboardProgressBar } from 'features/InitialOnboard';
 import { InitialOnboardStep } from 'features/InitialOnboard/model';
 
 import styles from './OnboardingLayout.module.scss';
-import { BlurCirclesBackground } from 'shared/ui';
+import { BlurCirclesBackground, MainLayoutContainer, MainLayoutContent } from 'shared/ui';
 
 interface Props {
   step: InitialOnboardStep;
@@ -34,8 +34,8 @@ export const OnboardingLayout = memo(
     headerClassName,
   }: PropsWithChildren<Props>) => {
     return (
-      <div className={cn(styles.container, containerClassName)}>
-        <div className={cn(styles.content, contentClassName)}>
+      <MainLayoutContainer className={cn(styles.container, containerClassName)}>
+        <MainLayoutContent className={cn(styles.content, contentClassName)}>
           <BlurCirclesBackground color={'rgba(5, 239, 182, 0.4)'} />
 
           <div className={cn(styles.children, childrenClassName)} id="children">
@@ -49,8 +49,8 @@ export const OnboardingLayout = memo(
 
             {children}
           </div>
-        </div>
-      </div>
+        </MainLayoutContent>
+      </MainLayoutContainer>
     );
   },
 );

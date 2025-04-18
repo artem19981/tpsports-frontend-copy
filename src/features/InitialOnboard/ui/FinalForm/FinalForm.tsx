@@ -10,9 +10,12 @@ import finalSrc from './assets/final.png';
 import Image from 'next/image';
 
 import styles from './FinalForm.module.scss';
+import { useExportOnboardingReport } from 'features/User/lib';
 
 export const FinalForm = () => {
   const router = useRouter();
+
+  const { mutate: exportOnboardingReport, isPending } = useExportOnboardingReport();
 
   const onSubmit = () => {
     router.push('/ai');
@@ -33,7 +36,13 @@ export const FinalForm = () => {
         Перейти к своим ИИ Экспертам
       </Button>
 
-      <Button variant="lightTransparent">Скачать отчет</Button>
+      <Button
+        variant="lightTransparent"
+        onClick={() => exportOnboardingReport()}
+        disabled={isPending}
+      >
+        Скачать отчет
+      </Button>
     </div>
   );
 };
