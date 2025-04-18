@@ -23,11 +23,7 @@ interface Props {
   handleClose: () => void;
 }
 
-export const AuthorizedUserSettingsMenu = ({
-  setAnchorEl,
-  anchorEl,
-  handleClose,
-}: Props) => {
+export const AuthorizedUserSettingsMenu = ({ setAnchorEl, anchorEl, handleClose }: Props) => {
   const [showHealth, setShowHealth] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const router = useRouter();
@@ -37,10 +33,7 @@ export const AuthorizedUserSettingsMenu = ({
   });
 
   const getProfile = useGetUserProfile();
-  const menuItems = useMemo(
-    () => getMenuItems(logout, router, openMyHealth, openUserSettings),
-    []
-  );
+  const menuItems = useMemo(() => getMenuItems(logout, router, openMyHealth, openUserSettings), []);
 
   function logout() {
     logoutUser.mutate();
@@ -57,8 +50,7 @@ export const AuthorizedUserSettingsMenu = ({
     handleClose();
   }
 
-  const isUserHasInitials =
-    getProfile?.data?.first_name || getProfile?.data?.last_name;
+  const isUserHasInitials = getProfile?.data?.first_name;
 
   return (
     <div>
@@ -96,21 +88,12 @@ export const AuthorizedUserSettingsMenu = ({
       >
         {menuItems.map((item, idx) => (
           <React.Fragment key={item.label}>
-            {idx === menuItems.length - 1 && (
-              <Divider className={styles.divider} />
-            )}
+            {idx === menuItems.length - 1 && <Divider className={styles.divider} />}
 
             <div className={styles.menuItemWrapper}>
-              <MenuItem
-                onClick={item.onClick || handleClose}
-                className={styles.menuItem}
-              >
-                <ListItemIcon className={styles.menuItemIcon}>
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText className={styles.menuItemText}>
-                  {item.label}
-                </ListItemText>
+              <MenuItem onClick={item.onClick || handleClose} className={styles.menuItem}>
+                <ListItemIcon className={styles.menuItemIcon}>{item.icon}</ListItemIcon>
+                <ListItemText className={styles.menuItemText}>{item.label}</ListItemText>
               </MenuItem>
             </div>
           </React.Fragment>
@@ -119,10 +102,7 @@ export const AuthorizedUserSettingsMenu = ({
 
       {/* Нарушение импортов, пока хз как это решить */}
       <MyHealth open={showHealth} onClose={() => setShowHealth(false)} />
-      <UserSettings
-        open={showSettings}
-        onClose={() => setShowSettings(false)}
-      />
+      <UserSettings open={showSettings} onClose={() => setShowSettings(false)} />
     </div>
   );
 };

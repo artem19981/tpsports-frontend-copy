@@ -22,7 +22,7 @@ export const useLinkEmailAddress = (onSuccess?: () => void) => {
     onError: (e) => {
       const error = e as AxiosError;
 
-      if (error?.status === 404) {
+      if (error?.status === 404 || error?.status === 409) {
         snackbar('Данная почта уже привязана', 'error');
       } else {
         snackbar('Не удалось привязать почту, попробуйте позже  ', 'error');

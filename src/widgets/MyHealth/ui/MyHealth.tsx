@@ -48,11 +48,7 @@ export const MyHealth = ({ open, onClose }: Props) => {
     <MainPageModal onClose={onClose} open={open}>
       <div className={styles.container}>
         <div className={styles.categories}>
-          <MyHealthUserBlock
-            first_name={data?.first_name}
-            last_name={data?.last_name}
-            email={data?.email!}
-          />
+          <MyHealthUserBlock first_name={data?.first_name} email={data?.email!} />
           <OnboardingCategoriesList
             isMan={isMan}
             onClick={setActiveCategory}

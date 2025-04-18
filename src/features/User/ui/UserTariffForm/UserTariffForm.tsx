@@ -17,7 +17,7 @@ export const UserTariffForm = ({ tariff, onOpenTariff }: Props) => {
     <div className={styles.container}>
       <p className={styles.title}>Мой тариф</p>
       <p className={styles.text}>
-        Вы подписаны на тариф <span className={styles.bold}>{tariff.name}</span>
+        Вы подписаны на тариф <span className={styles.bold}>{tariff.tariff}</span>
       </p>
       <Button
         variant="lightTransparent"

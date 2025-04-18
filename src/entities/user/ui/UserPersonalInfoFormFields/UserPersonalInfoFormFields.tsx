@@ -34,12 +34,6 @@ export const UserPersonalInfoFormFields = ({
         control={control}
         name="first_name"
       />
-      <ControlledInput
-        inputWrapperClassName={inputWrapperClassName}
-        label="Фамилия"
-        control={control}
-        name="last_name"
-      />
 
       <DateWheelPicker
         value={birthDate}

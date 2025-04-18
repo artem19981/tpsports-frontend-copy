@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useMutation } from "@tanstack/react-query";
-import { createPayment } from "features/Payment/api/createPayment";
-import { UserProfile } from "features/User/model";
-import { useEffect, useRef } from "react";
-import { PricingCardProps } from "widgets/PricingPlans/ui/PricingCard";
-import { useTinkoffScript } from "./useTinkoffScript";
+import { useMutation } from '@tanstack/react-query';
+import { createPayment } from 'features/Payment/api/createPayment';
+import { UserProfile } from 'features/User/model';
+import { useEffect, useRef } from 'react';
+import { PricingCardProps } from 'widgets/PricingPlans/ui/PricingCard';
+import { useTinkoffScript } from './useTinkoffScript';
 
 interface PaymentWidgetProps {
   plan: PricingCardProps;
@@ -13,11 +13,7 @@ interface PaymentWidgetProps {
   user: UserProfile;
 }
 
-export const PaymentWidget: React.FC<PaymentWidgetProps> = ({
-  plan,
-  finalPrice,
-  user,
-}) => {
+export const PaymentWidget: React.FC<PaymentWidgetProps> = ({ plan, finalPrice, user }) => {
   const scriptLoaded = useTinkoffScript();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -28,12 +24,12 @@ export const PaymentWidget: React.FC<PaymentWidgetProps> = ({
   useEffect(() => {
     const processPayment = async () => {
       if (!user.email) {
-        alert("Пожалуйста, заполните профиль (email) для оплаты.");
+        alert('Пожалуйста, заполните профиль (email) для оплаты.');
         return;
       }
 
       if (!scriptLoaded) {
-        console.log("Ожидание загрузки скрипта Tinkoff...");
+        console.log('Ожидание загрузки скрипта Tinkoff...');
         return;
       }
 
@@ -42,31 +38,27 @@ export const PaymentWidget: React.FC<PaymentWidgetProps> = ({
         console.log(order);
 
         if (formRef.current) {
-          const orderInput = formRef.current.querySelector(
-            'input[name="order"]'
-          );
+          const orderInput = formRef.current.querySelector('input[name="order"]');
           if (orderInput) {
             (orderInput as any).value = order;
           }
 
-          const receiptInput = formRef.current.querySelector(
-            'input[name="receipt"]'
-          );
+          const receiptInput = formRef.current.querySelector('input[name="receipt"]');
           if (receiptInput) {
             const receiptData = {
-              EmailCompany: "mail@mail.com",
-              Taxation: "patent",
-              FfdVersion: "1.2",
+              EmailCompany: 'mail@mail.com',
+              Taxation: 'patent',
+              FfdVersion: '1.2',
               Items: [
                 {
-                  Name: plan.title || "Оплата",
+                  Name: plan.title || 'Оплата',
                   Price: Math.round(finalPrice * 100),
                   Quantity: 1.0,
                   Amount: Math.round(finalPrice * 100),
-                  PaymentMethod: "full_prepayment",
-                  PaymentObject: "service",
-                  Tax: "none",
-                  MeasurementUnit: "pc",
+                  PaymentMethod: 'full_prepayment',
+                  PaymentObject: 'service',
+                  Tax: 'none',
+                  MeasurementUnit: 'pc',
                 },
               ],
             };
@@ -78,12 +70,10 @@ export const PaymentWidget: React.FC<PaymentWidgetProps> = ({
         if ((window as any).pay && formRef.current) {
           (window as any).pay(formRef.current);
         } else {
-          console.error(
-            "Функция оплаты не доступна. Проверьте подключение скрипта."
-          );
+          console.error('Функция оплаты не доступна. Проверьте подключение скрипта.');
         }
       } catch (error) {
-        console.error("Ошибка при создании платежа:", error);
+        console.error('Ошибка при создании платежа:', error);
       }
     };
 
@@ -91,12 +81,7 @@ export const PaymentWidget: React.FC<PaymentWidgetProps> = ({
   }, [user, scriptLoaded, createOrder]);
 
   return (
-    <form
-      ref={formRef}
-      className="payform-tbank"
-      name="payform-tbank"
-      style={{ display: "none" }}
-    >
+    <form ref={formRef} className="payform-tbank" name="payform-tbank" style={{ display: 'none' }}>
       <input type="hidden" name="terminalkey" value="1734340826447DEMO" />
       <input type="hidden" name="frame" value="false" />
       <input type="hidden" name="language" value="ru" />
@@ -105,25 +90,10 @@ export const PaymentWidget: React.FC<PaymentWidgetProps> = ({
       <input type="hidden" name="receipt" value="" />
       <input type="hidden" name="reccurentPayment" value="true" />
       <input type="hidden" name="customerKey" value="testCustomer1234"></input>
-      <input
-        type="text"
-        name="description"
-        value={`Оплата тарифа ${plan.title}`}
-        readOnly
-      />
-      <input
-        type="text"
-        name="name"
-        value={`${user.first_name} ${user.last_name}`}
-        readOnly
-      />
+      <input type="text" name="description" value={`Оплата тарифа ${plan.title}`} readOnly />
+      <input type="text" name="name" value={user.first_name || ' '} readOnly />
       <input type="email" name="email" value={user.email} readOnly />
-      <input
-        type="tel"
-        name="phone"
-        value={user.phone_number as any}
-        readOnly
-      />
+      <input type="tel" name="phone" value={user.phone_number as any} readOnly />
       <input type="submit" value="Оплатить" />
     </form>
   );

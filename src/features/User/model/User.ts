@@ -21,7 +21,7 @@ export interface UserDto {
 
 export enum UserTariffDto {
   Demo = 'Demo',
-  Basic = 'Basic',
+  Basic = 'Standard',
   Pro = 'Pro',
   SportsClub = 'Sports club',
 }

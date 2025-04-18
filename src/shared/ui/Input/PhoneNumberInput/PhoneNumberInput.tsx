@@ -39,10 +39,7 @@ export const PhoneNumberInput = <T extends FieldValues>({
     <Controller
       control={control}
       name={name}
-      render={({
-        field: { ref, onChange, ...field },
-        fieldState: { error },
-      }) => {
+      render={({ field: { ref, onChange, ...field }, fieldState: { error } }) => {
         const innerRef = useRef<HTMLInputElement>(null);
 
         const refs = useCombinedRef(ref, innerRef);
@@ -51,25 +48,27 @@ export const PhoneNumberInput = <T extends FieldValues>({
           if (value === undefined) {
             onChange('');
           } else {
-            onChange(value);
+            const isStartWithPlus = value.startsWith('+');
+            const isSecondCharNine = value[1] === '9';
+            const isRuNumber = value.length === 11;
+
+            if (isStartWithPlus && isSecondCharNine && isRuNumber) {
+              onChange(`+7${value.slice(1)}`);
+            } else {
+              onChange(value);
+            }
           }
         };
 
         return (
           <div className={classNames(styles.container, containerClassName)}>
             {label && (
-              <Label
-                asLabel
-                htmlFor={id}
-                className={classNames(styles.label, labelClassName)}
-              >
+              <Label asLabel htmlFor={id} className={classNames(styles.label, labelClassName)}>
                 {label}
               </Label>
             )}
 
-            <div
-              className={classNames(styles.inputWrapper, inputWrapperClassName)}
-            >
+            <div className={classNames(styles.inputWrapper, inputWrapperClassName)}>
               <div className={styles.inputContainer}>
                 <PhoneInput
                   {...props}
@@ -87,9 +86,7 @@ export const PhoneNumberInput = <T extends FieldValues>({
               {renderAfterInput?.(innerRef)}
             </div>
 
-            {error?.message && (
-              <ErrorMessage message={error.message} className={styles.error} />
-            )}
+            {error?.message && <ErrorMessage message={error.message} className={styles.error} />}
           </div>
         );
       }}

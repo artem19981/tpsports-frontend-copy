@@ -7,9 +7,5 @@ export const getUserInitials = (data: UserProfile | undefined) => {
     initials += data.first_name.charAt(0).toUpperCase();
   }
 
-  if (data?.last_name) {
-    initials += data.last_name.charAt(0).toUpperCase();
-  }
-
   return initials;
 };
