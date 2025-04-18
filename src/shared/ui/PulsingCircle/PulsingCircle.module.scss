@@ -1,0 +1,15 @@
+.indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 100px;
+  display: flex;
+  background-color: var(--glow-color);
+  --glow-alpha: 0.8;
+  --glow-shadow: 0 0 25px 0
+    color-mix(in srgb, var(--glow-color) calc(var(--glow-alpha) * 100%), transparent);
+  box-shadow: var(--glow-shadow);
+  animation: shadowPulse 3s infinite cubic-bezier(0, 0, 1, 1);
+  will-change: box-shadow;
+
+  transition: opacity 0.3s ease-in-out;
+}

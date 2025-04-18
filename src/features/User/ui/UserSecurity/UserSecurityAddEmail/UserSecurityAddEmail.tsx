@@ -5,7 +5,7 @@ import { ControlledInput, MainPageModal, TimerButton } from 'shared/ui';
 import styles from './UserSecurityAddEmail.module.scss';
 import { GoBackIcon } from '../GoBackIcon/GoBackIcon';
 import { useMediaQuery } from '@mui/material';
-import { useLinkEmailAddress } from 'features/Auth/lib';
+import { useLinkEmailAddress, useResendEmailConfirmation } from 'features/Auth/lib';
 import { LinkEmailSchema, linkEmailSchema } from 'features/Auth/model/schemas/linkEmailSchema';
 import { MyHealthFormSubmitButton } from 'entities/onboarding/ui';
 import { ActionResult, ActionStatus } from 'shared/ui/ActionResult';
@@ -19,13 +19,16 @@ export const UserSecurityAddEmail = ({ onClose }: Props) => {
   const isMobile = useMediaQuery('(max-width: 650px)');
 
   const { mutate, isPending } = useLinkEmailAddress(() => setIsOpen(true));
+  const { mutate: resendEmailConfirmation } = useResendEmailConfirmation();
 
-  const { handleSubmit, control, formState } = useForm({
+  const { handleSubmit, control, formState, watch } = useForm({
     defaultValues: {
       email: '',
     },
     resolver: yupResolver(linkEmailSchema),
   });
+
+  const email = watch('email');
 
   const onSubmit = (form: LinkEmailSchema) => {
     mutate(form.email);
@@ -50,15 +53,13 @@ export const UserSecurityAddEmail = ({ onClose }: Props) => {
       <MainPageModal open={isOpen} onClose={onClose} contentClassName={styles.modal}>
         <ActionResult
           title="Подтвердите свою электронную почту"
-          status={ActionStatus.Success}
+          status={ActionStatus.Info}
           subtitle="Для завершения проверьте и подтвердите свою электронную почту. Проверьте также папку «Спам», если письмо не пришло."
           action={
             <TimerButton
               text="Отправить повторно"
               intervalText="Отправить повторно через "
-              onClick={() => {
-                console.log('click');
-              }}
+              onClick={() => resendEmailConfirmation(email)}
             />
           }
         />

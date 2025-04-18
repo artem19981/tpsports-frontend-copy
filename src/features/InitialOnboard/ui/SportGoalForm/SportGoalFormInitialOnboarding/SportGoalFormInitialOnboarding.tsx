@@ -3,40 +3,27 @@
 import React from 'react';
 import { useLocalForm } from '../lib/useLocalForm';
 import { UserProfile } from 'features/User/model';
-import {
-  Button,
-  BUTTONS_GROUP_SEPARATOR,
-  ButtonsGroup,
-  Loader,
-} from 'shared/ui';
+import { Button, Loader } from 'shared/ui';
 
-import ellipseSrc from 'shared/assets/ellipse.png';
 import styles from '../SportGoalForm.module.scss';
-import { buttons } from '../config';
-import { OnboardingOtherModal } from 'entities/onboarding/ui';
-import Image from 'next/image';
-import classNames from 'classnames';
+import { allCategories } from '../config';
+import { SportGoalCategory } from '../components/SportGoalCategory';
+import { Label } from 'shared/ui/Label';
 
 interface Props {
   userProfile: UserProfile;
   onSuccess: () => void;
 }
 
-export const SportGoalFormInitialOnboarding = ({
-  userProfile,
-  onSuccess,
-}: Props) => {
+export const SportGoalFormInitialOnboarding = ({ userProfile, onSuccess }: Props) => {
   const {
-    formState,
     handleSubmit,
     onSubmit,
     handleButtonClick,
-    showModal,
-    setShowModal,
-    setValue,
+    onToggleCategory,
     isPending,
     fitnessGoal,
-    fitnessGoalOther,
+    openedCategories,
   } = useLocalForm({
     userProfile,
     onSuccess,
@@ -44,23 +31,19 @@ export const SportGoalFormInitialOnboarding = ({
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+      <Label className={styles.label}>Это поможет настраивать для вас персональные решения</Label>
+
       <div className={styles.wrapper}>
-        <ButtonsGroup
-          buttons={buttons}
-          activeButtons={fitnessGoal?.split(BUTTONS_GROUP_SEPARATOR) || []}
-          onClick={handleButtonClick}
-          className={styles.buttons}
-        >
-          <Button
-            onClick={() => setShowModal(true)}
-            className={classNames(styles.button, {
-              [styles.active]: !!fitnessGoalOther,
-            })}
-            variant="transparent"
-          >
-            Другие
-          </Button>
-        </ButtonsGroup>
+        {allCategories.map((group) => (
+          <SportGoalCategory
+            key={group}
+            onClick={handleButtonClick}
+            category={group}
+            activeButtons={fitnessGoal || ''}
+            openedCategories={openedCategories}
+            onToggleCategory={onToggleCategory}
+          />
+        ))}
       </div>
 
       <Button type="submit" disabled={isPending}>
@@ -69,7 +52,7 @@ export const SportGoalFormInitialOnboarding = ({
 
       {isPending && <Loader />}
 
-      <OnboardingOtherModal
+      {/* <OnboardingOtherModal
         open={showModal}
         onClose={() => setShowModal(false)}
         onSubmit={(value) => {
@@ -79,9 +62,7 @@ export const SportGoalFormInitialOnboarding = ({
         title="Другие"
         label="Опишите ваши индивидуальные цели"
         defaultValue={fitnessGoalOther || ''}
-      />
-
-      <Image className={styles.image} src={ellipseSrc} alt="ellipse" />
+      /> */}
     </form>
   );
 };

@@ -35,7 +35,7 @@
 }
 
 .label {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   padding-left: 20px;
 
   justify-content: center;
@@ -146,5 +146,13 @@ p.otherButtonText {
 
   @media screen and (max-width: 650px) {
     padding-left: 0;
+  }
+}
+
+.pulse {
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
   }
 }

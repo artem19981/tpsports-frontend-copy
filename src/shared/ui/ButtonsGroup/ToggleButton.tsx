@@ -8,6 +8,8 @@ interface Props extends Omit<ButtonProps, 'onClick'> {
   isActive: boolean;
   label?: ReactNode;
 
+  activeClassName?: string;
+
   onClick(value: string): void;
 }
 
@@ -16,6 +18,7 @@ export const ToggleButton = ({
   onClick,
   value,
   label,
+  activeClassName,
   onMouseDown,
   ...props
 }: Props) => {
@@ -25,7 +28,7 @@ export const ToggleButton = ({
       onClick={() => onClick(value)}
       {...props}
       className={classNames(styles.button, props.className, {
-        [styles.active]: isActive,
+        [classNames(styles.active, activeClassName)]: isActive,
       })}
     >
       {label || value}

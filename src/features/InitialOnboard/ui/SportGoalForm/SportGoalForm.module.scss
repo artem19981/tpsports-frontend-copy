@@ -3,7 +3,6 @@
   flex-direction: column;
   flex: 1;
   width: 100%;
-  margin-top: 50px;
 }
 
 .wrapper {
@@ -70,7 +69,7 @@ div.buttons {
 }
 
 .myHealthWrapper {
-  padding: 0 40px;
+  padding: 0 20px;
 }
 
 .title {
@@ -80,7 +79,7 @@ div.buttons {
   letter-spacing: -0.053em;
   text-align: left;
 
-  margin: 50px 0 90px 0;
+  margin: 50px 0 30px 0;
   padding: 0 40px;
 }
 
@@ -90,4 +89,68 @@ button.active {
 
 div.modal {
   background-color: #303030;
+}
+
+div.buttonsGroup {
+  justify-content: center;
+  padding-inline: 0;
+
+  gap: 10px 8px;
+}
+
+.pulse {
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+button.sportButtons {
+  &:hover {
+    border-color: #feff9b;
+  }
+}
+
+button.sportButtonsActive {
+  border-color: #bcbd0a !important;
+}
+
+button.healthButtons {
+  &:hover {
+    border-color: #76ff96;
+  }
+}
+
+button.healthButtonsActive {
+  border-color: #00ff3b !important;
+}
+
+button.nutritionButtons {
+  &:hover {
+    border-color: #3487da;
+  }
+}
+
+button.nutritionButtonsActive {
+  border-color: #0069d1 !important;
+}
+
+button.consciousnessButtons {
+  &:hover {
+    border-color: #ffa584;
+  }
+}
+
+button.consciousnessButtonsActive {
+  border-color: #ff4500 !important;
+}
+
+.label {
+  margin-bottom: 40px;
+  padding: 0 20px;
+
+  & > p {
+    text-align: center;
+  }
 }

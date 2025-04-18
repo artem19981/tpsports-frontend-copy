@@ -16,7 +16,7 @@ import { useMyHealthModal } from 'widgets/MyHealth';
 import { Sidebar } from 'widgets/SideBar/Sidebar';
 import { useSettingsModal } from 'widgets/UserSettings';
 import { getBackgroundColorByChatType } from '../../lib/getBackgroundColorByChatType';
-import { BlurCirclesBackground } from 'shared/ui';
+import { BlurCirclesBackground, MainLayoutContainer, MainLayoutContent } from 'shared/ui';
 import styles from './MainLayout.module.scss';
 
 interface Props {
@@ -60,53 +60,55 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   };
 
   return (
-    <div
-      className={cn(styles.container, containerClassName, {
+    <MainLayoutContainer
+      className={cn(containerClassName, {
         [styles.changeLayoutPosition]: isChangeLayoutPosition,
       })}
     >
-      <div
-        className={cn(styles.content, contentClassName, {
-          [styles.changeLayoutPosition]: isChangeLayoutPosition,
-        })}
-      >
+      <div className={cn(styles.wrapper)}>
         <BlurCirclesBackground color={backgrounds?.animate || 'rgba(5, 239, 182, 0.4)'} />
 
-        {withUserMenu && (
-          <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen(!isSidebarOpen)} />
-        )}
-
-        {onCrossClick && (
-          <IconButton size="large" onClick={onCrossClick} className={styles.closeBtn}>
-            <Image src={closeSrc} alt="" width={18} height={18} />
-          </IconButton>
-        )}
-
-        <div className={cn(styles.children, childrenClassName)} id="children">
-          {withUserMenu && chatTypeContext?.chatType && (
-            <div className={styles.iconContainer}>
-              <Image
-                src={ChatAdd}
-                alt="ChatAdd"
-                className={styles.chatAdd}
-                onClick={createNewChat}
-              />
-              <Image
-                src={Home}
-                alt="Home"
-                className={styles.Home}
-                onClick={() => {
-                  router.push('/ai');
-                }}
-              />
-            </div>
+        <MainLayoutContent
+          className={cn(contentClassName, {
+            [styles.changeLayoutPositionContent]: isChangeLayoutPosition,
+          })}
+        >
+          {withUserMenu && (
+            <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen(!isSidebarOpen)} />
           )}
-          {!!links && <div className={styles.desktopLinks}>{links}</div>}
-          {!!links && <div className={styles.mobileLinks}>{links}</div>}
 
-          {children}
-        </div>
+          {onCrossClick && (
+            <IconButton size="large" onClick={onCrossClick} className={styles.closeBtn}>
+              <Image src={closeSrc} alt="" width={18} height={18} />
+            </IconButton>
+          )}
+
+          <div className={cn(styles.children, childrenClassName)} id="children">
+            {withUserMenu && chatTypeContext?.chatType && (
+              <div className={styles.iconContainer}>
+                <Image
+                  src={ChatAdd}
+                  alt="ChatAdd"
+                  className={styles.chatAdd}
+                  onClick={createNewChat}
+                />
+                <Image
+                  src={Home}
+                  alt="Home"
+                  className={styles.Home}
+                  onClick={() => {
+                    router.push('/ai');
+                  }}
+                />
+              </div>
+            )}
+            {!!links && <div className={styles.desktopLinks}>{links}</div>}
+            {!!links && <div className={styles.mobileLinks}>{links}</div>}
+
+            {children}
+          </div>
+        </MainLayoutContent>
       </div>
-    </div>
+    </MainLayoutContainer>
   );
 };

@@ -7,6 +7,7 @@ import { Stack, Typography } from '@mui/material';
 import Checkmark from 'shared/assets/rounded-checkmark.svg?component';
 
 import Error from './assets/error.svg?component';
+import Info from './assets/info.svg?component';
 import styles from './ActionResult.module.scss';
 import { ActionStatus } from './model/ActionStatus';
 
@@ -27,6 +28,7 @@ export const ActionResult = memo(({ title, status, subtitle, action }: Props) =>
 
       {status === ActionStatus.Success && <Checkmark color="#06F35A" className={styles.icon} />}
       {status === ActionStatus.Error && <Error color="red" className={styles.icon} />}
+      {status === ActionStatus.Info && <Info color="#fff" className={styles.icon} />}
 
       {subtitle && (
         <Typography className={styles.subtitle} color="#fff">

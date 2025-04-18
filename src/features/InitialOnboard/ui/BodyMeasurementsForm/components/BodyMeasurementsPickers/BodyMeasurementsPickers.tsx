@@ -12,16 +12,9 @@ interface Props {
   form: BodyMeasurementsSchema;
   setValue: UseFormSetValue<BodyMeasurementsSchema>;
   isSmallHeight: boolean;
-
-  pickersClassName?: string;
 }
 
-export const BodyMeasurementsPickers = ({
-  form,
-  setValue,
-  isSmallHeight,
-  pickersClassName,
-}: Props) => {
+export const BodyMeasurementsPickers = ({ form, setValue, isSmallHeight }: Props) => {
   const { kilograms, grams } = getSelectedWeight(form.weight);
 
   return (
@@ -39,14 +32,12 @@ export const BodyMeasurementsPickers = ({
             readOnly
           />
         )}
-        defaultSelectedValues={
-          form.height ? [form.height.toString()] : [heightWheels[0].value]
-        }
+        defaultSelectedValues={form.height ? [form.height.toString()] : [heightWheels[0].value]}
         visibleItems={isSmallHeight ? 5 : 7}
         onSubmit={(data) => {
           setValue('height', +data[0].value, { shouldDirty: true });
         }}
-        dialogClassName={pickersClassName}
+        dialogClassName={styles.modal}
       />
       <WheelPicker
         title="Вес"
@@ -62,9 +53,7 @@ export const BodyMeasurementsPickers = ({
         )}
         headers={['кг', 'г']}
         defaultSelectedValues={
-          form.weight
-            ? [kilograms, grams]
-            : [weightWheels[0][0].value, weightWheels[1][0].value]
+          form.weight ? [kilograms, grams] : [weightWheels[0][0].value, weightWheels[1][0].value]
         }
         visibleItems={isSmallHeight ? 5 : 7}
         onSubmit={(data) => {
@@ -72,7 +61,7 @@ export const BodyMeasurementsPickers = ({
             shouldDirty: true,
           });
         }}
-        dialogClassName={pickersClassName}
+        dialogClassName={styles.modal}
       />
     </>
   );

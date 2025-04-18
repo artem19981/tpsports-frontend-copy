@@ -19,22 +19,11 @@ interface Props {
   onSuccess: () => void;
 }
 
-export const BodyMeasurementsHealthForm = ({
-  userProfile,
-  onSuccess,
-}: Props) => {
+export const BodyMeasurementsHealthForm = ({ userProfile, onSuccess }: Props) => {
   const ref = useFadeScroll<HTMLDivElement>(1000, 'hide-scroll-opacity');
   const isSmallHeight = useMediaQuery('(max-height: 560px)');
 
-  const {
-    control,
-    isPending,
-    handleSubmit,
-    setValue,
-    onSubmit,
-    form,
-    isDirty,
-  } = useLocalForm({
+  const { control, isPending, handleSubmit, setValue, onSubmit, form, isDirty } = useLocalForm({
     userProfile,
     onSuccess,
   });
@@ -54,29 +43,17 @@ export const BodyMeasurementsHealthForm = ({
         <div className={styles.container} ref={ref}>
           <p className={styles.title}>Измерения тела</p>
 
-          <BodyMeasurementsPickers
-            form={form}
-            setValue={setValue}
-            isSmallHeight={isSmallHeight}
-            pickersClassName={styles.bodyMeasurementsPickers}
-          />
+          <BodyMeasurementsPickers form={form} setValue={setValue} isSmallHeight={isSmallHeight} />
 
           <BodyIndex form={form} className={styles.bodyIndexContainer} />
 
           <div className={styles.waistContainer}>
-            <WaistCircumferenceField
-              control={control}
-              className={styles.waistContent}
-            />
+            <WaistCircumferenceField control={control} className={styles.waistContent} />
           </div>
         </div>
       </WithAbsoluteScrollBar>
 
-      <MyHealthFormSubmitButton
-        type="submit"
-        disabled={isPending}
-        visible={isDirty}
-      />
+      <MyHealthFormSubmitButton type="submit" disabled={isPending} visible={isDirty} />
     </form>
   );
 };

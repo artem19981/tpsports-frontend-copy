@@ -2,16 +2,14 @@ import { UserProfile } from 'features/User/model';
 import { useMemo, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  sportGoalSchema,
-  SportGoalSchema,
-} from 'features/InitialOnboard/schemas';
+import { sportGoalSchema, SportGoalSchema } from 'features/InitialOnboard/schemas';
 import { useForm } from 'react-hook-form';
 import { BUTTONS_GROUP_SEPARATOR, useSnackbar } from 'shared/ui';
 
 import { useUpdateUserSettings } from 'features/User/lib';
 import { getDefaultValues } from '../lib/getDefaultValues';
 import isEqual from 'lodash/isEqual';
+import { getCategories } from './getCategoryByValues';
 
 interface Props {
   userProfile: UserProfile;
@@ -21,18 +19,16 @@ interface Props {
 export const useLocalForm = ({ userProfile, onSuccess }: Props) => {
   const showSnackbar = useSnackbar();
 
-  const [showModal, setShowModal] = useState(false);
-
-  const defaultValues = useMemo(
-    () => getDefaultValues(userProfile),
-    [userProfile]
+  const [openedCategories, setOpenedCategories] = useState<string[]>(() =>
+    getCategories(userProfile.fitness_goal || ''),
   );
 
-  const { formState, handleSubmit, reset, getValues, setValue, watch } =
-    useForm({
-      defaultValues,
-      resolver: yupResolver(sportGoalSchema),
-    });
+  const defaultValues = useMemo(() => getDefaultValues(userProfile), [userProfile]);
+
+  const { formState, handleSubmit, reset, getValues, setValue, watch } = useForm({
+    defaultValues,
+    resolver: yupResolver(sportGoalSchema),
+  });
 
   const { mutate, isPending } = useUpdateUserSettings({
     onSuccess: () => {
@@ -58,17 +54,12 @@ export const useLocalForm = ({ userProfile, onSuccess }: Props) => {
     }
   };
 
-  const [fitnessGoal, fitnessGoalOther] = watch([
-    'fitness_goal',
-    'fitness_goal_other',
-  ]);
+  const [fitnessGoal = '', fitnessGoalOther = ''] = watch(['fitness_goal', 'fitness_goal_other']);
 
   const handleButtonClick = (value: string) => {
-    const valuesArray = fitnessGoal
-      ?.split(BUTTONS_GROUP_SEPARATOR)
-      .map((v) => v.trim());
+    const valuesArray = fitnessGoal.split(BUTTONS_GROUP_SEPARATOR).map((v) => v.trim());
 
-    if (valuesArray?.includes(value)) {
+    if (valuesArray.includes(value)) {
       const newValues = valuesArray.filter((v) => v !== value);
       setValue('fitness_goal', newValues.join(BUTTONS_GROUP_SEPARATOR), {
         shouldDirty: true,
@@ -76,11 +67,19 @@ export const useLocalForm = ({ userProfile, onSuccess }: Props) => {
     } else {
       setValue(
         'fitness_goal',
-        fitnessGoal
-          ? `${fitnessGoal}${BUTTONS_GROUP_SEPARATOR}${value}`
-          : value,
-        { shouldDirty: true }
+        fitnessGoal ? `${fitnessGoal}${BUTTONS_GROUP_SEPARATOR}${value}` : value,
+        { shouldDirty: true },
       );
+    }
+  };
+
+  const onToggleCategory = (value: string) => {
+    const activeCategories = getCategories(fitnessGoal);
+
+    if (openedCategories.includes(value)) {
+      setOpenedCategories(openedCategories.filter((v) => v !== value));
+    } else {
+      setOpenedCategories([value, ...openedCategories.filter((v) => activeCategories.includes(v))]);
     }
   };
 
@@ -90,8 +89,8 @@ export const useLocalForm = ({ userProfile, onSuccess }: Props) => {
     setValue,
     onSubmit,
     handleButtonClick,
-    showModal,
-    setShowModal,
+    onToggleCategory,
+    openedCategories,
     isPending,
     fitnessGoal,
     fitnessGoalOther,

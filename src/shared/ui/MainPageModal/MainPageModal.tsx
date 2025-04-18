@@ -7,6 +7,7 @@ import styles from './MainPageModal.module.scss';
 import closeSrc from '@/app/assets/images/common/close.png';
 import Image from 'next/image';
 import classNames from 'classnames';
+import { MainLayoutContent } from '../MainLayoutContainer';
 
 interface Props {
   children: ReactNode;
@@ -37,7 +38,8 @@ export const MainPageModal = ({
       }}
     >
       <Slide direction="right" in={open} mountOnEnter unmountOnExit {...slideProps}>
-        <div className={classNames(styles.content, contentClassName)}>
+        <MainLayoutContent className={classNames(styles.content, contentClassName)}>
+          {/* <div className={classNames(styles.content, contentClassName)}> */}
           {showCloseBtn && (
             <IconButton onClick={onClose} className={styles.closeBtn}>
               <Image src={closeSrc} alt="" width={16} height={16} />
@@ -45,7 +47,8 @@ export const MainPageModal = ({
           )}
 
           {children}
-        </div>
+          {/* </div> */}
+        </MainLayoutContent>
       </Slide>
     </Modal>
   );

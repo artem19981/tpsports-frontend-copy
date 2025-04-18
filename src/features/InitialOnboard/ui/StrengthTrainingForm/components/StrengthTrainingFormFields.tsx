@@ -15,7 +15,6 @@ import { UseFormSetValue } from 'react-hook-form';
 import { OnboardingOtherModal } from 'entities/onboarding/ui';
 
 interface Props {
-  userProfile: UserProfile;
   favoriteTrainingTypes: string;
   favoriteTrainingTypesOther: string;
 
@@ -23,7 +22,6 @@ interface Props {
 }
 
 export const StrengthTrainingFormFields = ({
-  userProfile,
   favoriteTrainingTypes,
   favoriteTrainingTypesOther,
   setValue,

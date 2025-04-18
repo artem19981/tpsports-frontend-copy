@@ -15,7 +15,6 @@ export const BodyIndex = ({ form, className }: Props) => {
 
   return (
     <div className={className}>
-      <p className={styles.bodyIndexSubtitle}>{bodyIndex}</p>
       <Label
         className={styles.bodyIndexTitle}
         tooltip={
@@ -29,6 +28,7 @@ export const BodyIndex = ({ form, className }: Props) => {
       >
         Индекс массы тела
       </Label>
+      <p className={styles.bodyIndexSubtitle}>{bodyIndex}</p>
     </div>
   );
 };

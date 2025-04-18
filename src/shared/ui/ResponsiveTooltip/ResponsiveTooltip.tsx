@@ -1,9 +1,8 @@
 'use client';
 
-import infoSrc from '@/app/assets/images/common/info.png';
+import InfoSrc from '@/app/assets/images/common/info.svg?component';
 import Tooltip from '@mui/material/Tooltip';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Image from 'next/image';
 import React, { useState } from 'react';
 import styles from './ResponsiveTooltip.module.scss';
 import classNames from 'classnames';
@@ -48,7 +47,7 @@ export function ResponsiveTooltip({
         onMouseLeave={isMobile ? undefined : handleClose}
         className={classNames(styles.image, className)}
       >
-        <Image src={infoSrc} width={16} height={16} alt="info" />
+        <InfoSrc style={{ width: 17, height: 17 }} />
       </span>
     </Tooltip>
   );

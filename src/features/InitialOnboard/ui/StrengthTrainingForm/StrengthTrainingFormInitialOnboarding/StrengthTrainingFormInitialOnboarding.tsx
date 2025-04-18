@@ -31,7 +31,6 @@ export const StrengthTrainingFormInitialOnboarding = ({ userProfile, onSuccess }
         favoriteTrainingTypes={favoriteTrainingTypes}
         favoriteTrainingTypesOther={favoriteTrainingTypesOther}
         setValue={setValue}
-        userProfile={userProfile}
       />
 
       <div className={styles.footer}>

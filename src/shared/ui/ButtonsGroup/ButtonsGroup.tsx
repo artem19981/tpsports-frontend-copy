@@ -6,7 +6,10 @@ interface Props {
   buttons: string[];
   activeButtons: string[];
   children?: ReactNode;
+
   className?: string;
+  activeClassName?: string;
+  buttonClassName?: string;
 
   onClick: (value: string) => void;
 }
@@ -16,6 +19,8 @@ export const ButtonsGroup = ({
   activeButtons,
   className,
   children,
+  activeClassName,
+  buttonClassName,
   onClick,
 }: Props) => {
   return (
@@ -32,6 +37,8 @@ export const ButtonsGroup = ({
           isActive={activeButtons.includes(value)}
           value={value}
           onClick={onClick}
+          className={buttonClassName}
+          activeClassName={activeClassName}
         />
       ))}
 

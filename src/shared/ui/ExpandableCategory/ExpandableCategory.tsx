@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import cn from 'classnames';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import styles from './ExpandableCategory.module.scss';
 
 interface Props {
   open: boolean;
-  onToggle?: (value: string) => void;
-  onClick?: () => void;
   title: string;
   children: React.ReactNode;
   isActive: boolean;
+
+  beforeTitle?: ReactNode;
+
+  onToggle?: (value: string) => void;
+  onClick?: () => void;
 }
 
-export function ExpandableCategory({ open, onToggle, onClick, title, children, isActive }: Props) {
+export function ExpandableCategory({
+  open,
+  title,
+  children,
+  isActive,
+  beforeTitle,
+  onToggle,
+  onClick,
+}: Props) {
   const handleToggle = () => {
     onToggle?.(title);
   };
@@ -34,15 +45,8 @@ export function ExpandableCategory({ open, onToggle, onClick, title, children, i
           [styles.notExpanded]: !open,
         })}
       >
-        <span
-          className={cn(styles.itemIndicator, {
-            [styles.active]: isActive,
-          })}
-          style={{
-            backgroundColor: '#00FD44',
-            ['--glow-color' as any]: '#00FD44',
-          }}
-        />
+        {beforeTitle}
+
         <p className={styles.title}>{title}</p>
       </AccordionSummary>
 

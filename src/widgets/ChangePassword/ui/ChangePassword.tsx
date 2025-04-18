@@ -30,16 +30,12 @@ export const ChangePassword = ({ token }: Props) => {
   const sendSnackbar = useSnackbar();
 
   const { data, isPending, mutate } = useMutation({
-    mutationFn: (data: ChangePasswordPayload) =>
-      handleServerError(changePassword(data)),
+    mutationFn: (data: ChangePasswordPayload) => handleServerError(changePassword(data)),
     onError: (e) => {
       const error = e as AxiosError;
 
       if (error.status === 422) {
-        sendSnackbar(
-          'Ссылка сброса пароля устарела, запросите восстановление заново',
-          'error'
-        );
+        sendSnackbar('Ссылка сброса пароля устарела, запросите восстановление заново', 'error');
         return;
       }
 
@@ -58,10 +54,7 @@ export const ChangePassword = ({ token }: Props) => {
   if (!token) {
     return (
       <div className={styles.success}>
-        <ActionResult
-          title="Произошла ошибка, попробуйте позже"
-          status={ActionStatus.Error}
-        />
+        <ActionResult title="Произошла ошибка, попробуйте позже" status={ActionStatus.Error} />
       </div>
     );
   }
@@ -83,10 +76,7 @@ export const ChangePassword = ({ token }: Props) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      style={{ width: '100%', position: 'relative' }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%', position: 'relative' }}>
       <AuthContainer
         form={<ChangePasswordForm control={control} />}
         afterForm={

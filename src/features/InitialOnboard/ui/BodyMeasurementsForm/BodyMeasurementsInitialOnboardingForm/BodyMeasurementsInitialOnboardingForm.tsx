@@ -22,17 +22,13 @@ interface Props {
   onSuccess: () => void;
 }
 
-export const BodyMeasurementsInitialOnboardingForm = ({
-  onSuccess,
-  userProfile,
-}: Props) => {
+export const BodyMeasurementsInitialOnboardingForm = ({ onSuccess, userProfile }: Props) => {
   const isSmallHeight = useMediaQuery('(max-height: 560px)');
 
-  const { control, isPending, handleSubmit, setValue, onSubmit, form } =
-    useLocalForm({
-      userProfile,
-      onSuccess,
-    });
+  const { control, isPending, handleSubmit, setValue, onSubmit, form } = useLocalForm({
+    userProfile,
+    onSuccess,
+  });
 
   return (
     <form
@@ -45,44 +41,23 @@ export const BodyMeasurementsInitialOnboardingForm = ({
       }}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <BodyMeasurementsPickers
-        form={form}
-        setValue={setValue}
-        isSmallHeight={isSmallHeight}
-      />
+      <BodyMeasurementsPickers form={form} setValue={setValue} isSmallHeight={isSmallHeight} />
 
       <div className={styles.bodyIndexContainer}>
         <BodyIndex form={form} />
 
         <div className={styles.humanContainer}>
-          <Image
-            className={styles.human}
-            src={humanSrc}
-            width={92}
-            height={285}
-            alt="human"
-          />
+          <Image className={styles.human} src={humanSrc} width={92} height={285} alt="human" />
 
           <p className={styles.humanText}>ИМТ</p>
         </div>
       </div>
 
       <div className={styles.waistContainer}>
-        <WaistCircumferenceField
-          control={control}
-          className={styles.bodyLeftContainer}
-        />
+        <WaistCircumferenceField control={control} className={styles.bodyLeftContainer} />
         <div className={styles.bodyContainer}>
-          <Image
-            className={styles.body}
-            src={bodySrc}
-            width={170}
-            height={303}
-            alt="body"
-          />
+          <Image className={styles.body} src={bodySrc} width={170} height={303} alt="body" />
 
-          <div className={styles.topBoxShadow} />
-          <div className={styles.bottomBoxShadow} />
           <div className={styles.ellipse}>
             {isDefined(form.waist_circumference)
               ? formatMeasurement(form.waist_circumference, 'см')

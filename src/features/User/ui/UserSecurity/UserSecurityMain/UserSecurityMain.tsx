@@ -63,7 +63,7 @@ export const UserSecurityMain = ({ userProfile, setView }: Props) => {
               </Button>
             ) : (
               <TimerButton
-                text=" Отправить письмо подтверждения"
+                text="Отправить письмо подтверждения"
                 intervalText="Отправить повторно через "
                 disabled={isResendingEmail}
                 isUseTimerAtMount={false}
