@@ -78,7 +78,6 @@ export const MyHealthTrainingForm = ({ userProfile, onSuccess }: Props) => {
           <p className={styles.title}>Спорт</p>
 
           <StrengthTrainingFormFields
-            userProfile={userProfile}
             favoriteTrainingTypes={form.favorite_training_types || ''}
             favoriteTrainingTypesOther={form.favorite_training_types_other || ''}
             setValue={setValue}
