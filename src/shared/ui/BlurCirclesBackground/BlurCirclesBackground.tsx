@@ -11,6 +11,7 @@ interface BlurCirclesBackgroundProps {
   movementSpeed?: number;
   blurAmount?: number;
   color?: string | string[];
+  mobile?: boolean;
 }
 
 export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
@@ -19,7 +20,8 @@ export const BlurCirclesBackground: FC<BlurCirclesBackgroundProps> = ({
   maxSizeFactor = 3.09,
   sizeChangeSpeed = 0.3,
   movementSpeed = 0.3,
-  blurAmount = 90,
+  mobile,
+  blurAmount = mobile ? 50 : 90,
   color = '#05EFB6',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);

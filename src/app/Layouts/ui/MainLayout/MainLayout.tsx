@@ -6,17 +6,17 @@ import closeSrc from '@/app/assets/images/common/close.png';
 import cn from 'classnames';
 import { useChatType } from 'entities/chat/ui';
 
-import { IconButton } from '@mui/material';
+import { IconButton, useMediaQuery } from '@mui/material';
 import ChatAdd from 'app/assets/images/aiChat/ChatAdd.svg';
 import Home from 'app/assets/images/aiChat/Home.svg';
 import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { BlurCirclesBackground, MainLayoutContainer, MainLayoutContent } from 'shared/ui';
 import { useMyHealthModal } from 'widgets/MyHealth';
 import { Sidebar } from 'widgets/SideBar/Sidebar';
 import { useSettingsModal } from 'widgets/UserSettings';
 import { getBackgroundColorByChatType } from '../../lib/getBackgroundColorByChatType';
-import { BlurCirclesBackground, MainLayoutContainer, MainLayoutContent } from 'shared/ui';
 import styles from './MainLayout.module.scss';
 
 interface Props {
@@ -54,6 +54,8 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
 
   const isChangeLayoutPosition = isMyHealthModalOpen || isSettingsModalOpen;
 
+  const isMobile = useMediaQuery('(max-width: 600px)');
+
   const createNewChat = () => {
     setActiveChatId(null);
     router.push('/ai/chat/');
@@ -66,7 +68,10 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
       })}
     >
       <div className={cn(styles.wrapper)}>
-        <BlurCirclesBackground color={backgrounds?.animate || 'rgba(5, 239, 182, 0.4)'} />
+        <BlurCirclesBackground
+          mobile={isMobile}
+          color={backgrounds?.animate || 'rgba(5, 239, 182, 0.4)'}
+        />
 
         <MainLayoutContent
           className={cn(contentClassName, {

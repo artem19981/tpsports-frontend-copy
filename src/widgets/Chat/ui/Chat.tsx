@@ -82,8 +82,8 @@ export const Chat = () => {
     setIsGPTMessageStreaming,
   );
 
-  const handleLocalTagClick = (tag: { description: string }) => {
-    sendMessage({ content: tag.description });
+  const handleLocalTagClick = (tag: { name: string; description: string }) => {
+    sendMessage({ content: tag.description || tag.name });
   };
 
   return (
