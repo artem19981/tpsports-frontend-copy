@@ -60,7 +60,7 @@ export const ChatTabs = memo(({ onLocalTagClick }: ChatTabsProps) => {
             }}
             onClick={() => handleTagClick(tag)}
           >
-            <CategoriesSwipe value={tag.name} height={71} borderColor={getBorderColor(tag)} />
+            <CategoriesSwipe value={tag.name} height={70} borderColor={getBorderColor(tag)} />
           </SwiperSlide>
         ))}
       </Swiper>
