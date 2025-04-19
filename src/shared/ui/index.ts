@@ -1,6 +1,5 @@
 export * from './ErrorMessage';
 export * from './Input';
-export * from './BackgroundWrapper';
 export * from './Button/Button';
 export * from './Slider/Slider';
 export * from './SnackBarProvider/SnackbarProvider';

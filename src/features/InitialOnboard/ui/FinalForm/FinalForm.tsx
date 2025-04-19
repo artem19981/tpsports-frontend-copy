@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Button } from 'shared/ui';
+import { Button, Loader } from 'shared/ui';
 
 import { useRouter } from 'next/navigation';
 
@@ -43,6 +43,8 @@ export const FinalForm = () => {
       >
         Скачать отчет
       </Button>
+
+      {isPending && <Loader />}
     </div>
   );
 };
