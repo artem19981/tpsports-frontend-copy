@@ -13,7 +13,8 @@ export function CategoriesSwipe({ isActive, value, onClick, borderColor, height 
         height: height,
         width: height ? 'auto' : '',
         padding: height ? '0 14px 0 12px' : '',
-        maxWidth: height ? '182px' : '',
+        maxWidth: height ? '100%' : '',
+        fontSize: height ? '13px' : '',
       }}
     />
   );
