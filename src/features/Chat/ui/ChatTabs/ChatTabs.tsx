@@ -42,7 +42,7 @@ export const ChatTabs = memo(({ onLocalTagClick }: ChatTabsProps) => {
     if (chatType && tag.bot_name === chatType) {
       onLocalTagClick && onLocalTagClick(tag);
     } else {
-      setOptimisticChatMessage({ content: tag.description, bot_name: tag.bot_name });
+      setOptimisticChatMessage({ content: tag.description || tag.name, bot_name: tag.bot_name });
       router.push('/ai/chat/');
     }
   };
