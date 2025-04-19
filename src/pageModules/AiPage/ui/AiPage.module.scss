@@ -22,7 +22,7 @@
 }
 
 .content {
-  width: 90vw;
+  width: calc(100vw - 10dvh);
   height: 90dvh;
 
   @media screen and (max-width: 600px) {

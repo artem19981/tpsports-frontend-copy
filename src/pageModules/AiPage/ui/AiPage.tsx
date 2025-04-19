@@ -28,7 +28,7 @@ export async function AiPage() {
       <Stack gap={3.5} alignItems={'center'} className={styles.container}>
         <Typography
           variant="h1"
-          sx={{ fontSize: 45, textAlign: 'center', letterSpacing: { sx: '-3px', md: '-3.6px' } }}
+          sx={{ fontSize: 45, textAlign: 'center', letterSpacing: { xs: '-3px', md: '-3.6px' } }}
         >
           Привет, здесь твоя команда <Image src={Logo} alt="logo" className={styles.logo} />{' '}
           Экспертов.

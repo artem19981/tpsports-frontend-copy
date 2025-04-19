@@ -1,20 +1,20 @@
 'use client';
 
-import classNames from 'classnames';
-import React, { forwardRef, useState } from 'react';
 import { Collapse, MenuItem, MenuList } from '@mui/material';
-import Pen from './assets/pen.svg?component';
-import Favorite from './assets/favorite.svg?component';
-import Export from './assets/export.svg?component';
-import NotFavorite from './assets/notFavorite.svg?component';
-import Delete from 'app/assets/images/common/delete.svg?component';
 import Chevron from 'app/assets/images/common/chevron.svg?component';
-import { useToggleFavoriteForChat } from 'features/Chat/lib/useToggleFavoriteForChat';
+import Delete from 'app/assets/images/common/delete.svg?component';
+import classNames from 'classnames';
 import { useToggleArchiveForChat } from 'features/Chat/lib/useToggleArchiveForChat';
+import { useToggleFavoriteForChat } from 'features/Chat/lib/useToggleFavoriteForChat';
+import { forwardRef, useState } from 'react';
+import Export from './assets/export.svg?component';
+import Favorite from './assets/favorite.svg?component';
+import NotFavorite from './assets/notFavorite.svg?component';
+import Pen from './assets/pen.svg?component';
 
-import styles from './MultiChatMenuItemOptions.module.scss';
 import { useSetActiveChatId } from 'features/Chat/lib/useActiveChatId';
 import { usePathname } from 'next/navigation';
+import styles from './MultiChatMenuItemOptions.module.scss';
 
 interface Props {
   chatId: number;
@@ -87,7 +87,7 @@ export const MultiChatMenuItemOptions = forwardRef<HTMLUListElement, Props>(
             <Favorite className={styles.icon} />
           )}
 
-          {isFavorite ? 'Удалить избранное' : 'Избранное'}
+          {isFavorite ? 'Удалить из избранного' : 'Избранное'}
         </MenuItem>
         <MenuItem className={styles.menuItem} onClick={onRename}>
           <Pen className={styles.icon} />
